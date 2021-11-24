@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { List, Input, Button, Modal, Row, Col } from "antd";
+import { List, Input, Button, Row, Col } from "antd";
 const { TextArea } = Input;
 import {
   SwapOutlined,
-  SettingOutlined,
   ApiOutlined,
   CheckOutlined,
   LoadingOutlined,
@@ -14,7 +13,6 @@ import { io, Socket } from "socket.io-client";
 import { nanoid } from "nanoid";
 
 let socket: Socket | undefined = undefined;
-let requestsHistory: Record<string, any>[];
 const requestsHistoryKey = "requestsHistory";
 type RequestHistory = {
   key: string;
@@ -32,7 +30,6 @@ function isJson(str: string) {
   return true;
 }
 function App() {
-  const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<
     "connected" | "disconnected" | "connecting"
   >("disconnected");
@@ -52,13 +49,6 @@ function App() {
     if (emitName) setEmitName(emitName);
     if (rqhry) setRequestsHistory(JSON.parse(rqhry));
   }, []);
-
-  const showModal = () => {
-    setIsSettingsModalVisible(true);
-  };
-  const hideModal = () => {
-    setIsSettingsModalVisible(false);
-  };
 
   const onConnectClick = async () => {
     setConnectionStatus("connecting");
@@ -164,7 +154,6 @@ function App() {
             <Input
               disabled={connectionStatus === "connected"}
               placeholder="Socketio address: example: http://localhost:8000"
-              // addonAfter={<SettingOutlined onClick={showModal} />}
               size="large"
               value={ip}
               onChange={onInputChange}
@@ -177,7 +166,6 @@ function App() {
               size="large"
               value={emitName}
               onChange={onEmitNameChange}
-              onKeyPress={onKeyPress}
             />
           </Col>
           <Col xs={24} sm={24} md={8} lg={8} xl={8}>
@@ -188,7 +176,6 @@ function App() {
                   size="large"
                   value={title}
                   onChange={onTitleChange}
-                  onKeyPress={onKeyPress}
                 />
               </Col>
               <Col>
@@ -264,24 +251,12 @@ function App() {
             >
               <List.Item.Meta
                 avatar={<SwapOutlined />}
-                title={
-                  <a href="https://ant.design">{item.title || item.key}</a>
-                }
+                title={<b>{item.title || item.key}</b>}
               />
             </List.Item>
           )}
         />
       </div>
-      <Modal
-        title="Basic Modal"
-        visible={isSettingsModalVisible}
-        onOk={hideModal}
-        onCancel={hideModal}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
     </div>
   );
 }
