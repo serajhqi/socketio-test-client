@@ -1,25 +1,23 @@
 {
   "name": "Socketio Client",
   "description": "A Simple Socketio Client Development Tool",
-  "icons": [
-    {
-    "src": "images/socketio16.png",
-    "type": "images/png",
-    "sizes": "16x16"
-  },
-    {
-    "src": "images/socketio48.png",
-    "type": "images/png",
-    "sizes": "48x48"
-  },
-    {
-    "src": "images/socketio.png",
-    "type": "images/png",
-    "sizes": "128x128"
-  }
-],
+  "manifest_version": 2,
+  "version": "1.0",
+  "icons": {
+
+    "16": "images/socketio16.png",
+    "48": "images/socketio48.png",
+    "128": "images/socketio.png"
+
+},
 "browser_action": {
-  "default_title": "Click to start!"
-}
+    "default_title": "Click to start!"
+  },
+  "background": {
+    "persistent": false,
+    "scripts": [
+      "eventPage.js"
+    ]
+  }
 
 }
