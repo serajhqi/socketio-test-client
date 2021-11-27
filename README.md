@@ -16,8 +16,10 @@ And Then
 Runs the app in the development mode.\
 Open http://localhost:3000 to view it in the browser.
 
-Or install its chrome extension.
+Or install its chrome or firefox extension.
 For installing the chrome extenstion:
 1. Navigate to the extension manager of your chrome browser.
 2. Turn on the development mode
 3. Drag and drop the "Built Extension" into the open panel.
+And for install the firefox app navigate to about:debugging.
+From 

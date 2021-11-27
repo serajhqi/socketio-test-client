@@ -52,5 +52,10 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "eslint-plugin-react": "^7.27.1"
+  },
+  "author":{
+    "name" : "Seraj aldin Haqiqi",
+    "email" : "haqiqi.seraj@gmail.com",
+    "url" : "https://github.com/seraj7"
   }
 }
