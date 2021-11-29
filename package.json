@@ -1,7 +1,6 @@
 {
-  "name": "socketio-client",
+  "name": "socketio-test-client",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@testing-library/jest-dom": "^5.11.4",
@@ -56,6 +55,6 @@
   "author":{
     "name" : "Seraj aldin Haqiqi",
     "email" : "haqiqi.seraj@gmail.com",
-    "url" : "https://github.com/seraj7"
+    "url" : "https://github.com/serajhqi"
   }
 }
