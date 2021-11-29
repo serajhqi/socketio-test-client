@@ -21,5 +21,6 @@ For installing the chrome extenstion:
 1. Navigate to the extension manager of your chrome browser.
 2. Turn on the development mode
 3. Drag and drop the "Built Extension" into the open panel.
-And for install the firefox app navigate to about:debugging.
-From 
+
+You can also intall the firefox addon from the following link:
+https://addons.mozilla.org/en-US/firefox/addon/socketio-client/
