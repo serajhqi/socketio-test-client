@@ -1,6 +1,6 @@
 {
   "name": "socketio-test-client",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@testing-library/jest-dom": "^5.11.4",
@@ -45,6 +45,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serajhqi/socketio-test-client.git"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.164",
