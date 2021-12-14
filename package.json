@@ -54,11 +54,31 @@
     "@types/chrome": "^0.0.164",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
-    "eslint-plugin-react": "^7.27.1"
+    "eslint-plugin-react": "^7.27.1",
+    "finalhandler": "^1.1.2",
+    "http": "^0.0.1-security",
+    "serve-static": "^1.14.1"
   },
-  "author":{
-    "name" : "Seraj aldin Haqiqi",
-    "email" : "haqiqi.seraj@gmail.com",
-    "url" : "https://github.com/serajhqi"
+  "author": {
+    "name": "Seraj aldin Haqiqi",
+    "email": "haqiqi.seraj@gmail.com",
+    "url": "https://github.com/serajhqi"
+  },
+  "keywords": [
+    "socket",
+    "command",
+    "socketio",
+    "test",
+    "test-client",
+    "socket-client",
+    "socketio-client",
+    "socketio-test-client"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "license": "MIT",
+  "bin": {
+    "socketio-tc": "./bin/socketio-tc"
   }
 }
