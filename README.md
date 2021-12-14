@@ -5,18 +5,17 @@
 <img src="https://user-images.githubusercontent.com/7148972/143257622-fb8ee993-6bd6-43ef-9403-79f70c9dde22.png" align="center" width="600">
 
 
-In the project directory, run:
+To install the package run the follwing:
 
-### `yarn`
+### `npm install -g socketio-test-client`
 
-And Then
+And access the app form the command below:
 
-### `yean start`
+### $ socketio-tc
 
-To run the app in the development mode.
-Open http://localhost:3000 to view it in the browser.
+This command runs the app on `http://localhost:8888`
 
-Or install the chrome or firefox extension.
+You can also install the chrome or firefox extension.
 
 For installing the Chrome extenstion:
 1. Navigate to the extension manager of your chrome browser.
