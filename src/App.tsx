@@ -178,7 +178,7 @@ function App() {
                   onChange={onTitleChange}
                 />
               </Col>
-              <Col>
+              <Col span="4">
                 <Button
                   onClick={onConnectClick}
                   type="default"
