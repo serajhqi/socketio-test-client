@@ -11,5 +11,8 @@ var server = http.createServer(function(req, res) {
   serve(req, res, done);
 });
 var port = 8888
-console.log('server is running on localhost:' + port)
+console.log('client is running on localhost:' + port)
 server.listen(port);
+var url = 'http://localhost:'+port;
+var start = (process.platform == 'darwin'? 'open': process.platform == 'win32'? 'start': 'xdg-open');
+require('child_process').exec(start + ' ' + url);
