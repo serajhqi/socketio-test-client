@@ -7,11 +7,15 @@
 
 To install the package run the follwing:
 
-### `npm install -g socketio-test-client`
+```bash
+$ npm install socketio-test-client -g
+```
 
 And access the app form the command below:
 
-### $ socketio-tc
+```bash
+$ socketio-tc
+```
 
 This command runs the app on `http://localhost:8888`
 
