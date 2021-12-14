@@ -11,6 +11,7 @@ import {
 import ReactJson from "react-json-view";
 import { io, Socket } from "socket.io-client";
 import { nanoid } from "nanoid";
+import packageJson from "../package.json";
 
 let socket: Socket | undefined = undefined;
 const requestsHistoryKey = "requestsHistory";
@@ -93,10 +94,10 @@ function App() {
   const onRequestInputChange = (e: any) => {
     setRequest(e.target.value);
   };
-  const onRequestKeyPress = (e: any) => {
-    if (e.key !== "Enter") return;
-    sendRequest();
-  };
+  // const onRequestKeyPress = (e: any) => {
+  //   if (e.key !== "Enter") return;
+  //   sendRequest();
+  // };
 
   const sendRequest = () => {
     setLoading(true);
@@ -148,6 +149,13 @@ function App() {
 
   return (
     <div className="grid-container">
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href={packageJson.repository.url}
+      >
+        <div className="githubLink">github &#x1F5D7;</div>
+      </a>
       <div className="top-panel">
         <Row gutter={[8, 8]} style={{ width: "100%" }}>
           <Col xs={24} sm={24} md={8} lg={8} xl={8}>
@@ -209,7 +217,6 @@ function App() {
           bordered={false}
           value={request}
           onChange={onRequestInputChange}
-          onKeyPress={onRequestKeyPress}
         />
         <Button
           onClick={sendRequest}

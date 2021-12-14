@@ -15,6 +15,17 @@
   max-height: 100vh;
   overflow-y: auto;
 }
+.githubLink{
+  position: fixed;
+  bottom: 2px;
+  right: 2px;
+  background-color: gray;
+  color:white;
+  width: 100px;
+  text-align: center;
+  border-radius: 5px;
+}
+
 .top-panel {
   padding: 20px;
   grid-column-start: 4;
