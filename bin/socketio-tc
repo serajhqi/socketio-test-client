@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var http = require('http');
+var finalhandler = require('finalhandler');
+var serveStatic = require('serve-static');
+var serve = serveStatic("built_extension");
+var server = http.createServer(function(req, res) {
+  var done = finalhandler(req, res);
+  serve(req, res, done);
+});
+var port = 8888
+console.log('server is running on localhost:' + port)
+server.listen(port);

@@ -4,11 +4,9 @@
   "manifest_version": 2,
   "version": "1.0",
   "icons": {
-
     "16": "images/socketio16.png",
     "48": "images/socketio48.png",
     "128": "images/socketio.png"
-
 },
 "browser_action": {
     "default_title": "Click to start!"
