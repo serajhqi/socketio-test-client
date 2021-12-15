@@ -1,6 +1,6 @@
 {
   "name": "socketio-test-client",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@testing-library/jest-dom": "^5.11.4",
@@ -25,6 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "INLINE_RUNTIME_CHUNK=false react-scripts build",
+    "serve": "./bin/socketio-tc",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
