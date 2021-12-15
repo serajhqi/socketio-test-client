@@ -2,7 +2,7 @@
   "name": "Socketio Client",
   "description": "A Simple Socketio Client Development Tool",
   "manifest_version": 2,
-  "version": "1.0",
+  "version": "0.1.9",
   "icons": {
     "16": "images/socketio16.png",
     "48": "images/socketio48.png",
