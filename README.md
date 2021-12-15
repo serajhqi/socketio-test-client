@@ -8,7 +8,7 @@
 To install the package run the follwing:
 
 ```bash
-$ npm install socketio-test-client -g
+$ yarn global add socketio-test-client
 ```
 
 And access the app form the command below:
