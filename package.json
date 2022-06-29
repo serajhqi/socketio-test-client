@@ -22,7 +22,5 @@
     "typescript": "^4.5.4",
     "vite": "^2.9.9"
   },
-  "dependencies": {
-    "daisyui": "^2.17.0"
-  }
+  "dependencies": {}
 }
