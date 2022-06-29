@@ -1,87 +1,26 @@
 {
-  "name": "socketio-test-client",
-  "version": "0.1.10",
-  "dependencies": {
-    "@ant-design/icons": "^4.7.0",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/socket.io": "^3.0.2",
-    "antd": "^4.17.1",
-    "nanoid": "^3.1.30",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-json-view": "^1.21.3",
-    "react-scripts": "4.0.3",
-    "socket.io": "^4.4.0",
-    "socket.io-client": "^4.4.0",
-    "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
-  },
+  "name": "socketio-api-devtool",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "INLINE_RUNTIME_CHUNK=false react-scripts build",
-    "serve": "./bin/socketio-tc",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/serajhqi/socketio-test-client.git"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.164",
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
-    "eslint-plugin-react": "^7.27.1",
-    "finalhandler": "^1.1.2",
-    "http": "^0.0.1-security",
-    "serve-static": "^1.14.1"
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
+    "@tsconfig/svelte": "^2.0.1",
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
+    "svelte": "^3.44.0",
+    "svelte-check": "^2.2.7",
+    "svelte-preprocess": "^4.10.7",
+    "tailwindcss": "^3.1.4",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9"
   },
-  "author": {
-    "name": "Seraj aldin Haqiqi",
-    "email": "haqiqi.seraj@gmail.com",
-    "url": "https://github.com/serajhqi"
-  },
-  "keywords": [
-    "socket",
-    "command-line",
-    "socket.io",
-    "socketio",
-    "test",
-    "test-client",
-    "socket-client",
-    "socket.io-client",
-    "socket.io-test",
-    "socketio-test-client"
-  ],
-  "engines": {
-    "node": ">=12"
-  },
-  "license": "MIT",
-  "bin": {
-    "socketio-tc": "./bin/socketio-tc"
-  }
+  "dependencies": {}
 }
