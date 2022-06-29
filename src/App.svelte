@@ -1,10 +1,18 @@
 <script lang="ts">
   import "./lib/tailwind.css";
+  import ToolBar from "./lib/components/ToolBar.svelte";
 </script>
 
-<main>
-  <div class="bg-blue-400">hello</div>
+<main class="w-full">
+    <ToolBar/>
+
+    <div class="flex flex-col md:flex-row w-full bg-blue-100">
+      <div>history</div>
+      <div>request</div>
+      <div>response</div>
+    </div>
 </main>
+
 
 <style>
 
@@ -13,11 +21,7 @@
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
-  main {
-    text-align: center;
-    padding: 1em;
-    margin: 0 auto;
-  }
+
 
 
 
