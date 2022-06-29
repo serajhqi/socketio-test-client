@@ -25,6 +25,7 @@
   "dependencies": {
     "nanoid": "^4.0.0",
     "socket.io-client": "^4.5.1",
+    "svelte-json-tree": "^1.0.0",
     "svelte-notifications": "^0.9.95"
   }
 }
