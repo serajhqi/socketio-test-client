@@ -2,6 +2,7 @@
   import "./lib/tailwind.css";
   import ToolBar from "./lib/components/ToolBar.svelte";
   import Request from "./lib/components/Request.svelte";
+  import Response from "./lib/components/Response.svelte";
   import { onMount } from "svelte";
   import { serverAddress, history } from "./lib/store";
   import Notifications from 'svelte-notifications';
@@ -25,8 +26,8 @@
         <div class="md:w-2/5 w-full h-full border-2 border-gray-400">
           <Request/>
         </div>
-        <div class="md:w-2/5 w-full">
-          response
+        <div class="md:w-2/5 w-full h-full border-t-0 md:border-t-2 border-b-2 border-r-2 border-l-2 md:border-l-0 border-gray-400">
+          <Response/>
         </div>
       </div>
   </main>

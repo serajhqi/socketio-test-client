@@ -1,5 +1,5 @@
 import { io, Socket } from "socket.io-client";
-import { serverAddress, connectionStatus } from "../store";
+import { serverAddress, connectionStatus , history} from "../store";
 import { get } from "svelte/store";
 import { saveRequest, removeRequest } from "./storageHandler";
 
@@ -43,6 +43,9 @@ export const sendRequest = (request:string, emitName:string, title: string, load
   loading = true;
   socket.emit(emitName, requestJson, (response: any) => {
     loading = false;
-    saveRequest(request, response, emitName, title);
+    const result = saveRequest(request, response, emitName, title);
+    const historyStore = get(history);
+    initHistory.push(result);
+    historyStore.set(historyStore);
   });
 }
