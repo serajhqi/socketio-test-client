@@ -12,17 +12,19 @@
     socketioAddress = address;
     serverAddress.set(address as string);
 
-    localStorage.setItem("socketio.address", address as string);
+    localStorage.setItem("address", address as string);
     settingsModal = false;
   }
 
   function clearAddress() {
     socketioAddress = null;
-    localStorage.removeItem("socketio.address");
+    serverAddress.set('');
+    localStorage.removeItem("address");
+    settingsModal = false;
   }
 
   onMount(() => {
-    socketioAddress = localStorage.getItem("socketio.address");
+    socketioAddress = localStorage.getItem("address");
   });
 </script>
 
