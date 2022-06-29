@@ -3,11 +3,14 @@
   import ToolBar from "./lib/components/ToolBar.svelte";
   import Request from "./lib/components/Request.svelte";
   import { onMount } from "svelte";
-  import { serverAddress } from "./lib/store";
+  import { serverAddress, history } from "./lib/store";
   import Notifications from 'svelte-notifications';
-  
+  import { readItems , RequestHistory} from "./lib/scripts/storageHandler";
+
   onMount(()=>{
-    serverAddress.set(localStorage.getItem('socketio.address') || null);
+    serverAddress.set(localStorage.getItem('address') || null);
+    const historyFromStorage = readItems();
+    historyFromStorage && history.set(historyFromStorage as RequestHistory[]);
   })
 </script>
 
