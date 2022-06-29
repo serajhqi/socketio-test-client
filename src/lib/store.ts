@@ -1,5 +1,6 @@
-import { writable } from 'svelte/store';
+import { writable, Writable } from 'svelte/store';
+export type ConnectionStatus = 'connected'|'connecting'|'disconnecting'|'disconnected';
 
-export const serverAddress = writable(null);
-export const serverActive = writable(false);
-export const eventName = writable(null);
+export const serverAddress: Writable<string> = writable(null);
+export const connectionStatus: Writable<ConnectionStatus> = writable('disconnected');
+export const eventName:Writable<string> = writable(null);

@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { serverAddress, eventName, serverActive } from "../store";
+  import { serverAddress, eventName } from "../store";
+import ConnectionController from "./ConnectionController.svelte";
+import ServerAddressModal from "./ServerAddressModal.svelte";
 
   let address = null;
   let event = null;
@@ -18,8 +20,11 @@
 
 <div class="w-full flex flex-col">
   <div class="flex flex-row border-b-2 border-gray-400 items-center ">
-    <div class="px-2 py-1 text-white border-r-2 border-gray-400">
-      {address || "server"}
+    <div class="px-2 py-1 w-40 text-center text-sm text-white border-r-2 border-gray-400">
+      <ServerAddressModal/>
+    </div>
+    <div class="items-center px-2">
+      <ConnectionController/>
     </div>
     <div class="w-full">
       <input
