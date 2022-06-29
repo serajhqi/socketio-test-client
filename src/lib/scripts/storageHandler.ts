@@ -8,16 +8,18 @@ export type RequestHistory = {
 };
 
 const storageKey = 'history';
-export const saveRequest = (request: any, response: any, emitName: string, title:string) => {
+export const saveRequest = (request: any, response: any, emitName: string, title:string):RequestHistory => {
     const requestsHistory = localStorage.getItem(storageKey);
+    const key = nanoid(4);
+    let arr: any[];
     if (requestsHistory) {
-      const arr: any[] = JSON.parse(requestsHistory);
-      arr.push({ key: nanoid(3), emitName, title, request, response });
-      localStorage.setItem(storageKey, JSON.stringify(arr));
+      arr = JSON.parse(requestsHistory);
+      arr.push({ key, emitName, title, request, response });
     } else {
-      const data = [{ key: nanoid(3), emitName, title, request, response }];
-      localStorage.setItem(storageKey, JSON.stringify(data));
+      arr = [{ key, emitName, title, request, response }];
     }
+    localStorage.setItem(storageKey, JSON.stringify(arr));
+    return { key, emitName, title, request, response }
   };
 
 export const removeRequest = (requestKey: string) => {
