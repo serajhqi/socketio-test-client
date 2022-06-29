@@ -22,5 +22,8 @@
     "typescript": "^4.5.4",
     "vite": "^2.9.9"
   },
-  "dependencies": {}
+  "dependencies": {
+    "socket.io-client": "^4.5.1",
+    "svelte-notifications": "^0.9.95"
+  }
 }
