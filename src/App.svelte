@@ -3,6 +3,7 @@
   import ToolBar from "./lib/components/ToolBar.svelte";
   import Request from "./lib/components/Request.svelte";
   import Response from "./lib/components/Response.svelte";
+  import History from "./lib/components/History.svelte";
   import { onMount } from "svelte";
   import { serverAddress, history } from "./lib/store";
   import Notifications from 'svelte-notifications';
@@ -21,12 +22,12 @@
 
       <div class="flex flex-col md:flex-row w-full">
         <div class="md:w-1/5 w-full">
-          history
+          <History/>
         </div>
         <div class="md:w-2/5 w-full h-full border-2 border-gray-400">
           <Request/>
         </div>
-        <div class="md:w-2/5 w-full h-full border-t-0 md:border-t-2 border-b-2 border-r-2 border-l-2 md:border-l-0 border-gray-400">
+        <div class="md:w-2/5 w-full h-full border-t-0 md:border-t-2 border-b-2 border-l-2 md:border-l-0 border-gray-400">
           <Response/>
         </div>
       </div>
