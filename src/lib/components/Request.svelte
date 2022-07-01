@@ -1,51 +1,71 @@
 <script lang="ts">
   import { get } from "svelte/store";
   import { sendRequest } from "../scripts/socketioHandler";
-  import { eventName, connectionStatus } from "../store";
+  import { connectionStatus,request } from "../store";
   import ConnectionController from "./ConnectionController.svelte";
   import ServerAddressModal from "./ServerAddressModal.svelte";
   import { getNotificationsContext } from 'svelte-notifications';
   import {nanoid} from 'nanoid';
+import type { RequestHistory } from "../scripts/storageHandler";
 
   const { addNotification } = getNotificationsContext();
-
-  let emitName = null;
-  let title = null;
-  let requestBody = null;
   let sending = false;
 
-  eventName.subscribe((value) => {
-    emitName = value;
-  });
-  
-  function setEmitName(e: Event){
-    const value =  (e.target as HTMLTextAreaElement)?.value;
-    value && eventName.set( value );
+  let _request:Partial<RequestHistory> = {
+    title:null,
+    emitName:null,
+    body:null,
+    response:null
   }
 
-  function request(){
+  request.subscribe((value) => {
+    _request = value;
+  });
+  function setEmitName(e: Event){
+    const value =  (e.target as HTMLTextAreaElement)?.value;
+    value && request.set( {...get(request),emitName:value} );
+  }
+  function setTitle(e: Event){
+    const value =  (e.target as HTMLTextAreaElement)?.value;
+    value && request.set( {...get(request),title:value} );
+  }
+  function setBody(e: Event){
+    const value =  (e.target as HTMLTextAreaElement)?.value;
+    console.log(value)
+    value && request.set( {...get(request), body:value} );
+  }
+
+
+  function requestHandler(){
+    console.log('eee')
     if(get(connectionStatus)!=='connected'){
       addNotification({
             text: 'Sever is not conneted',
             position: 'bottom-center',
-            heading: 'hi i am custom notification',
             type: 'danger',
-            description: 'lorem ipsum'
         })
       return;
     }
-    if(!emitName || emitName.length === 0){
+    if(!_request.emitName || _request.emitName.length === 0){
       addNotification({
             text: 'Emit name is not set',
             position: 'bottom-center',
-            heading: 'hi i am custom notification',
             type: 'danger',
-            description: 'lorem ipsum'
         })
       return;
     }
     sending = true;
-    sendRequest(requestBody,emitName,title || nanoid(4), sending);
+    console.log('sss')
+    try{
+      sendRequest({..._request, title: _request.title || nanoid(4)}, sending);
+    }catch(e){
+      addNotification({
+            text: e,
+            position: 'bottom-center',
+            type: 'danger',
+            description: e
+        })
+    }
   }
 </script>
 
@@ -60,25 +80,29 @@
     <div class="w-full flex flex-row">
       <input
         on:input={ e => setEmitName(e)}
+        value={$request.emitName}
         class="w-full bg-transparent ml-2 outline-0 cursor-white caret-white text-amber-400"
         placeholder="Emit Name"
       />
       <input
-        bind:value={title}
+        on:input={(e)=>setTitle(e)}
+        value={$request.title}
         class="w-full bg-transparent ml-2 outline-0 cursor-white caret-white text-amber-400"
         placeholder="Optional Title"
       />
     </div>
     <div>
       <button
-        on:click={request}
+        on:click={requestHandler}
         class="h-full py-1 w-16 focus:bg-stone-500 text-gray-200 hover:bg-stone-600 hover:text-white rounded-sm"
         >Send</button
       >
     </div>
   </div>
+  {JSON.stringify(_request)}
   <textarea
-    bind:value={requestBody}
+    on:input={(e)=>setBody(e)}
+    value={_request.body}
     placeholder="Data to send"
     class="bg-transparent p-2 caret-white border-0 outline-0 h-200 text-amber-400"
   />
