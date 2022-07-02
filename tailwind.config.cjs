@@ -2,7 +2,13 @@
 module.exports = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
-    extend: {}
+      extend: { 
+        colors:{
+          burnt: '#2b2b2b',
+          semiburnt: '#958686',
+          burning: '#343434'
+      }
+    }
   },
   plugins: []
 }
