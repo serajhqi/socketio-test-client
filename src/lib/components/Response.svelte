@@ -12,7 +12,8 @@
     </div>
   </div>
   <div class="p-4">
-    <JSONTree
+    {#if $request.response }
+      <JSONTree
       value={$request.response}
       --json-tree-property-color="#a6e22e"
       --json-tree-string-color="#f25a00"
@@ -33,5 +34,7 @@
       --json-tree-font-family="monospace"
       defaultExpandedLevel={100}
     />
+    {/if}
+    
   </div>
 </div>

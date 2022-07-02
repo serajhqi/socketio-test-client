@@ -1,6 +1,6 @@
 <script lang="ts">
   import "./lib/tailwind.css";
-  import ToolBar from "./lib/components/ToolBar.svelte";
+  import ToolBar from "./lib/components/TopMenu.svelte";
   import Request from "./lib/components/Request.svelte";
   import Response from "./lib/components/Response.svelte";
   import History from "./lib/components/History.svelte";
