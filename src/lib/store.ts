@@ -1,9 +1,12 @@
-import { writable, Writable } from 'svelte/store';
+import { writable, Writable, derived } from 'svelte/store';
 export type ConnectionStatus = 'connected'|'connecting'|'disconnecting'|'disconnected';
-import type {RequestHistory} from './scripts/storageHandler';
-
-export const serverAddress: Writable<string> = writable(null);
-export const connectionStatus: Writable<ConnectionStatus> = writable('disconnected');
-
-export const request:Writable<{title:string, emitName:string, body: any, response:any}> = writable({title:null,emitName:null, body:null, response:null})
-export const history: Writable<RequestHistory[]|undefined> = writable([]);
+export type RequestType = {
+    emitName: string;
+    title: string;
+    body: any;
+    response: any;
+  };
+export const serverSettings: Writable<{address:string|null, status: ConnectionStatus}> = writable({address:null,status: 'disconnected'});
+export const request:Writable<RequestType> = writable({title:null,emitName:null, body:null, response:null})
+export const requestHistory: Writable<RequestType[]|undefined> = writable([]);
+export const requestInFocus = derived(request, $req => $req.title);

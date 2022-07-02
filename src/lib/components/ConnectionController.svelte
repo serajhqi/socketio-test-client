@@ -1,15 +1,11 @@
 <script lang="ts">
   import { toggleConnection } from "../scripts/socketioHandler";
-  import { connectionStatus, serverAddress } from "../store";
-  import { get } from "svelte/store";
+  import { serverSettings } from "../store";
   import { getNotificationsContext } from 'svelte-notifications';
   const { addNotification } = getNotificationsContext();
 
-  let status = "disconnected";
-  connectionStatus.subscribe(value => status = value);
-
   function toggler() {
-    if(!get(serverAddress)) {
+    if(!$serverSettings.address) {
         addNotification({
             text: 'Please Set the server address first',
             position: 'bottom-center',
@@ -23,9 +19,10 @@
   }
 </script>
 
-<button class="outline-none w-10 mr-3 h-8 flex items-center justify-start" on:click={toggler}>
-  {#if status == "connected"}
-  <span><svg
+<button class="outline-none w-10 mr-3 h-10 flex items-center justify-start" on:click={toggler}>
+  {#if $serverSettings.status == "connected"}
+  <span>
+    <svg
       style="fill: yellow"
       width="36px"
       height="36px"
@@ -44,11 +41,13 @@
         class="clr-i-solid clr-i-solid-path-2"
       />
       <rect x="0" y="0" width="36" height="36" fill-opacity="0" />
-    </svg></span>
-  {:else if status == "connecting" || status == "disconnecting"}
+    </svg>
+  </span>
+  {:else if $serverSettings.status == "connecting" || $serverSettings.status == "disconnecting"}
     <span class="text-white text-sm">Loading...</span>
-  {:else if status == "disconnected"}
-  <span><svg
+  {:else if $serverSettings.status == "disconnected"}
+  <span>
+    <svg
       width="36px"
       height="36px"
       viewBox="0 0 36 36"
@@ -63,6 +62,7 @@
         class="clr-i-outline clr-i-outline-path-1"
       />
       <rect x="0" y="0" width="36" height="36" fill-opacity="0" />
-    </svg></span>
+    </svg>
+  </span>
   {/if}
 </button>

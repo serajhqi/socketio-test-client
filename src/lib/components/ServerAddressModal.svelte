@@ -1,40 +1,36 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { serverAddress } from "../store";
+  import { serverSettings } from "../store";
   import Modal from "./Modal.svelte";
 
   let settingsModal = false;
-  let socketioAddress = null;
+  let serverAddress = null;
 
-  function handleSubmit(e) {
-    const { address } = Object.fromEntries(new FormData(e.target));
-
-    socketioAddress = address;
-    serverAddress.set(address as string);
-
-    localStorage.setItem("address", address as string);
+  function handleSubmit() {
+    $serverSettings.address  = serverAddress;
+    localStorage.setItem("address", serverAddress);
     settingsModal = false;
   }
 
   function clearAddress() {
-    socketioAddress = null;
-    serverAddress.set('');
+    serverAddress = null;
+    serverSettings.set({address: null, status: 'disconnected'});
     localStorage.removeItem("address");
     settingsModal = false;
   }
 
   onMount(() => {
-    socketioAddress = localStorage.getItem("address");
+    serverAddress = localStorage.getItem("address");
   });
 </script>
 
- <button class="pr-2" on:click={() => (settingsModal = !settingsModal)}>
-    { socketioAddress ||'Set Addr'}
+<button class="pr-2 text-clip overflow-hidden" on:click={() => (settingsModal = !settingsModal)}>
+    { serverAddress ||'URL'}
 </button>
 
 <Modal visible={settingsModal} on:onClose={() => (settingsModal = false)}>
   <div>
-    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+    <h3 class="mb-4 text-xl font-medium text-white">
       Socket.IO Server Settings
     </h3>
     <form
@@ -45,13 +41,13 @@
       <div>
         <label
           for="password"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          class="block mb-2 text-sm font-medium text-gray-300"
           >Socket.IO Server Address</label
         >
         <input
           type="text"
           name="address"
-          value={socketioAddress}
+          bind:value={serverAddress}
           pattern="(http|https):\/\/(.)*"
           oninvalid={()=>"this.setCustomValidity('URL should start with http:// or https://')"}
           placeholder="example: http://localhost:3000"
@@ -60,7 +56,7 @@
         />
       </div>
       <div
-        class="flex items-center rounded-b border-t pt-4 border-gray-200 dark:border-gray-600"
+        class="flex items-center rounded-b  pt-4 border-gray-200 dark:border-gray-600"
       >
         <input
           type="submit"
@@ -72,7 +68,7 @@
           on:click={clearAddress}
           data-modal-toggle="extralarge-modal"
           type="button"
-          class="ml-1 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+          class="ml-1 text-gray-500  focus:ring-4 focus:outline-none rounded-lg text-sm font-medium px-5 py-2.5 hover:text-blue-400 focus:z-10 "
         >
           Unset
         </button>

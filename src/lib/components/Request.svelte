@@ -1,44 +1,15 @@
 <script lang="ts">
-  import { get } from "svelte/store";
   import { sendRequest } from "../scripts/socketioHandler";
-  import { connectionStatus,request } from "../store";
+  import { serverSettings,request, requestInFocus } from "../store";
   import ConnectionController from "./ConnectionController.svelte";
   import ServerAddressModal from "./ServerAddressModal.svelte";
   import { getNotificationsContext } from 'svelte-notifications';
-  import {nanoid} from 'nanoid';
-import type { RequestHistory } from "../scripts/storageHandler";
+  import { nanoid } from "nanoid";
 
   const { addNotification } = getNotificationsContext();
-  let sending = false;
-
-  let _request:Partial<RequestHistory> = {
-    title:null,
-    emitName:null,
-    body:null,
-    response:null
-  }
-
-  request.subscribe((value) => {
-    _request = value;
-  });
-  function setEmitName(e: Event){
-    const value =  (e.target as HTMLTextAreaElement)?.value;
-    value && request.set( {...get(request),emitName:value} );
-  }
-  function setTitle(e: Event){
-    const value =  (e.target as HTMLTextAreaElement)?.value;
-    value && request.set( {...get(request),title:value} );
-  }
-  function setBody(e: Event){
-    const value =  (e.target as HTMLTextAreaElement)?.value;
-    console.log(value)
-    value && request.set( {...get(request), body:value} );
-  }
-
 
   function requestHandler(){
-    console.log('eee')
-    if(get(connectionStatus)!=='connected'){
+    if($serverSettings.status !== 'connected'){
       addNotification({
             text: 'Sever is not conneted',
             position: 'bottom-center',
@@ -46,7 +17,7 @@ import type { RequestHistory } from "../scripts/storageHandler";
         })
       return;
     }
-    if(!_request.emitName || _request.emitName.length === 0){
+    if(!$request.emitName || $request.emitName.length === 0){
       addNotification({
             text: 'Emit name is not set',
             position: 'bottom-center',
@@ -54,10 +25,10 @@ import type { RequestHistory } from "../scripts/storageHandler";
         })
       return;
     }
-    sending = true;
-    console.log('sss')
+
     try{
-      sendRequest({..._request, title: _request.title || nanoid(4)}, sending);
+      if(!$request.title) $request.title = nanoid(4);
+      sendRequest();
     }catch(e){
       addNotification({
             text: e,
@@ -69,9 +40,9 @@ import type { RequestHistory } from "../scripts/storageHandler";
   }
 </script>
 
-<div class="w-full flex flex-col">
-  <div class="flex flex-row border-b-2 border-gray-400 items-center ">
-    <div class="px-2 py-1 w-40 text-center text-sm text-white border-r-2 border-gray-400">
+<div class="flex flex-col w-full h-full">
+  <div class="flex flex-row border-b-2 border-burning items-center ">
+    <div class="flex px-2 py-1 h-10  w-40 text-center text-sm text-semiburnt border-r-2 border-burning">
       <ServerAddressModal/>
     </div>
     <div class="items-center px-2">
@@ -79,14 +50,12 @@ import type { RequestHistory } from "../scripts/storageHandler";
     </div>
     <div class="w-full flex flex-row">
       <input
-        on:input={ e => setEmitName(e)}
-        value={$request.emitName}
-        class="w-full bg-transparent ml-2 outline-0 cursor-white caret-white text-amber-400"
+        bind:value={$request.emitName}
+        class="w-full bg-transparent ml-2 border-r border-burning outline-0 cursor-white caret-white text-amber-400"
         placeholder="Emit Name"
       />
       <input
-        on:input={(e)=>setTitle(e)}
-        value={$request.title}
+        bind:value={$request.title}
         class="w-full bg-transparent ml-2 outline-0 cursor-white caret-white text-amber-400"
         placeholder="Optional Title"
       />
@@ -94,16 +63,16 @@ import type { RequestHistory } from "../scripts/storageHandler";
     <div>
       <button
         on:click={requestHandler}
-        class="h-full py-1 w-16 focus:bg-stone-500 text-gray-200 hover:bg-stone-600 hover:text-white rounded-sm"
-        >Send</button
+        class="h-full py-1 px-2 focus:bg-stone-500 text-gray-200 hover:bg-stone-600 hover:text-white rounded-sm"
+        >
+        <svg class="" width="24" style="fill: orange" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path  d="M85.333333 896 981.333333 512 85.333333 128 85.333333 426.666667 725.333333 512 85.333333 597.333333 85.333333 896Z"  /></svg>
+        </button
       >
     </div>
   </div>
-  {JSON.stringify(_request)}
   <textarea
-    on:input={(e)=>setBody(e)}
-    value={_request.body}
+    bind:value={$request.body}
     placeholder="Data to send"
-    class="bg-transparent p-2 caret-white border-0 outline-0 h-200 text-amber-400"
+    class="bg-transparent p-2 caret-white border-0 outline-0 h-200 text-amber-400 h-full"
   />
 </div>
