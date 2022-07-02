@@ -1,7 +1,7 @@
 import { io, Socket } from "socket.io-client";
-import { serverAddress, connectionStatus , history} from "../store";
+import { requestHistory, serverSettings, request, RequestType } from "../store";
 import { get } from "svelte/store";
-import { saveRequest, removeRequest, RequestHistory } from "./storageHandler";
+import { saveRequest } from "./storageHandler";
 
 const isJson = (str: string) => {
   try {
@@ -15,41 +15,58 @@ const isJson = (str: string) => {
 let socket: Socket | null = null;
 export const toggleConnection = () => {
   try {
-    let state = get(connectionStatus);
-    let address = get(serverAddress);
+    const server = get(serverSettings);
+    const {address,status} = get(serverSettings);
 
-    if (state == "disconnected" || state == "disconnecting") {
-      connectionStatus.set("connecting");
+    if (status == "disconnected" ) {
+      serverSettings.set({...server, status: 'connecting'})
 
       socket = io(address, { timeout: 5000 });
       socket.connect();
-      socket.on("connect", () => connectionStatus.set("connected"));
-      socket.on("disconnect", () => connectionStatus.set("disconnected"));
-    } else if (state == "connected" || state == "connecting") {
-      connectionStatus.set("disconnecting");
+      socket.on("connect", () => serverSettings.set({...server, status: 'connected'}));
+      socket.on("disconnect", () => serverSettings.set({...server, status: 'disconnected'}));
+    } else if (status == "connected") {
+      serverSettings.set({...server, status: 'disconnecting'})
 
       socket?.disconnect();
       socket?.close();
 
-      connectionStatus.set("disconnected");
+      serverSettings.set({...server, status: 'disconnected'})
+      socket = null;
+    }else if(status == "connecting" || status == "disconnecting"){
+      socket?.disconnect();
+      socket?.close();
+
+      serverSettings.set({...server, status: 'disconnected'})
       socket = null;
     }
   } catch (e) {}
 };
 
-export const sendRequest = (request:Partial<RequestHistory>, loading:boolean) => {
+export const sendRequest = () => {
   if (!socket) throw new Error("socket problem");
-  console.log('errr')
-  const requestJson = isJson(request.body) ? JSON.parse(request.body) : request;
-  loading = true;
-  socket.emit(request.emitName, requestJson, (response: any) => {
-    loading = false;
-    const result = saveRequest({...request,response}) as RequestHistory;
-    const historyStore = get(history);
-    historyStore.push(result);
-    history.set(historyStore);
+
+  const req = get(request);
+  const reqJson = isJson(req.body) ? JSON.parse(req.body) : req;
+  
+  socket.emit(req.emitName, reqJson, (response: any) => {
+
+    request.set({...req, response});
+    
+    const historyStore:RequestType[] = get(requestHistory);
+    const objIndex = historyStore.findIndex(item => item.title == req.title);
+
+    if (objIndex === -1) {
+      historyStore.push(req);
+      requestHistory.set(historyStore);
+    } else {
+      historyStore[objIndex] = req;
+    }
+
+    saveRequest();
   });
+
   socket.on("error", function() {
     console.log('eoooperpoepo')
-});
+  });
 }

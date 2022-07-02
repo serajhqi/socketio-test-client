@@ -1,17 +1,15 @@
-<script lang="ts">
-  import { onMount } from "svelte";
-  import { serverAddress, connectionStatus, ConnectionStatus } from "../store";
-  import Modal from "./Modal.svelte";
+<script lang="ts"></script>
 
 
-</script>
-
-
-<div class="flex flex-row items-center justify-between py-2">
-  <h1 class="font-bold text-2xl px-4 text-white">Socket.IO API Devtool</h1>
+<div class="flex flex-row items-center justify-between border-b border-burning py-3">
+ <div class="flex flox-row items-center px-2">
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path style="fill: white" d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 19l1.5-5h-4.5l7-9-1.5 5h4.5l-7 9z"/></svg>
+  <h1 class="font-bold text-2xl px-4 text-semiburnt"><span class="text-blue-300">Socket.IO</span> Test Client</h1>
+ </div>
   <div class="flex flex-row justify-between px-4 ml-5 items-center">
-    
-   
+    <button class="mr-2">
+      <svg style="fill: gray" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1.25 17c0 .69-.559 1.25-1.25 1.25-.689 0-1.25-.56-1.25-1.25s.561-1.25 1.25-1.25c.691 0 1.25.56 1.25 1.25zm1.393-9.998c-.608-.616-1.515-.955-2.551-.955-2.18 0-3.59 1.55-3.59 3.95h2.011c0-1.486.829-2.013 1.538-2.013.634 0 1.307.421 1.364 1.226.062.847-.39 1.277-.962 1.821-1.412 1.343-1.438 1.993-1.432 3.468h2.005c-.013-.664.03-1.203.935-2.178.677-.73 1.519-1.638 1.536-3.022.011-.924-.284-1.719-.854-2.297z"/></svg>
+    </button>
     <a href="https://github.com/serajhqi/socketio-test-client" target="_blank">
       <svg
         style="fill:white"
@@ -24,5 +22,6 @@
         /></svg
       >
     </a>
+ 
   </div>
 </div>
