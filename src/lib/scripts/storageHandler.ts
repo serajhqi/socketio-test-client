@@ -1,14 +1,20 @@
 import { nanoid } from "nanoid";
 export type RequestHistory = {
-  key: string;
   emitName: string;
   title?: string;
   body: any;
   response: any;
 };
+export type SavedRequestHistory = {
+  key: string;
+  emitName: string;
+  title: string;
+  body: any;
+  response: any;
+};
 
 const storageKey = 'history';
-export const saveRequest = (request:Partial<RequestHistory>) => {
+export const saveRequest = (request:RequestHistory) => {
     const requestsHistory = localStorage.getItem(storageKey);
     const key = nanoid(4);
     let arr: any[];
@@ -24,11 +30,11 @@ export const saveRequest = (request:Partial<RequestHistory>) => {
 
 export const removeRequest = (requestKey: string) => {
     const requestsHistory: string | null = localStorage.getItem(storageKey);
-    let arr: RequestHistory[] = requestsHistory && JSON.parse(requestsHistory);
+    let arr: SavedRequestHistory[] = requestsHistory && JSON.parse(requestsHistory);
     arr = arr.filter((item) => item.key !== requestKey);
     localStorage.setItem(storageKey, JSON.stringify(arr));
 };
-export const readItems = (): RequestHistory[]|undefined => {
+export const readItems = (): SavedRequestHistory[]|undefined => {
   const requestsHistory = localStorage.getItem(storageKey);
   if (requestsHistory) {
    return JSON.parse(requestsHistory);
