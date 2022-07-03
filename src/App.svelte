@@ -8,6 +8,7 @@
   import { serverSettings, requestHistory } from "./lib/store";
   import Notifications from 'svelte-notifications';
   import { readItems} from "./lib/scripts/storageHandler";
+  import Logger from "./lib/components/Logger.svelte";
 
   let showHistory = true;
   onMount(()=>{
@@ -22,7 +23,7 @@
       <ToolBar/>
       <div class="flex h-full flex-row">
         {#if showHistory}
-        <div class="block overflow-y-auto w-3/12 h-full pb-12 md:pb-0 scrollbar border-t-2 border-burning" >
+        <div class="block overflow-y-auto w-4/12 h-full pb-12 md:pb-0 scrollbar border-t-2 border-burning" >
           <History on:collpaseClicked={()=> (showHistory = false)}/>
         </div>
         {:else}
@@ -32,20 +33,22 @@
           </button>
         </div>
         {/if}
-        <!-- <div class="block overflow-y-auto w-4/12 h-full pb-12 md:pb-0 scrollbar border-t-2 border-burning" v-if={!collapsedHistory}>
-          <History on:collpaseClick={()=> collapsedHistory = true}/>
-        </div> -->
-        <div class="border-r-2 border-l-2 border-burning  mb:border-b-0 border-t-2 mb:border-t-0">
-          <Request/>
+        <div class="border-r-2 border-l-2 border-burning mb:border-b-0 border-t-2 mb:border-t-0 flex flex-col w-9/12 max-w-screen content-between">
+          <div class="flex h-full">
+            <Request/>
+          </div>
+          <div class="block h-80 w-full overflow-y-auto md:pb-0 scrollbar border-t-2 border-burning">
+            <Logger/>
+          </div>
         </div>
-        <div class="w-8/12 h-full border-t-0 md:border-t-2 md:border-l-0 border-burning">
+        <div class="w-full h-full border-t-0 md:border-t-2 md:border-l-0 border-burning">
           <Response/>
         </div>
       </div>
   </main>
 </Notifications>
 
-<style>
+<style global>
 
   :root {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
@@ -59,7 +62,7 @@
 
  .scrollbar::-webkit-scrollbar {
     width: 4px;
-    height: 20px;
+    height: 3px;
   }
 
   .scrollbar::-webkit-scrollbar-track {

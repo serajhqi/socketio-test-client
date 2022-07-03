@@ -1,7 +1,8 @@
 import { io, Socket } from "socket.io-client";
-import { requestHistory, serverSettings, request, RequestType } from "../store";
+import { requestHistory, serverSettings, request, RequestType,logs } from "../store";
 import { get } from "svelte/store";
 import { saveRequest } from "./storageHandler";
+import { nanoid } from "nanoid";
 
 const isJson = (str: string) => {
   try {
@@ -20,18 +21,27 @@ export const toggleConnection = () => {
 
     if (status == "disconnected" ) {
       serverSettings.set({...server, status: 'connecting'})
+      logger('connecting');
 
       socket = io(address);
       socket.connect();
       
-      socket.on("connect", () => serverSettings.set({...server, status: 'connected',id: socket.id}));
-      socket.on("disconnect", () => serverSettings.set({...server, status: 'disconnected', id:undefined}));
+      socket.on("connect", () => {
+        serverSettings.set({...server, status: 'connected',id: socket.id});
+        logger('connected');
+      });
+      socket.on("disconnect", () => {
+        serverSettings.set({...server, status: 'disconnected', id:undefined})
+        logger('disconnected');
+      });
 
       socket.onAny((eventName, ...args) => {
         console.log(eventName, ...args)
+        logger(eventName + ' ' + args);
       });
     } else if (status == "connected") {
       serverSettings.set({...server, status: 'disconnecting'})
+      logger('disconnecting');
 
       socket?.disconnect();
       socket?.close();
@@ -46,7 +56,9 @@ export const toggleConnection = () => {
       socket = null;
     }
   } catch (e) {
-    console.log(e)
+    console.log(e);
+    // logger(JSON.stringify(e));
+
   }
 };
 export const close = () =>{
@@ -80,3 +92,8 @@ export const sendRequest = () => {
   });
 }
 
+export const logger = (value:string) => {
+  const _logs = get(logs);
+  _logs.push({time: new Date().toISOString().slice(0, 19), message: value, id:nanoid(5)});
+  logs.set(_logs);
+}
