@@ -21,35 +21,45 @@ export const toggleConnection = () => {
     if (status == "disconnected" ) {
       serverSettings.set({...server, status: 'connecting'})
 
-      socket = io(address, { timeout: 5000 });
+      socket = io(address);
       socket.connect();
-      socket.on("connect", () => serverSettings.set({...server, status: 'connected'}));
-      socket.on("disconnect", () => serverSettings.set({...server, status: 'disconnected'}));
+      
+      socket.on("connect", () => serverSettings.set({...server, status: 'connected',id: socket.id}));
+      socket.on("disconnect", () => serverSettings.set({...server, status: 'disconnected', id:undefined}));
+
+      socket.onAny((eventName, ...args) => {
+        console.log(eventName, ...args)
+      });
     } else if (status == "connected") {
       serverSettings.set({...server, status: 'disconnecting'})
 
       socket?.disconnect();
       socket?.close();
 
-      serverSettings.set({...server, status: 'disconnected'})
+      serverSettings.set({...server, status: 'disconnected', id:undefined})
       socket = null;
     }else if(status == "connecting" || status == "disconnecting"){
       socket?.disconnect();
       socket?.close();
 
-      serverSettings.set({...server, status: 'disconnected'})
+      serverSettings.set({...server, status: 'disconnected', id:undefined})
       socket = null;
     }
-  } catch (e) {}
+  } catch (e) {
+    console.log(e)
+  }
 };
-
+export const close = () =>{
+  socket?.disconnect();
+  socket?.close();
+}
 export const sendRequest = () => {
   if (!socket) throw new Error("socket problem");
 
   const req = get(request);
   const reqJson = isJson(req.body) ? JSON.parse(req.body) : req;
-  
-  socket.emit(req.emitName, reqJson, (response: any) => {
+  socket.on('message',()=>console.log('eee'))
+  socket.emit(req.emitName, reqJson, (response: any, er:any) => {
 
     request.set({...req, response});
     
@@ -62,7 +72,6 @@ export const sendRequest = () => {
     } else {
       historyStore[objIndex] = req;
     }
-
     saveRequest();
   });
 
@@ -70,3 +79,4 @@ export const sendRequest = () => {
     console.log('eoooperpoepo')
   });
 }
+
