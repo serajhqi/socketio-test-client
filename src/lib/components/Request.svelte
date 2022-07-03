@@ -41,7 +41,7 @@
 </script>
 
 <div class="flex flex-col w-full h-full">
-  <div class="flex flex-row border-b-2 border-burning items-center ">
+  <div class="flex flex-row border-b-2 border-burning items-cente">
     <div class="flex px-2 py-1 h-10  w-40 text-center text-sm text-semiburnt border-r-2 border-burning">
       <ServerAddressModal/>
     </div>
