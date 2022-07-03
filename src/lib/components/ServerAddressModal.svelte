@@ -14,7 +14,7 @@
 
   function clearAddress() {
     serverAddress = null;
-    serverSettings.set({address: null, status: 'disconnected'});
+    serverSettings.set({address: null, status: 'disconnected', id:undefined});
     localStorage.removeItem("address");
     settingsModal = false;
   }
@@ -24,7 +24,7 @@
   });
 </script>
 
-<button class="pr-2 text-clip overflow-hidden" on:click={() => (settingsModal = !settingsModal)}>
+<button class="pr-2 w-full text-center text-clip overflow-hidden" on:click={() => (settingsModal = !settingsModal)}>
     { serverAddress ||'URL'}
 </button>
 
@@ -44,11 +44,11 @@
           class="block mb-2 text-sm font-medium text-gray-300"
           >Socket.IO Server Address</label
         >
+        <!-- pattern="(http|https):\/\/(.)*" -->
         <input
           type="text"
           name="address"
           bind:value={serverAddress}
-          pattern="(http|https):\/\/(.)*"
           oninvalid={()=>"this.setCustomValidity('URL should start with http:// or https://')"}
           placeholder="example: http://localhost:3000"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"

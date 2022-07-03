@@ -3,10 +3,10 @@ export type ConnectionStatus = 'connected'|'connecting'|'disconnecting'|'disconn
 export type RequestType = {
     emitName: string;
     title: string;
-    body: any;
-    response: any;
+    body?: any;
+    response?: any;
   };
-export const serverSettings: Writable<{address:string|null, status: ConnectionStatus}> = writable({address:null,status: 'disconnected'});
-export const request:Writable<RequestType> = writable({title:null,emitName:null, body:null, response:null})
+export const serverSettings: Writable<{address:string|null, status: ConnectionStatus, id?:string}> = writable({address:null,status: 'disconnected'});
+export const request:Writable<RequestType> = writable({title:null,emitName:null, body:undefined, response:undefined})
 export const requestHistory: Writable<RequestType[]|undefined> = writable([]);
 export const requestInFocus = derived(request, $req => $req.title);

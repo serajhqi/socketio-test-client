@@ -1,14 +1,15 @@
 <script lang="ts">
   import JSONTree from "svelte-json-tree";
-  import { request } from "../store";
+  import { request ,serverSettings} from "../store";
 </script>
 
 <div class="flex flex-col w-full h-full">
   <div class="flex flex-row border-b border-burning items-center ">
     <div
-      class="px-2 py-2 h-10 text-center text-sm text-semiburnt border-b border-burning w-full shadow-b-lg"
+      class="flex justify-between items-center px-2 py-2 h-10 text-center text-semiburnt border-b border-burning w-full shadow-b-lg"
     >
-      Server Response
+      <div>Server Response</div>
+      <div class="text-semiburnt text-xs">id: <span class="ml-2 text-gray-300">{$serverSettings.id || 'diconnected'}</span></div>
     </div>
   </div>
   <div class="p-4">
