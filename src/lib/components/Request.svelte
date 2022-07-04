@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { sendRequest } from "../scripts/socketioHandler";
+  import { sendRequest } from "../handlers/socketio";
   import { serverSettings,request, requestInFocus } from "../store";
   import ConnectionController from "./ConnectionController.svelte";
   import ServerAddressModal from "./ServerAddressModal.svelte";

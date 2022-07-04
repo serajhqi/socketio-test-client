@@ -7,7 +7,7 @@
   import { onMount } from "svelte";
   import { serverSettings, requestHistory, listeners, RequestType, ListenerType } from "./lib/store";
   import Notifications from 'svelte-notifications';
-  import { readItems} from "./lib/scripts/storageHandler";
+  import { readItems} from "./lib/handlers/storage";
   import Logger from "./lib/components/Logger.svelte";
   import Listeners from "./lib/components/Listeners.svelte";
 

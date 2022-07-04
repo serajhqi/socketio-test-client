@@ -1,7 +1,7 @@
 import { io, Socket } from "socket.io-client";
 import { requestHistory, serverSettings, request, RequestType,logs, listeners } from "../store";
 import { get } from "svelte/store";
-import { saveRequest } from "./storageHandler";
+import { saveRequest } from "./storage";
 import { nanoid } from "nanoid";
 
 const isJson = (str: string) => {

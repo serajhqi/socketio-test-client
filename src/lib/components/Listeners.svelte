@@ -1,7 +1,7 @@
 <script lang="ts">
   import { listeners } from "../store";
   import JSONTree from "svelte-json-tree";
-  import { saveListeners } from "../scripts/storageHandler";
+  import { saveListeners } from "../handlers/storage";
   import { onDestroy, onMount } from "svelte";
 
   let listener = null;

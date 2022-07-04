@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { toggleConnection } from "../scripts/socketioHandler";
+  import { toggleConnection } from "../handlers/socketio";
   import { serverSettings } from "../store";
   import { getNotificationsContext } from 'svelte-notifications';
   const { addNotification } = getNotificationsContext();

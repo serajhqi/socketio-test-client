@@ -1,7 +1,7 @@
 <script lang="ts">
 import { createEventDispatcher } from "svelte";
 
-    import { removeRequest } from "../scripts/storageHandler";
+    import { removeRequest } from "../handlers/storage";
     import { requestHistory, request, RequestType, requestInFocus } from "../store";
     const dispatch = createEventDispatcher();
     let search = '';
