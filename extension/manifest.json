@@ -1,0 +1,21 @@
+{
+  "name": "Socketio Test Client",
+  "description": "A Simple Socket.IO Client Development Tool",
+  "manifest_version": 2,
+  "version": "0.1.9",
+  "icons": {
+    "16": "images/socketio16.png",
+    "48": "images/socketio48.png",
+    "128": "images/socketio.png"
+  },
+  "browser_action": {
+    "default_title": "Click to start!"
+  },
+  "background": {
+    "persistent": false,
+    "scripts": [
+      "eventPage.js"
+    ]
+  }
+
+}
