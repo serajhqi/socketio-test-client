@@ -77,7 +77,8 @@ export const sendRequest = () => {
 
   const req = get(request);
   const reqJson = isJson(req.body) ? JSON.parse(req.body) : req;
-  socket.on('message',()=>console.log('eee'))
+  logger('[request] ' + req.emitName + ' ' + JSON.stringify(reqJson))
+
   socket.emit(req.emitName, reqJson, (response: any, er:any) => {
 
     request.set({...req, response});
@@ -90,6 +91,7 @@ export const sendRequest = () => {
       requestHistory.set(historyStore);
     } else {
       historyStore[objIndex] = req;
+      logger('[response] ' + req.emitName + ' ' + JSON.stringify(response))
     }
     saveRequest();
   });

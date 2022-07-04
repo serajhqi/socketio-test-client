@@ -24,7 +24,7 @@ onDestroy(()=>unsubscribe())
 
     <div id="logContainer" class="block text-green-500 w-full overflow-auto whitespace-nowrap container scrollbar">
         {#each [...$logs].reverse() as log, index}
-             <div class="flex items-center text-ellipsis cursor-pointer overflow-hidden {index == 0 || selectedId == log.id?'text-white':''}" on:click={()=>selectLog(log)}>>
+             <div class="flex items-center text-ellipsis cursor-pointer overflow-hidden {selectedId == log.id?'text-black bg-white':''}" on:click={()=>selectLog(log)}>>
                 <span class="text-xs mr-2">[{log.time}]</span>
                 {log.message}</div>
         {/each}
