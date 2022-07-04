@@ -43,13 +43,13 @@
           for="password"
           class="block mb-2 text-sm font-medium text-gray-300"
           >Socket.IO Server Address</label
-        >
-        <!-- pattern="(http|https):\/\/(.)*" -->
+        >    
         <input
           type="text"
           name="address"
+          pattern="(http|https|ws|wss):\/\/(.)*"
           bind:value={serverAddress}
-          oninvalid={()=>"this.setCustomValidity('URL should start with http:// or https://')"}
+          oninvalid={()=>"this.setCustomValidity('URL should start with one of the http|https|ws|wss:// ')"}
           placeholder="example: http://localhost:3000"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
           required
