@@ -96,8 +96,8 @@ export const sendRequest = () => {
     saveRequest();
   });
 
-  socket.on("error", function() {
-    console.log('eoooperpoepo')
+  socket.on("error", function(e) {
+    logger(JSON.stringify(e))
   });
 }
 
