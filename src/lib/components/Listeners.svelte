@@ -89,7 +89,7 @@
     </div>
 
     <div
-      class="w-1/5 flex flex-col h-[calc(100%-3.5rem)] bg-stone-700 overflow-y-auto scrollbar"
+      class="w-1/5 flex flex-col h-[calc(100%)-3.5rem] bg-stone-700 overflow-y-auto scrollbar"
     >
       <div
         class="flex justify-end p-1 text-gray-500 text-xs hover:text-red-300"
@@ -106,14 +106,14 @@
       <div class="block container">
         {#each [...($listeners.find((item) => item.title == selectedListenerId)?.messages || [])].reverse() as message}
           <div
-            class="border-b border-semiburnt text-semiburnt text-xs cursor-pointer px-1 {message.id ===
+            class="border-b border-semiburnt font-bold text-xs cursor-pointer px-1 {message.id ===
             selectedMessageId
               ? 'text-gray-300'
-              : ''}"
+              : 'text-semiburnt'}"
             on:click={() => (selectedMessageId = message.id)}
             style="font-size=10px"
           >
-            {message.time}
+            {message.time}{message.id}
           </div>
         {/each}
       </div>
