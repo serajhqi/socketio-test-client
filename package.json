@@ -1,8 +1,13 @@
 {
-  "name": "socketio-api-devtool",
+  "name": "socketio-test-client",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "author": {
+    "name": "Seraj aldin Haqiqi",
+    "email": "haqiqi.seraj@gmail.com",
+    "url": "https://github.com/serajhqi"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -27,5 +32,20 @@
     "socket.io-client": "^4.5.1",
     "svelte-json-tree": "^1.0.0",
     "svelte-notifications": "^0.9.95"
+  },
+  "keywords": [
+    "socket",
+    "socket.io",
+    "socketio",
+    "chrome-extension",
+    "firefox-addon",
+    "test-client",
+    "socket.io-client",
+    "socket.io-test",
+    "socketio-test-client"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serajhqi/socketio-test-client.git"
   }
 }
