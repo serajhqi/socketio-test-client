@@ -1,7 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@layer base {
+  ul, ol {
+    list-style: revert;
+  }
+}
 .btn {
     @apply text-base font-medium rounded-lg p-3;
   }
