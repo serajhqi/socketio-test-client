@@ -14,12 +14,12 @@ const unsubscribe = logs.subscribe(items => {
 onDestroy(()=>unsubscribe())
 </script>
 
-<div class="flex flex-col h-full bg-black w-full max-w-screen content-between border-b-4">
+<div class="flex flex-col h-full bg-black w-full max-w-screen content-between">
     <div
       class="flex flex-row bg-burning justify-between items-center px-2 py-2 text-center text-semiburnt border-b border-burning w-full shadow-b-lg"
     >
       <div>Logs</div>
-      <button on:click={clearLogs}>Clear</button>
+      <button class="hover:text-gray-300" on:click={clearLogs}>Clear</button>
     </div>
 
     <div id="logContainer" class="block text-green-500 w-full overflow-auto whitespace-nowrap container scrollbar">

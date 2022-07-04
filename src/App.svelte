@@ -5,16 +5,19 @@
   import Response from "./lib/components/Response.svelte";
   import History from "./lib/components/History.svelte";
   import { onMount } from "svelte";
-  import { serverSettings, requestHistory } from "./lib/store";
+  import { serverSettings, requestHistory, listeners, RequestType, ListenerType } from "./lib/store";
   import Notifications from 'svelte-notifications';
   import { readItems} from "./lib/scripts/storageHandler";
   import Logger from "./lib/components/Logger.svelte";
+  import Listeners from "./lib/components/Listeners.svelte";
 
   let showHistory = true;
   onMount(()=>{
     $serverSettings.address = localStorage.getItem('address') || null;
-    const historyFromStorage = readItems();
+    const historyFromStorage = readItems<RequestType>('history');
+    const listenersFromStorage = readItems<ListenerType>('listeners');
     historyFromStorage && requestHistory.set(historyFromStorage);
+    listenersFromStorage && listeners.set(listenersFromStorage);
   })
 </script>
 
@@ -37,12 +40,17 @@
           <div class="flex h-full">
             <Request/>
           </div>
-          <div class="block h-80 w-full overflow-y-auto md:pb-0 scrollbar border-t-2 border-burning">
+          <div class="block w-full overflow-y-auto md:pb-0 scrollbar border-t-2 border-burning" style="height: 700px;">
             <Logger/>
           </div>
         </div>
-        <div class="w-full h-full border-t-0 md:border-t-2 md:border-l-0 border-burning">
-          <Response/>
+        <div class="border-r-2 border-l-2 border-burning mb:border-b-0 border-t-2 mb:border-t-0 flex flex-col w-9/12 max-w-screen content-between">
+          <div class="flex h-full">
+            <Response/>
+          </div>
+          <div class="block w-full overflow-y-auto md:pb-0 scrollbar border-t-2 border-burning" style="height: 700px;">
+            <Listeners/>
+          </div>
         </div>
       </div>
   </main>

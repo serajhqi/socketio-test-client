@@ -1,5 +1,5 @@
 import { io, Socket } from "socket.io-client";
-import { requestHistory, serverSettings, request, RequestType,logs } from "../store";
+import { requestHistory, serverSettings, request, RequestType,logs, listeners } from "../store";
 import { get } from "svelte/store";
 import { saveRequest } from "./storageHandler";
 import { nanoid } from "nanoid";
@@ -34,10 +34,17 @@ export const toggleConnection = () => {
         serverSettings.set({...server, status: 'disconnected', id:undefined})
         logger('disconnected');
       });
-
       socket.onAny((eventName, ...args) => {
-        console.log(eventName, ...args)
+        const _listeners = get(listeners);
+        let listener = _listeners.find(item => item.title == eventName);
+        if(listener){
+          const index = _listeners.findIndex(item => item.title == eventName);
+          listener = {...listener, messages:[...listener.messages, {id: nanoid(5), time: new Date().toISOString().slice(11, 19), text: args}]};
+          _listeners[index] = listener;
+          listeners.set(_listeners);
+        }
         logger(eventName + ' ' + args);
+        
       });
     } else if (status == "connected") {
       serverSettings.set({...server, status: 'disconnecting'})
