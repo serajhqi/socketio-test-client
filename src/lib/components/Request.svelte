@@ -5,6 +5,7 @@
   import ServerAddressModal from "./ServerAddressModal.svelte";
   import { getNotificationsContext } from 'svelte-notifications';
   import { nanoid } from "nanoid";
+import { prevent_default } from "svelte/internal";
 
   const { addNotification } = getNotificationsContext();
 
@@ -37,6 +38,12 @@
             description: e
         })
     }
+  }
+
+  function handleTextArea(e){
+    if(e.code == 'Tab') {e.preventDefault() 
+      $request.body = $request.body + '    ';
+    };
   }
 </script>
 
@@ -71,6 +78,7 @@
     </div>
   </div>
   <textarea
+    on:keydown={(e)=>handleTextArea(e)}
     bind:value={$request.body}
     placeholder="Data to send"
     class="bg-transparent p-2 caret-white border-0 outline-0 h-200 text-amber-400 h-full"
