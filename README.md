@@ -1,47 +1,27 @@
 # Socket.IO Test Client For Developers
 
+<img src="https://user-images.githubusercontent.com/7148972/177484177-0c824dc1-6d41-4c12-942e-ecc08ffba9fe.png" align="center" width="600">
 
+To globally install the app you can run:
 
-<img src="https://user-images.githubusercontent.com/7148972/143257622-fb8ee993-6bd6-43ef-9403-79f70c9dde22.png" align="center" width="600">
-
-Currently the command line works well on linux.
-
-To install it in commnad line mode run the following commands:
-
-```bash
-$ yarn global add socketio-test-client
 ```
-
-And access the app form the command below:
-
-```bash
-$ socketio-tc
+yarn gloabl add socketio-test-client
 ```
-This command runs the app on `http://localhost:8888`
+This command is only tested under Linux OS. It will automatically opens the default browser and serves the app on `http://localhost:8888`
 
-However you can install the chrome or firefox extension.
+Otherwise you can clone the project and: 
+
+1. Open the terminal and navigate into the project directory
+2. Run `yarn` to install the app depedencies
+3. By running `yarn dev` the app will be availble under `http://localhost:3000`
+
+However you can also install the chrome or firefox extension.
 
 For installing the Chrome extenstion:
 1. Navigate to the extension manager of your chrome browser.
 2. Turn on the development mode
-3. Drag and drop the "extension" directory of the project onto the open panel.
+3. Drag and drop the "extension" directory of the project onto the opened panel.
 
-You can also intall the Firefox addon from the following link:
+To install Firefox addon follow this link:
 https://addons.mozilla.org/en-US/firefox/addon/socketio-client/
-
-
-You can also clone and run the app from the project root directory:
-
-```bash
-$ yarn
-```
-```bash
-$ yarn start
-```
-or
-
-```bash
-$ yarn serve
-```
-
 
