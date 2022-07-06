@@ -2,11 +2,12 @@
 
 'use strict';
 
-var http = require('http');
-var finalhandler = require('finalhandler');
-var serveStatic = require('serve-static');
-var serve = serveStatic("../extension");
-var server = http.createServer(function(req, res) {
+import { createServer } from 'http';
+import finalhandler from 'finalhandler';
+import serveStatic from 'serve-static';
+import child_process from 'child_process';
+var serve = serveStatic("./extension");
+var server = createServer(function(req, res) {
   var done = finalhandler(req, res);
   serve(req, res, done);
 });
@@ -15,4 +16,4 @@ console.log('client is running on localhost:' + port)
 server.listen(port);
 var url = 'http://localhost:'+port;
 var start = (process.platform == 'darwin'? 'open': process.platform == 'win32'? 'start': 'xdg-open');
-require('child_process').exec(start + ' ' + url);
+child_process.exec(start + ' ' + url);
