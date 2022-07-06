@@ -55,6 +55,8 @@
                 </p>
                 <ul class="pl-10 text-sm text-yellow-100">
                     <li> By clicking on each log it will be highlighted for better tracking </li>
+                    <li> Requst and Reponse log has 4 parts: [time] [type] [emit name] message </li>
+                    <li> Event log has 3 parts: [time] [event name] message </li>
                 </ul>
             </div>
         </div>
