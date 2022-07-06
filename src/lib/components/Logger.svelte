@@ -14,9 +14,9 @@ const unsubscribe = logs.subscribe(items => {
 onDestroy(()=>unsubscribe())
 </script>
 
-<div class="relative flex-col h-full bg-black w-full content-between">
+<div class="flex-col h-full bg-black w-full content-between">
     <div
-      class="sticky top-0 h-10 flex flex-row bg-burning justify-between items-center px-2 py-2 text-center text-semiburnt border-b border-burning w-full shadow-b-lg"
+      class="top-0 h-10 flex flex-row bg-burning justify-between items-center px-2 py-2 text-center text-semiburnt border-b border-burning w-full shadow-b-lg"
     >
       <div>Logs</div>
       <button class="hover:text-gray-300" on:click={clearLogs}>Clear</button>
