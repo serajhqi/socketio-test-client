@@ -26,7 +26,7 @@
       <ToolBar/>
       <div class="flex h-full flex-row">
         {#if showHistory}
-        <div class="block overflow-y-auto w-4/12 h-full pb-12 md:pb-0 scrollbar border-t-2 border-burning" >
+        <div class="block overflow-y-auto w-2/12 h-full pb-12 md:pb-0 scrollbar border-t-2 border-burning" >
           <History on:collpaseClicked={()=> (showHistory = false)}/>
         </div>
         {:else}
@@ -36,19 +36,20 @@
           </button>
         </div>
         {/if}
-        <div class="border-r-2 border-l-2 border-burning mb:border-b-0 border-t-2 mb:border-t-0 flex flex-col w-9/12 max-w-screen content-between">
-          <div class="flex h-full">
+        
+        <div class="border-r-2 border-l-2 border-burning mb:border-b-0 border-t-2 mb:border-t-0 flex flex-col w-5/12 content-between">
+          <div class="flex h-3/5">
             <Request/>
           </div>
-          <div class="block w-full overflow-y-auto md:pb-0 scrollbar border-t-2 border-burning" style="height: 700px;">
+          <div class="flex flex-col h-2/5 w-full md:pb-0 border-t-2 border-burning" >
             <Logger/>
           </div>
         </div>
-        <div class="border-r-2 border-l-2 border-burning mb:border-b-0 border-t-2 mb:border-t-0 flex flex-col w-9/12 max-w-screen content-between">
-          <div class="flex h-full">
+        <div class="border-r-2 border-l-2 border-burning mb:border-b-0 border-t-2 mb:border-t-0 flex flex-col w-5/12 content-between">
+          <div class="flex h-3/5">
             <Response/>
           </div>
-          <div class="block w-full overflow-y-auto md:pb-0 scrollbar border-t-2 border-burning" style="height: 700px;">
+          <div class="flex h-2/5 w-full overflow-y-auto md:pb-0 scrollbar border-t-2 border-burning" >
             <Listeners/>
           </div>
         </div>

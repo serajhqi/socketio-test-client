@@ -80,7 +80,8 @@ import { prevent_default } from "svelte/internal";
   <textarea
     on:keydown={(e)=>handleTextArea(e)}
     bind:value={$request.body}
+    spellcheck="false"
     placeholder="Data to send"
-    class="bg-transparent p-2 caret-white border-0 outline-0 h-200 text-amber-400 h-full"
+    class="bg-transparent p-2 caret-white border-0 outline-0 h-200 text-amber-400 h-full scrollbar"
   />
 </div>

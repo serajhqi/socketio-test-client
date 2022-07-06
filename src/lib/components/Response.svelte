@@ -12,7 +12,7 @@
       <div class="text-semiburnt text-xs">id: <span class="ml-2 text-gray-300">{$serverSettings.id || 'diconnected'}</span></div>
     </div>
   </div>
-  <div class="p-4">
+  <div class="p-4 flex flex-col overflow-y-auto scrollbar">
     {#if $request.response }
       <JSONTree
       value={$request.response}

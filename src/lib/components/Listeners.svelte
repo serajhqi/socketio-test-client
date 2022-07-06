@@ -43,7 +43,8 @@
   <div class="inlin-block w-full h-10 py-1 px-2 bg-burnt text-semiburnt">
     <input
       placeholder="Add listener"
-      class="bg-transparent outline-none w-full"
+      class="bg-transparent outline-none w-full focus:text-gray-300"
+      spellcheck="false"
       bind:value={listener}
       on:keydown={(e) => addListener(e)}
     />
@@ -103,9 +104,9 @@
         {/if}
       </div>
 
-      <div class="block container">
+      <div class="block container pb-24">
         {#each [...($listeners.find((item) => item.title == selectedListenerId)?.messages || [])].reverse() as message}
-          <div
+          <p
             class="border-b border-semiburnt font-bold text-xs cursor-pointer px-1 {message.id ===
             selectedMessageId
               ? 'text-gray-300'
@@ -114,12 +115,12 @@
             style="font-size=10px"
           >
             {message.time}{message.id}
-          </div>
+          </p>
         {/each}
       </div>
     </div>
 
-    <div class="w-3/5 h-full bg-stone-600 p-2 overflow-y-auto scrollbar">
+    <div class="w-3/5 h-full bg-stone-600 p-2 overflow-y-auto scrollbar pb-28">
       <span class="text-white"
         >{($listeners
           .find((listener) => listener.title == selectedListenerId)
