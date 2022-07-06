@@ -32,7 +32,7 @@
         {:else}
         <div class="block border-t-2 border-burning w-6 text-center " >
           <button class="mt-3" on:click={()=>(showHistory = true)}>
-            <svg style="fill: gray" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z"/></svg>           
+            <svg class="w-5 h-4" style="fill: gray"  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M0 23h24v-22h-24v22zm2-20h14v18h-14v-18zm4 4l6 5-6 5v-10z"/></svg>
           </button>
         </div>
         {/if}
@@ -45,7 +45,7 @@
             <Logger/>
           </div>
         </div>
-        <div class="border-r-2 border-l-2 border-burning mb:border-b-0 border-t-2 mb:border-t-0 flex flex-col w-5/12 content-between">
+        <div class="border-r-2 border-l-2 border-burning mb:border-b-0 border-t-2 mb:border-t-0 flex flex-col {showHistory?'w-5/12':'w-7/12'} content-between">
           <div class="flex h-3/5">
             <Response/>
           </div>
