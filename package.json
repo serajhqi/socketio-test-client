@@ -51,5 +51,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/serajhqi/socketio-test-client.git"
-  }
+  },
+  "files": [
+    "extension",
+    "bin.js"
+  ],
+  "bin": "./bin.js"
 }
