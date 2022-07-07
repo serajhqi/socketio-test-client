@@ -57,5 +57,6 @@
     "extension/*",
     "extension/**/*"
   ],  
-  "bin": "./bin.js"
+  "bin": "./bin.js",
+  "license":"MIT"
 }
