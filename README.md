@@ -1,8 +1,9 @@
 # Socket.IO Test Client For Developers
 
+`socketio-test-client` is a devtool to test Socket.IO-based API.
+
+
 <img src="https://user-images.githubusercontent.com/7148972/177484177-0c824dc1-6d41-4c12-942e-ecc08ffba9fe.png" align="center" width="600">
-
-
 
 #### Chrome extenstion:
 https://chrome.google.com/webstore/detail/socketio-test-client/ophmdkgfcjapomjdpfobjfbihojchbko?hl=en
@@ -11,7 +12,7 @@ https://chrome.google.com/webstore/detail/socketio-test-client/ophmdkgfcjapomjdp
 https://addons.mozilla.org/en-US/firefox/addon/socketio-client/
 
 ------------------
-To globally install the app run:
+To globally install the app run: (You might need to be sudoer)
 
 ```
 yarn global add socketio-test-client
