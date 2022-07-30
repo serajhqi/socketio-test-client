@@ -6,12 +6,19 @@ import { createServer } from 'http';
 import finalhandler from 'finalhandler';
 import serveStatic from 'serve-static';
 import child_process from 'child_process';
-var serve = serveStatic("./extension");
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+var serve = serveStatic(__dirname + "/../extension");
+console.log(__dirname + "/../extension")
+
 var server = createServer(function(req, res) {
   var done = finalhandler(req, res);
   serve(req, res, done);
 });
-var port = 8888
+var port = 8880
 console.log('client is running on localhost:' + port)
 server.listen(port);
 var url = 'http://localhost:'+port;

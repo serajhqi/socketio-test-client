@@ -1,7 +1,7 @@
 {
   "name": "socketio-test-client",
   "private": false,
-  "version": "0.2.8",
+  "version": "0.2.13",
   "type": "module",
   "author": {
     "name": "Seraj aldin Haqiqi",
@@ -52,11 +52,13 @@
     "type": "git",
     "url": "https://github.com/serajhqi/socketio-test-client.git"
   },
+  "bin": {
+    "socketio-test-client":"./bin/socketio-test-client.js"
+  },
+  "license":"MIT",
+  "preferGlobal": true,
   "files": [
-    "bin.js",
-    "extension/*",
-    "extension/**/*"
-  ],  
-  "bin": "./bin.js",
-  "license":"MIT"
+    "bin",
+    "extension"
+  ]
 }
