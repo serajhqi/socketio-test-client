@@ -18,7 +18,7 @@ var server = createServer(function(req, res) {
   var done = finalhandler(req, res);
   serve(req, res, done);
 });
-var port = 8880
+var port = 8888
 console.log('client is running on localhost:' + port)
 server.listen(port);
 var url = 'http://localhost:'+port;
