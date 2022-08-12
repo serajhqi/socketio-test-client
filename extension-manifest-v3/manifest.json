@@ -2,7 +2,7 @@
   "name": "Socketio Test Client",
   "description": "Socket.IO Client Development Tool",
   "manifest_version": 3,
-  "version": "0.2.6",
+  "version": "0.3.0",
   "icons": {
     "16": "images/socketio16.png",
     "48": "images/socketio48.png",
