@@ -9,7 +9,7 @@
 </script>
 
 {#if visible}
-<div class="fixed top-0 left-0 w-screen h-screen">
+<div class="fixed top-0 left-0 w-screen h-screen z-10">
     <div class="absolute bg-black w-screen h-screen opacity-40"></div>
     <div class="absolute w-screen h-screen flex items-center justify-center">
     <div class="relative w-1/2 bg-burning rounded-lg shadow dark:bg-gray-700 min-w-200">

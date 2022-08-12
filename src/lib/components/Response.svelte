@@ -3,7 +3,7 @@
   import { request ,serverSettings} from "../store";
 </script>
 
-<div class="flex flex-col w-full h-full">
+<div class="flex flex-col w-full h-full z-1">
   <div class="flex flex-row border-b border-burning items-center ">
     <div
       class="flex justify-between items-center px-2 py-2 h-10 text-center text-semiburnt border-b border-burning w-full shadow-b-lg"
