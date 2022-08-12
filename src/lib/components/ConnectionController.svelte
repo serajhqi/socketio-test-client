@@ -11,7 +11,8 @@
             position: 'bottom-center',
             heading: 'hi i am custom notification',
             type: 'danger',
-            description: 'lorem ipsum'
+            description: 'lorem ipsum',
+            removeAfter: 3000,
         })
         return;
     }

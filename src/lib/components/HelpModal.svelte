@@ -27,6 +27,7 @@
                 </p>
                 <ol class="pl-10 text-sm text-yellow-100">
                     <li> The Socket.IO server address (required)</li>
+                    <li> You can also set authentication credentials in server settings modal (optional)</li>
                     <li> The Emit name (required)</li>
                     <li> The title you sepcify here will be used for the title of saved history of the sent requests. If you don't specify one the extension generates a random one for you.</li>
                     <li> The body is the content you want to send to sever</li>

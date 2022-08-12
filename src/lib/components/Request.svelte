@@ -1,12 +1,11 @@
 <script lang="ts">
   import { sendRequest } from "../handlers/socketio";
-  import { serverSettings,request, requestInFocus } from "../store";
+  import { serverSettings,request } from "../store";
   import ConnectionController from "./ConnectionController.svelte";
   import ServerAddressModal from "./ServerAddressModal.svelte";
   import { getNotificationsContext } from 'svelte-notifications';
   import { nanoid } from "nanoid";
-import { prevent_default } from "svelte/internal";
-
+  import { isJson } from "../handlers/socketio";
   const { addNotification } = getNotificationsContext();
 
   function requestHandler(){
@@ -15,6 +14,7 @@ import { prevent_default } from "svelte/internal";
             text: 'Sever is not conneted',
             position: 'bottom-center',
             type: 'danger',
+            removeAfter: 3000,
         })
       return;
     }
@@ -23,6 +23,7 @@ import { prevent_default } from "svelte/internal";
             text: 'Emit name is not set',
             position: 'bottom-center',
             type: 'danger',
+            removeAfter: 3000,
         })
       return;
     }
@@ -35,7 +36,8 @@ import { prevent_default } from "svelte/internal";
             text: e,
             position: 'bottom-center',
             type: 'danger',
-            description: e
+            description: e,
+            removeAfter: 3000,
         })
     }
   }
