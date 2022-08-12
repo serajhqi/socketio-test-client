@@ -14,7 +14,7 @@
   function handleSubmit() {
     if(auth && isJson(auth)){
       $serverSettings.options  = {auth:JSON.parse(auth)};
-    }else if(auth == ""){
+    }else if(auth == null){
       $serverSettings.options  = {};
     }else {
       addNotification({
