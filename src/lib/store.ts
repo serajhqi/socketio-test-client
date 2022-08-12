@@ -16,7 +16,7 @@ export type ListenerType = {
   }[]
 }
 export type LogType = {time:string, message:string, id:string}
-export const serverSettings: Writable<{address:string|null, status: ConnectionStatus, id?:string}> = writable({address:null,status: 'disconnected'});
+export const serverSettings: Writable<{address:string|null, status: ConnectionStatus,options: Record<string,any>, id?:string}> = writable({address:null,status: 'disconnected', options: {}});
 export const request:Writable<RequestType> = writable({title:null,emitName:null, body:undefined, response:undefined})
 export const requestHistory: Writable<RequestType[]|undefined> = writable([]);
 export const requestInFocus = derived(request, $req => $req.title);

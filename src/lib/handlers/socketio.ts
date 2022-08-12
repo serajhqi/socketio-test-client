@@ -4,7 +4,7 @@ import { get } from "svelte/store";
 import { saveRequest } from "./storage";
 import { nanoid } from "nanoid";
 
-const isJson = (str: string) => {
+export const isJson = (str: string) => {
   try {
     JSON.parse(str);
   } catch (e) {
@@ -17,13 +17,14 @@ let socket: Socket | null = null;
 export const toggleConnection = () => {
   try {
     const server = get(serverSettings);
-    const {address,status} = get(serverSettings);
+    const {address,status,options} = get(serverSettings);
 
     if (status == "disconnected" ) {
       serverSettings.set({...server, status: 'connecting'})
       logger('connecting');
 
       socket = io(address);
+      console.log({options})
       socket.connect();
       
       socket.on("connect", () => {
