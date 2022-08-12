@@ -1,7 +1,7 @@
 {
   "name": "socketio-test-client",
   "private": false,
-  "version": "0.3.0",
+  "version": "0.3.2",
   "type": "module",
   "author": {
     "name": "Seraj aldin Haqiqi",
