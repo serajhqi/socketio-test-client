@@ -30,6 +30,10 @@ export const toggleConnection = () => {
         serverSettings.set({...server, status: 'connected',id: socket.id});
         logger('connected');
       });
+      socket.on('connect_error', error => {
+        serverSettings.set({...server, status: 'disconnected', id:undefined})
+        logger('connection error: ' + error.message);
+      })
       socket.on("disconnect", () => {
         serverSettings.set({...server, status: 'disconnected', id:undefined})
         logger('disconnected');
