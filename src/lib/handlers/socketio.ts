@@ -23,8 +23,7 @@ export const toggleConnection = () => {
       serverSettings.set({...server, status: 'connecting'})
       logger('connecting');
 
-      socket = io(address);
-      console.log({options})
+      socket = io(address, options);
       socket.connect();
       
       socket.on("connect", () => {
