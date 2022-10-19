@@ -11,7 +11,7 @@
   function requestHandler(){
     if($serverSettings.status !== 'connected'){
       addNotification({
-            text: 'Sever is not conneted',
+            text: 'Server is not connected',
             position: 'bottom-center',
             type: 'danger',
             removeAfter: 3000,
@@ -43,7 +43,7 @@
   }
 
   function handleTextArea(e){
-    if(e.code == 'Tab') {e.preventDefault() 
+    if(e.code == 'Tab') {e.preventDefault()
       $request.body = $request.body + '    ';
     };
   }
