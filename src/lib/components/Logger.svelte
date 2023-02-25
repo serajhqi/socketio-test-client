@@ -23,8 +23,8 @@ onDestroy(()=>unsubscribe())
     </div>
     <div class="flex flex-col h-full text-green-500 overflow-y-auto pb-28 scrollbar">
         {#each [...$logs].reverse() as log, index}
-        <p class=" break-words {selectedId == log.id?'text-black bg-white':''}" on:click={()=>selectLog(log)}>>>>
-            <span class="text-xs mr-2">[{log.time}]</span>
+        <p class=" break-words {selectedId == log.id?'text-black bg-white':''}" on:click={()=>selectLog(log)}>
+            <span class="text-xs mx-2">[{log.time}]</span>
             {log.message}
         </p>
         {/each}
