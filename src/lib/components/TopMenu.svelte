@@ -2,6 +2,9 @@
 import HelpModal from "./HelpModal.svelte";
 import pjson from "../../../package.json";
 import { onMount } from "svelte";
+import { getNotificationsContext } from 'svelte-notifications';
+const { addNotification } = getNotificationsContext();
+
 let starCount = 0;
 
 function getRepoStars()
@@ -14,8 +17,27 @@ function getRepoStars()
   xhttp.send();
 }
 
+function checkVersion()
+{
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    let tag_name = JSON.parse(this.responseText).tag_name;
+    if(tag_name.replace("v", "") !== pjson.version){
+      addNotification({
+            text: 'Version ' + tag_name + ' is now available :)',
+            position: 'top-right',
+            type: 'success',
+            removeAfter: 3000,
+        })
+    }
+  }
+  xhttp.open("GET", "https://api.github.com/repos/serajhqi/socketio-test-client/releases/latest");
+  xhttp.send();
+}
+
 onMount(()=>{
   getRepoStars();
+  checkVersion();
 })
 </script>
 
