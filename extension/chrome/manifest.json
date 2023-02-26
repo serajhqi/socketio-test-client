@@ -12,7 +12,6 @@
     "default_title": "Click to start!"
   },
   "background": {
-    "service_worker":
-      "background.js"
+    "service_worker": "background.js"
   }
 }

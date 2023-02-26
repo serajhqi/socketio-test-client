@@ -4,21 +4,20 @@
   "version": "0.3.6",
   "type": "module",
   "author": {
-    "name": "Seraj aldin Haqiqi",
+    "name": "Seraj Haqiqi",
     "email": "haqiqi.seraj@gmail.com",
     "url": "https://github.com/serajhqi"
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && ncp ./dist/ extension --filter **/*.* && ncp ./dist/ extension-manifest-v3 --filter **/*.*",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "build": "vite build && yarn firefox && yarn chrome",
+    "firefox": "rm -rf ./extension/firefox/* && cp -r ./dist/* ./extension/firefox/ && cp -r ./extension/files/images ./extension/firefox/ && cp ./extension/files/background.js ./extension/firefox/ && cp ./extension/files/chrome-manifest.json ./extension/firefox/manifest.json",
+    "chrome": "rm -rf ./extension/chrome/* && cp -r ./dist/* ./extension/chrome/ && cp -r ./extension/files/images ./extension/chrome/ && cp ./extension/files/background.js ./extension/chrome/ && cp ./extension/files/chrome-manifest.json ./extension/chrome/manifest.json"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
     "@tsconfig/svelte": "^2.0.1",
     "autoprefixer": "^10.4.7",
-    "ncp": "^2.0.0",
     "postcss": "^8.4.14",
     "svelte": "^3.44.0",
     "svelte-check": "^2.2.7",
