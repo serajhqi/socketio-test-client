@@ -18,7 +18,7 @@
       $serverSettings.options  = {};
     }else {
       addNotification({
-            text: 'Headers must be json object',
+            text: 'Headers must be a json object',
             position: 'bottom-center',
             type: 'danger',
             removeAfter: 3000,

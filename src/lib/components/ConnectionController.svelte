@@ -9,9 +9,7 @@
         addNotification({
             text: 'Please Set the server address first',
             position: 'bottom-center',
-            heading: 'hi i am custom notification',
             type: 'danger',
-            description: 'lorem ipsum',
             removeAfter: 3000,
         })
         return;
