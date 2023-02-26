@@ -1,41 +1,40 @@
 {
   "name": "socketio-test-client",
   "private": false,
-  "version": "0.3.6",
+  "version": "0.4.0",
   "type": "module",
   "author": {
-    "name": "Seraj aldin Haqiqi",
+    "name": "Seraj Haqiqi",
     "email": "haqiqi.seraj@gmail.com",
     "url": "https://github.com/serajhqi"
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && ncp ./dist/ extension --filter **/*.* && ncp ./dist/ extension-manifest-v3 --filter **/*.*",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "build": "vite build && yarn firefox && yarn chrome",
+    "firefox": "rm -rf ./extension/firefox/* && cp -r ./dist/* ./extension/firefox/ && cp -r ./extension/files/images ./extension/firefox/ && cp ./extension/files/background.js ./extension/firefox/ && cp ./extension/files/chrome-manifest.json ./extension/firefox/manifest.json",
+    "chrome": "rm -rf ./extension/chrome/* && cp -r ./dist/* ./extension/chrome/ && cp -r ./extension/files/images ./extension/chrome/ && cp ./extension/files/background.js ./extension/chrome/ && cp ./extension/files/chrome-manifest.json ./extension/chrome/manifest.json"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
     "@tsconfig/svelte": "^2.0.1",
     "autoprefixer": "^10.4.7",
-    "ncp": "^2.0.0",
     "postcss": "^8.4.14",
     "svelte": "^3.44.0",
     "svelte-check": "^2.2.7",
     "svelte-preprocess": "^4.10.7",
     "tailwindcss": "^3.1.4",
     "tslib": "^2.3.1",
-    "typescript": "^4.5.4",
-    "vite": "^2.9.9"
+    "typescript": "^4.5.4"
   },
   "dependencies": {
+    "finalhandler": "^1.2.0",
+    "http": "^0.0.1-security",
     "nanoid": "^4.0.0",
+    "serve-static": "^1.15.0",
     "socket.io-client": "^4.5.1",
     "svelte-json-tree": "^1.0.0",
     "svelte-notifications": "^0.9.95",
-    "http": "^0.0.1-security",
-    "finalhandler": "^1.2.0",
-    "serve-static": "^1.15.0"
+    "vite": "^4.1.4"
   },
   "keywords": [
     "socket",
@@ -53,9 +52,9 @@
     "url": "https://github.com/serajhqi/socketio-test-client.git"
   },
   "bin": {
-    "socketio-test-client":"./bin/socketio-test-client.js"
+    "socketio-test-client": "./bin/socketio-test-client.js"
   },
-  "license":"MIT",
+  "license": "MIT",
   "preferGlobal": true,
   "files": [
     "bin",

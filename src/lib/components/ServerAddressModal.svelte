@@ -9,39 +9,41 @@
 
   let settingsModal = false;
   let serverAddress = null;
-  let auth = null;
+  let headers = null;
 
   function handleSubmit() {
-    if(auth && isJson(auth)){
-      $serverSettings.options  = {auth:JSON.parse(auth)};
-    }else if(auth == null){
+    if(headers && isJson(headers)){
+      $serverSettings.options  = JSON.parse(headers);
+    }else if(headers == null){
       $serverSettings.options  = {};
     }else {
       addNotification({
-            text: 'Auth must be json object',
+            text: 'Headers must be a json object',
             position: 'bottom-center',
             type: 'danger',
             removeAfter: 3000,
         })
       return;
     }
-    $serverSettings.address  = serverAddress;
+    $serverSettings.address = serverAddress;
     localStorage.setItem("address", serverAddress);
     settingsModal = false;
   }
 
   function clearSettings() {
     serverAddress = null;
-    auth = null;
-    serverSettings.set({address: null, status: 'disconnected',options:{}, id:undefined});
+    headers = null;
+    serverSettings.set({address: null, status: 'disconnected', options:{}, id:undefined});
     localStorage.removeItem("address");
     settingsModal = false;
   }
+
   function handleTextArea(e){
     if(e.code == 'Tab') {e.preventDefault() 
-      auth = auth + '    ';
+      headers = headers + '    ';
     };
   }
+
   onMount(() => {
     serverAddress = localStorage.getItem("address");
   });
@@ -80,16 +82,16 @@
       </div> 
       <div>
         <label
-          for="auth"
+          for="headers"
           class="block mb-2 text-sm font-medium text-gray-300 text-left"
-          >Authentication Object</label
+          >Custom Headers Object</label
         >    
         <textarea
-          name="auth"
+          name="headers"
           on:keydown={(e)=>handleTextArea(e)}
-          bind:value={auth}
+          bind:value={headers}
           spellcheck="false"
-          placeholder="Auth must be a JSON object"
+          placeholder="Headers must be a JSON object"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
         />
       </div>
