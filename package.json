@@ -1,7 +1,7 @@
 {
   "name": "socketio-test-client",
   "private": false,
-  "version": "0.4.0",
+  "version": "0.4.1",
   "type": "module",
   "author": {
     "name": "Seraj Haqiqi",
@@ -11,8 +11,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && yarn firefox && yarn chrome",
-    "firefox": "rm -rf ./extension/firefox/* && cp -r ./dist/* ./extension/firefox/ && cp -r ./extension/files/images ./extension/firefox/ && cp ./extension/files/background.js ./extension/firefox/ && cp ./extension/files/chrome-manifest.json ./extension/firefox/manifest.json",
-    "chrome": "rm -rf ./extension/chrome/* && cp -r ./dist/* ./extension/chrome/ && cp -r ./extension/files/images ./extension/chrome/ && cp ./extension/files/background.js ./extension/chrome/ && cp ./extension/files/chrome-manifest.json ./extension/chrome/manifest.json"
+    "firefox": "rm -rf ./extension/firefox/* && cp -r ./dist/* ./extension/firefox/ && cp -r ./extension/files/images ./extension/firefox/ && cp ./extension/files/firefox-background.js ./extension/firefox/background.js && cp ./extension/files/firefox-manifest.json ./extension/firefox/manifest.json",
+    "chrome": "rm -rf ./extension/chrome/* && cp -r ./dist/* ./extension/chrome/ && cp -r ./extension/files/images ./extension/chrome/ && cp ./extension/files/chrome-background.js ./extension/chrome/background.js && cp ./extension/files/chrome-manifest.json ./extension/chrome/manifest.json"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
