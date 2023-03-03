@@ -49,7 +49,7 @@ onMount(()=>{
  </div>
   <div class="flex flex-row justify-between px-4 ml-5 items-center">
     <HelpModal/>
-    <a href="https://github.com/serajhqi/socketio-test-client" target="_blank" class="flex flex-row items-center text-white text-xs rounded font-bold h-6 bg-semiburnt items-center">
+    <a href="https://github.com/serajhqi/socketio-test-client" target="_blank" rel="noreferrer" class="flex flex-row items-center text-white text-xs rounded font-bold h-6 bg-semiburnt items-center">
       <div class="bg-stone-600 h-full flex items-center p-1 rounded-l">
           <svg
           style="fill:white"
