@@ -1,7 +1,7 @@
 {
   "name": "socketio-test-client",
   "private": false,
-  "version": "0.4.2",
+  "version": "0.4.3",
   "type": "module",
   "author": {
     "name": "Seraj Haqiqi",
@@ -11,8 +11,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && yarn firefox && yarn chrome",
-    "firefox": "rm -rf ./extension/firefox/* && cp -r ./dist/* ./extension/firefox/ && cp -r ./extension/files/images ./extension/firefox/ && cp ./extension/files/firefox-background.js ./extension/firefox/background.js && cp ./extension/files/firefox-manifest.json ./extension/firefox/manifest.json",
-    "chrome": "rm -rf ./extension/chrome/* && cp -r ./dist/* ./extension/chrome/ && cp -r ./extension/files/images ./extension/chrome/ && cp ./extension/files/chrome-background.js ./extension/chrome/background.js && cp ./extension/files/chrome-manifest.json ./extension/chrome/manifest.json"
+    "firefox": "rm -rf ./firefox-extension && mkdir ./firefox-extension && cp -r ./dist/* ./firefox-extension/ && cp -r ./extension-helper/images ./firefox-extension/ && cp ./extension-helper/firefox-background.js ./firefox-extension/background.js && cp ./extension-helper/firefox-manifest.json ./firefox-extension/manifest.json && echo $(jq .version=$(jq .version package.json) extension-helper/chrome-manifest.json) > extension-helper/chrome-manifest.json",
+    "chrome": "rm -rf ./chrome-extension && mkdir ./chrome-extension && cp -r ./dist/* ./chrome-extension/ && cp -r ./extension-helper/images ./chrome-extension/ && cp ./extension-helper/chrome-background.js ./chrome-extension/background.js && cp ./extension-helper/chrome-manifest.json ./chrome-extension/manifest.json && echo $(jq .version=$(jq .version package.json) extension-helper/firefox-manifest.json) > extension-helper/firefox-manifest.json"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",

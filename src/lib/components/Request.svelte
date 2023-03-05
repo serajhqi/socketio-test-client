@@ -5,7 +5,6 @@
   import ServerAddressModal from "./ServerAddressModal.svelte";
   import { getNotificationsContext } from 'svelte-notifications';
   import { nanoid } from "nanoid";
-  import { isJson } from "../handlers/socketio";
   const { addNotification } = getNotificationsContext();
 
   function requestHandler(){

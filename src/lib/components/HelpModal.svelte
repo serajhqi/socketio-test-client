@@ -89,7 +89,7 @@
             <h2 class="text-bold text-xl">Github</h2>
             <div class="text-gray-300 p-1">
                 <p>
-                    Star this repo on github if you found this extension useful. <a target="_blank" class="text-blue-500 underline" href="https://github.com/serajhqi/socketio-test-client">[Link]</a>
+                    Star this repo on github if you found this extension useful. <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://github.com/serajhqi/socketio-test-client">[Link]</a>
                 </p>
                 
             </div>
