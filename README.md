@@ -5,11 +5,7 @@
 
 <img src="https://user-images.githubusercontent.com/7148972/177484177-0c824dc1-6d41-4c12-942e-ecc08ffba9fe.png" align="center" width="600">
 
-#### Chrome extenstion:
-https://chrome.google.com/webstore/detail/socketio-test-client/ophmdkgfcjapomjdpfobjfbihojchbko?hl=en
-
-#### Firefox addon:
-https://addons.mozilla.org/en-US/firefox/addon/socketio-client/
+Download Links: [Chrome](https://chrome.google.com/webstore/detail/socketio-test-client/ophmdkgfcjapomjdpfobjfbihojchbko?hl=en), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/socketio-client/)
 
 ------------------
 To globally install the app run: (You might need to be sudoer)
