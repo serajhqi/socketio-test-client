@@ -9,7 +9,7 @@
       class="flex justify-between items-center px-2 py-2 h-10 text-center text-semiburnt border-b border-burning w-full shadow-b-lg"
     >
       <div>Server ACK Response</div>
-      <div class="text-semiburnt text-xs">id: <span class="ml-2 text-gray-300">{$serverSettings.id || 'diconnected'}</span></div>
+      <div class="text-semiburnt text-xs">id: <span class="ml-2 text-gray-300">{$serverSettings.id || 'disconnected'}</span></div>
     </div>
   </div>
   <div class="p-4 flex flex-col overflow-y-auto scrollbar">
