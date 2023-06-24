@@ -29,5 +29,6 @@ To manually run the app you might clone the project and:
 2. Run `yarn` to install the app depedencies
 3. By running `yarn dev` the app will be availble under `http://localhost:3000`
 
+>  Make sure to add CORS to your server if you're getting "connection error: xhr poll error"
 
 
