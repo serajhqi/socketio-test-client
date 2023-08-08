@@ -6,6 +6,7 @@
   import { getNotificationsContext } from "svelte-notifications";
   const { addNotification } = getNotificationsContext();
 
+  let tabAsSpaces = true;
   let modalTitleId = "modalTitleId";
   let settingsModal = false;
   let serverAddress = null;
@@ -32,6 +33,7 @@
   }
 
   function clearSettings() {
+    tabAsSpaces = true;
     serverAddress = null;
     headers = null;
     serverSettings.set({
@@ -44,8 +46,6 @@
     settingsModal = false;
   }
 
-  let tabAsSpaces = true;
-
   function handleTextArea(e) {
     if (e.code == "Tab" && tabAsSpaces) {
       e.preventDefault();
@@ -57,6 +57,9 @@
       statusMessage = tabAsSpaces
         ? "Pressing Tab will now insert the tab character."
         : "Pressing Tab will now move focus to the next focusable element.";
+        setTimeout(() => {
+          statusMessage = '';
+        }, 200);
     }
   }
   onMount(() => {
