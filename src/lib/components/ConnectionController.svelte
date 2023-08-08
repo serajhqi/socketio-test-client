@@ -18,7 +18,7 @@
   }
 </script>
 
-<button class="outline-none w-10 mr-3 h-10 flex items-center justify-start" on:click={toggler}>
+<button class="outline-none w-10 mr-3 h-10 flex items-center justify-start" aria-label="Connect" on:click={toggler}>
   {#if $serverSettings.status == "connected"}
   <span>
     <svg

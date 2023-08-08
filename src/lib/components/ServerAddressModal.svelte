@@ -6,10 +6,11 @@
   import { getNotificationsContext } from "svelte-notifications";
   const { addNotification } = getNotificationsContext();
 
-  let settingsModal = false;
   let modalTitleId = "modalTitleId";
+  let settingsModal = false;
   let serverAddress = null;
   let headers = null;
+  let statusMessage = "";
 
   function handleSubmit() {
     if (headers && isJson(headers)) {
@@ -18,7 +19,7 @@
       $serverSettings.options = {};
     } else {
       addNotification({
-        text: "Headers must be a json object",
+        text: "Headers must be json object",
         position: "bottom-center",
         type: "danger",
         removeAfter: 3000,
@@ -43,32 +44,41 @@
     settingsModal = false;
   }
 
+  let tabAsSpaces = true;
 
+  function handleTextArea(e) {
+    if (e.code == "Tab" && tabAsSpaces) {
+      e.preventDefault();
+      headers = headers + "    ";
+    } else if (e.code == "KeyM" && e.ctrlKey) {
+      e.preventDefault();
+      tabAsSpaces = !tabAsSpaces;
+
+      statusMessage = tabAsSpaces
+        ? "Pressing Tab will now insert the tab character."
+        : "Pressing Tab will now move focus to the next focusable element.";
+    }
+  }
   onMount(() => {
     serverAddress = localStorage.getItem("address");
   });
-
-  function handleInvalid(event: Event) {
-    const inputElement = event.target as HTMLInputElement;
-    inputElement.setCustomValidity(
-      "URL should start with one of the http|https|ws|wss://"
-    );
-  }
 </script>
 
+<div role="status" aria-live="polite" class="sr-only">{statusMessage}</div>
 <button
   class="pr-2 w-full text-center text-clip overflow-hidden"
   on:click={() => (settingsModal = !settingsModal)}
 >
-  {serverAddress || "Set URL"}
+  {serverAddress ? "Current URL: " + serverAddress : "Set URL"}
 </button>
+
 <Modal
   visible={settingsModal}
   {modalTitleId}
   on:onClose={() => (settingsModal = false)}
 >
   <div>
-    <h3 id={modalTitleId} class="mb-4 text-xl font-medium text-white">
+    <h3 class="mb-4 text-xl font-medium text-white">
       Socket.IO Server Settings
     </h3>
     <form
@@ -82,27 +92,35 @@
           class="block mb-2 text-sm font-medium text-gray-300 text-left"
           >Socket.IO Server Address *</label
         >
+
         <input
           type="text"
           name="address"
           id="address"
           pattern="(http|https|ws|wss):\/\/(.)*"
           bind:value={serverAddress}
-          on:invalid={handleInvalid}
+          oninvalid={() =>
+            "this.setCustomValidity('URL should start with one of the http|https|ws|wss:// ')"}
           placeholder="example: http://localhost:3000"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
           required
         />
       </div>
       <div>
+        <p id="tabuse" class="sr-only">
+          , If you press ctrl +m you can switch between inserting spaces or the
+          normal use of tab
+        </p>
         <label
           for="headers"
           class="block mb-2 text-sm font-medium text-gray-300 text-left"
           >Custom Headers Object</label
         >
         <textarea
-        id="headers"
           name="headers"
+          id="headers"
+          aria-labelledby="headers tabuse"
+          on:keydown={(e) => handleTextArea(e)}
           bind:value={headers}
           spellcheck="false"
           placeholder="Headers must be a JSON object"

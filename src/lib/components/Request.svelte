@@ -72,6 +72,7 @@
       <button
         on:click={requestHandler}
         class="h-full py-1 px-2 focus:bg-stone-500 text-gray-200 hover:bg-stone-600 hover:text-white rounded-sm"
+        aria-label="Request"
         >
         <svg class="" width="24" style="fill: orange" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path  d="M85.333333 896 981.333333 512 85.333333 128 85.333333 426.666667 725.333333 512 85.333333 597.333333 85.333333 896Z"  /></svg>
         </button

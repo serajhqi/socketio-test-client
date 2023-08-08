@@ -59,7 +59,7 @@
         </div>
       {:else}
         <div class="block border-t-2 border-burning w-6 text-center ">
-          <button class="mt-3" on:click={() => (showHistory = true)}>
+          <button class="mt-3" aria-label="Show Search" on:click={() => (showHistory = true)}>
             <svg
               class="w-5 h-4"
               style="fill: gray"
