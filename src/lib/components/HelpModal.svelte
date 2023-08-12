@@ -2,7 +2,7 @@
   import Modal from "./Modal.svelte";
 
   let visible = false;
-  let modalTitleId = "modalTitleId";
+  let modalTitleId = "helpModal";
 </script>
 
 <button
