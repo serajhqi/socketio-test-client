@@ -57,9 +57,9 @@
       statusMessage = tabAsSpaces
         ? "Pressing Tab will now insert the tab character."
         : "Pressing Tab will now move focus to the next focusable element.";
-        setTimeout(() => {
-          statusMessage = '';
-        }, 200);
+      setTimeout(() => {
+        statusMessage = "";
+      }, 200);
     }
   }
   onMount(() => {
@@ -72,7 +72,8 @@
   class="pr-2 w-full text-center text-clip overflow-hidden"
   on:click={() => (settingsModal = !settingsModal)}
 >
-  {serverAddress ? "Current URL: " + serverAddress : "Set URL"}
+  <span class="sr-only">{serverAddress ? "Current URL: " + serverAddress : "Set URL"}</span>
+  <span aria-hidden="true">{serverAddress || "Set URL"}</span>
 </button>
 
 <Modal
