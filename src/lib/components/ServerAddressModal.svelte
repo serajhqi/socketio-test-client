@@ -7,7 +7,7 @@
   const { addNotification } = getNotificationsContext();
 
   let tabAsSpaces = true;
-  let modalTitleId = "modalTitleId";
+  let modalTitleId = "settingsModal";
   let settingsModal = false;
   let serverAddress = null;
   let headers = null;
