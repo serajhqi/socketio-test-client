@@ -27,7 +27,7 @@
         );
         const firstElement = focusableModalElements[0];
         const lastElement =
-            focusableModalElements[focusableModalElements.length - 1];
+            focusableModalElements.pop();
 
         if (
             event.key === "Tab" &&
