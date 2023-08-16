@@ -23,8 +23,8 @@ import { createEventDispatcher } from "svelte";
 
 <div class="min-w-500">
     <div class="flex flex-row justify-between px-2 py-2 h-10 text-left text-sm text-semiburnt border-b border-burning w-full shadow-b-lg">
-        <input placeholder="Search Requsets" class="bg-transparent outline-none focus:text-white focus:placeholder-gray-300" bind:value={search}/>
-        <button on:click={collapse}>
+        <input placeholder="Search Requests" class="bg-transparent outline-none focus:text-white focus:placeholder-gray-300" bind:value={search}/>
+        <button on:click={collapse} aria-label="Collapse Search">
             <svg class="w-4 h-4" fill="currentColor"  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 23h-24v-22h24v22zm-2-20h-14v18h14v-18zm-4 4l-6 5 6 5v-10z"/></svg>
         </button>
     </div>
@@ -39,7 +39,7 @@ import { createEventDispatcher } from "svelte";
                 </div>
             </div>
             <div class="flex flex-row items-center text-sm">
-                <button on:click={()=>onOpen(item)} class="text-blue-300 pr-2 border-r border-burning hover:text-blue-500">Open</button>
+                <button  on:click={()=>onOpen(item)} class="text-blue-300 pr-2 border-r border-burning hover:text-blue-500">Open</button>
                 <button on:click={()=>onRemove(item.title)} class="ml-2 text-red-400 hover:text-red-500">Remove</button>
             </div>
         </div>

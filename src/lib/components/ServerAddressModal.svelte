@@ -3,26 +3,28 @@
   import { isJson } from "../handlers/socketio";
   import { serverSettings } from "../store";
   import Modal from "./Modal.svelte";
-  import { getNotificationsContext } from 'svelte-notifications';
+  import { getNotificationsContext } from "svelte-notifications";
   const { addNotification } = getNotificationsContext();
 
-
+  let tabAsSpaces = true;
+  let modalTitleId = "settingsModal";
   let settingsModal = false;
   let serverAddress = null;
   let headers = null;
+  let statusMessage = "";
 
   function handleSubmit() {
-    if(headers && isJson(headers)){
-      $serverSettings.options  = JSON.parse(headers);
-    }else if(headers == null){
-      $serverSettings.options  = {};
-    }else {
+    if (headers && isJson(headers)) {
+      $serverSettings.options = JSON.parse(headers);
+    } else if (headers == null) {
+      $serverSettings.options = {};
+    } else {
       addNotification({
-            text: 'Headers must be a json object',
-            position: 'bottom-center',
-            type: 'danger',
-            removeAfter: 3000,
-        })
+        text: "Headers must be json object",
+        position: "bottom-center",
+        type: "danger",
+        removeAfter: 3000,
+      });
       return;
     }
     $serverSettings.address = serverAddress;
@@ -31,29 +33,54 @@
   }
 
   function clearSettings() {
+    tabAsSpaces = true;
     serverAddress = null;
     headers = null;
-    serverSettings.set({address: null, status: 'disconnected', options:{}, id:undefined});
+    serverSettings.set({
+      address: null,
+      status: "disconnected",
+      options: {},
+      id: undefined,
+    });
     localStorage.removeItem("address");
     settingsModal = false;
   }
 
-  function handleTextArea(e){
-    if(e.code == 'Tab') {e.preventDefault() 
-      headers = headers + '    ';
-    };
-  }
+  function handleTextArea(e) {
+    if (e.code == "Tab" && tabAsSpaces) {
+      e.preventDefault();
+      headers = headers + "    ";
+    } else if (e.code == "KeyM" && e.ctrlKey) {
+      e.preventDefault();
+      tabAsSpaces = !tabAsSpaces;
 
+      statusMessage = tabAsSpaces
+        ? "Pressing Tab will now insert the tab character."
+        : "Pressing Tab will now move focus to the next focusable element.";
+      setTimeout(() => {
+        statusMessage = "";
+      }, 200);
+    }
+  }
   onMount(() => {
     serverAddress = localStorage.getItem("address");
   });
 </script>
 
-<button class="pr-2 w-full text-center text-clip overflow-hidden" on:click={() => (settingsModal = !settingsModal)}>
-    { serverAddress ||'URL'}
+<div role="status" aria-live="polite" class="sr-only">{statusMessage}</div>
+<button
+  class="pr-2 w-full text-center text-clip overflow-hidden"
+  on:click={() => (settingsModal = !settingsModal)}
+>
+  <span class="sr-only">{serverAddress ? "Current URL: " + serverAddress : "Set URL"}</span>
+  <span aria-hidden="true">{serverAddress || "Set URL"}</span>
 </button>
 
-<Modal visible={settingsModal} on:onClose={() => (settingsModal = false)}>
+<Modal
+  visible={settingsModal}
+  {modalTitleId}
+  on:onClose={() => (settingsModal = false)}
+>
   <div>
     <h3 class="mb-4 text-xl font-medium text-white">
       Socket.IO Server Settings
@@ -68,27 +95,36 @@
           for="address"
           class="block mb-2 text-sm font-medium text-gray-300 text-left"
           >Socket.IO Server Address *</label
-        >    
+        >
+
         <input
           type="text"
           name="address"
+          id="address"
           pattern="(http|https|ws|wss):\/\/(.)*"
           bind:value={serverAddress}
-          oninvalid={()=>"this.setCustomValidity('URL should start with one of the http|https|ws|wss:// ')"}
+          oninvalid={() =>
+            "this.setCustomValidity('URL should start with one of the http|https|ws|wss:// ')"}
           placeholder="example: http://localhost:3000"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
           required
         />
-      </div> 
+      </div>
       <div>
+        <p id="tabuse" class="sr-only">
+          , If you press ctrl +m you can switch between inserting spaces or the
+          normal use of tab
+        </p>
         <label
           for="headers"
           class="block mb-2 text-sm font-medium text-gray-300 text-left"
           >Custom Headers Object</label
-        >    
+        >
         <textarea
           name="headers"
-          on:keydown={(e)=>handleTextArea(e)}
+          id="headers"
+          aria-labelledby="headers tabuse"
+          on:keydown={(e) => handleTextArea(e)}
           bind:value={headers}
           spellcheck="false"
           placeholder="Headers must be a JSON object"
@@ -96,7 +132,7 @@
         />
       </div>
       <div
-        class="flex items-center rounded-b  pt-4 border-gray-200 dark:border-gray-600"
+        class="flex items-center rounded-b pt-4 border-gray-200 dark:border-gray-600"
       >
         <input
           type="submit"
@@ -108,7 +144,7 @@
           on:click={clearSettings}
           data-modal-toggle="extralarge-modal"
           type="button"
-          class="ml-1 text-gray-500  focus:ring-4 focus:outline-none rounded-lg text-sm font-medium px-5 py-2.5 hover:text-blue-400 focus:z-10 "
+          class="ml-1 text-gray-500 focus:ring-4 focus:outline-none rounded-lg text-sm font-medium px-5 py-2.5 hover:text-blue-400 focus:z-10"
         >
           Unset
         </button>
