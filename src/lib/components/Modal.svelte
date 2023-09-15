@@ -19,15 +19,15 @@
         }
 
         // Focus Trap
-        const focusableElements = modalElement.querySelectorAll(
+        const focusableElements = modalElement?.querySelectorAll(
             'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
         );
-        const focusableModalElements = Array.from(focusableElements).filter(
+        const focusableModalElements = focusableElements && Array.from(focusableElements).filter(
             (element) => element instanceof HTMLElement
         );
-        const firstElement = focusableModalElements[0];
+        const firstElement = focusableModalElements?.[0];
         const lastElement =
-            focusableModalElements.pop();
+            focusableModalElements?.pop();
 
         if (
             event.key === "Tab" &&
