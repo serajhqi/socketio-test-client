@@ -94,8 +94,9 @@
         <label
           for="address"
           class="block mb-2 text-sm font-medium text-gray-300 text-left"
-          >Socket.IO Server Address *</label
-        >
+          >Socket.IO Server Address *
+        </label
+        > 
 
         <input
           type="text"
@@ -109,6 +110,8 @@
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
           required
         />
+        
+        <div class="text-yellow-400 text-sm text-left mt-1"> ⚠️ Add CORS to server in case of connection error in development environment. <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://socket.io/docs/v3/client-initialization/#extraheaders">issue#10</a></div>  
       </div>
       <div>
         <p id="tabuse" class="sr-only">
@@ -131,6 +134,14 @@
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
         />
       </div>
+      <div class="text-sm text-left mt-1">
+        <p>💡Help:</p>
+        <ul class="ml-6">
+          <li><a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://socket.io/docs/v3/client-initialization/#extraheaders">Offical Guide</a></li>
+          <li>Check out a resolved <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://github.com/serajhqi/socketio-test-client/issues/15">issue</a></li>
+        </ul>
+      </div> 
+
       <div
         class="flex items-center rounded-b pt-4 border-gray-200 dark:border-gray-600"
       >
