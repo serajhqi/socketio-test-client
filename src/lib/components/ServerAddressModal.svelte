@@ -111,7 +111,6 @@
           required
         />
         
-        <div class="text-yellow-400 text-sm text-left mt-1"> ⚠️ Add CORS to server in case of connection error in development environment. <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://socket.io/docs/v3/client-initialization/#extraheaders">issue#10</a></div>  
       </div>
       <div>
         <p id="tabuse" class="sr-only">
@@ -135,10 +134,22 @@
         />
       </div>
       <div class="text-sm text-left mt-1">
-        <p>💡Help:</p>
+        <div class="text-white flex flex-row">
+          <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="#ff5" stroke-width="1.5"/>
+            <circle cx="12" cy="12" r="4" stroke="#ff5" stroke-width="1.5"/>
+            <path d="M15 9L19 5" stroke="#ff5" stroke-width="1.5"/>
+            <path d="M5 19L9 15" stroke="#ff5" stroke-width="1.5"/>
+            <path d="M9 9L5 5" stroke="#ff5" stroke-width="1.5"/>
+            <path d="M19 19L15 15" stroke="#ff5" stroke-width="1.5"/>
+          </svg>
+          <div class="ml-1">Help:</div>
+        </div>
+        
         <ul class="ml-6">
-          <li><a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://socket.io/docs/v3/client-initialization/#extraheaders">Offical Guide</a></li>
-          <li>Check out a resolved <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://github.com/serajhqi/socketio-test-client/issues/15">issue</a></li>
+          <li> Add <b>CORS</b> to server in case of connection error in development environment. <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://socket.io/docs/v3/client-initialization/#extraheaders">issue#10</a></li>  
+          <li><b>Custom header</b> <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://socket.io/docs/v3/client-initialization/#extraheaders">Offical Guide</a>.  
+          Exmaple: <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://github.com/serajhqi/socketio-test-client/issues/15">issue#15</a></li>
         </ul>
       </div> 
 

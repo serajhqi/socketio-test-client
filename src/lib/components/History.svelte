@@ -23,9 +23,14 @@ import { createEventDispatcher } from "svelte";
 
 <div class="min-w-500">
     <div class="flex flex-row justify-between px-2 py-2 h-10 text-left text-sm text-semiburnt border-b border-burning w-full shadow-b-lg">
-        <input placeholder="Search Requests" class="bg-transparent outline-none focus:text-white focus:placeholder-gray-300" bind:value={search}/>
+        <div class="flex flex-row">
+            <svg width="20px" height="20px" viewBox="0 0 24 20" fill="none">
+                <path d="M11 6C13.7614 6 16 8.23858 16 11M16.6588 16.6549L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="#ff5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input placeholder="Search Requests" class="bg-transparent outline-none ml-2 focus:text-white focus:placeholder-gray-300" bind:value={search}/>
+        </div>
         <button on:click={collapse} aria-label="Collapse Search">
-            <svg class="w-4 h-4" fill="currentColor"  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 23h-24v-22h24v22zm-2-20h-14v18h14v-18zm-4 4l-6 5 6 5v-10z"/></svg>
+            <svg class="w-4 h-4" fill="currentColor"  viewBox="0 0 20 20" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 23h-24v-22h24v22zm-2-20h-14v18h14v-18zm-4 4l-6 5 6 5v-10z"/></svg>
         </button>
     </div>
     <!-- without cloning it reverses the array -->
