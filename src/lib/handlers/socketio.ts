@@ -88,10 +88,10 @@ export const sendRequest = () => {
   const req = get(request);
   const reqJson = isJson(req.body) ? JSON.parse(req.body) : req;
   logger('[request] ' + req.emitName + ' ' + JSON.stringify(reqJson))
-
+  const startTime = Date.now();
   socket.emit(req.emitName, reqJson, (response: any, er:any) => {
-
-    request.set({...req, response});
+    const duration = Date.now() - startTime;
+    request.set({...req, response, duration});
     
     const historyStore:RequestType[] = get(requestHistory);
     const objIndex = historyStore.findIndex(item => item.title == req.title);
