@@ -88,10 +88,20 @@
             </div>
         </div>
         <div>
+            <h3 class="text-bold text-xl">Additional Features</h3>
+            <div class="text-gray-300 p-1">
+                <p>Thanks to <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://github.com/gFrincu">Georgiana Frincu</a>'s contribution</p>
+                <ol class="pl-10 text-sm text-yellow-100">
+                    <li> By pressing <b>Cntl + M</b> you can switch between inserting Tabs and Navigation. </li>
+                    <li> Screen reader is added to application. </li>
+                </ol>
+            </div>
+        </div>
+        <div>
             <h2 class="text-bold text-xl">Github</h2>
             <div class="text-gray-300 p-1">
                 <p>
-                    Star this repo on github if you found this extension useful. <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://github.com/serajhqi/socketio-test-client">[Link]</a>
+                    Star <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://github.com/serajhqi/socketio-test-client">this repo</a> on github if you found this extension useful.
                 </p>
                 
             </div>
