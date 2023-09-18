@@ -147,7 +147,7 @@
         </div>
         
         <ul class="ml-6">
-          <li> Add <b>CORS</b> to server in case of connection error in development environment. <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://socket.io/docs/v3/client-initialization/#extraheaders">issue#10</a></li>  
+          <li> Add <b>CORS</b> to server in case of connection error in development environment. <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://github.com/serajhqi/socketio-test-client/issues/10">issue#10</a></li>  
           <li><b>Custom header</b> <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://socket.io/docs/v3/client-initialization/#extraheaders">Offical Guide</a>.  
           Exmaple: <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://github.com/serajhqi/socketio-test-client/issues/15">issue#15</a></li>
         </ul>
