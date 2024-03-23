@@ -104,7 +104,7 @@
           id="address"
           pattern="(http|https|ws|wss):\/\/(.)*"
           bind:value={serverAddress}
-          oninvalid={() =>
+          on:invalid={() =>
             "this.setCustomValidity('URL should start with one of the http|https|ws|wss:// ')"}
           placeholder="example: http://localhost:3000"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"

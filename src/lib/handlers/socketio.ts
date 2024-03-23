@@ -44,7 +44,7 @@ export const toggleConnection = () => {
         serverSettings.set({...server, status: 'disconnected', id:undefined})
         logger('disconnected');
       });
-      socket.onAny((eventName, ...args) => {
+      function handleEvent(eventName: any, ...args: any[]) {
         const _listeners = get(listeners);
         let listener = _listeners.find(item => item.title == eventName);
         if(listener){
@@ -54,8 +54,11 @@ export const toggleConnection = () => {
           listeners.set(_listeners);
         }
         logger(eventName + ' ' + args);
-        
-      });
+      }
+      
+      socket.onAny(handleEvent);
+      socket.onAnyOutgoing(handleEvent);
+
     } else if (status == "connected") {
       serverSettings.set({...server, status: 'disconnecting'})
       logger('disconnecting');

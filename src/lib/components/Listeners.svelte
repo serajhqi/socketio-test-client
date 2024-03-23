@@ -59,10 +59,13 @@
     >
       <div class="container">
         {#each [...$listeners].reverse() as listener}
-          <div
-            class="flex flex-row justify-between px-2 w-full border-b border-gray-700 cursor-pointer"
-            on:click={() => (selectedListenerId = listener.title)}
-          >
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+        <div
+        class="flex flex-row justify-between px-2 w-full border-b border-gray-700 cursor-pointer"
+        on:click={() => (selectedListenerId = listener.title)}
+       
+        >
+         <!-- tabindex = "0":: make the div focusable -->
             <div
               class="text-semiburnt hover:text-gray-300 {selectedListenerId ==
               listener.title
@@ -109,6 +112,7 @@
 
       <div class="block container pb-24">
         {#each [...($listeners.find((item) => item.title == selectedListenerId)?.messages || [])].reverse() as message}
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
           <p
             class="border-b border-semiburnt font-bold text-xs cursor-pointer px-1 {message.id ===
             selectedMessageId
@@ -136,18 +140,18 @@
             .find((listener) => listener.title == selectedListenerId)
             ?.messages.find((msg) => msg.id == selectedMessageId)?.text}
           --json-tree-property-color="#a6e22e"
-          --json-tree-string-color="#f25a00"
-          --json-tree-symbol-color="#66d9ef"
-          --json-tree-boolean-color="#c594c5"
-          --json-tree-function-color="#c594c5"
+          --json-tree-string-color="#f8f8f2"
+          --json-tree-symbol-color="#f99157"
+          --json-tree-boolean-color="#9cd1a1"
+          --json-tree-function-color="#9cd1a1"
           --json-tree-number-color="#f99157"
-          --json-tree-label-color="#f92672"
-          --json-tree-arrow-color="#ae81ff"
-          --json-tree-null-color="#66d9ef"
-          --json-tree-undefined-color="#66d9ef"
-          --json-tree-date-color="#fd971f"
+          --json-tree-label-color="#a6e22e"
+          --json-tree-arrow-color="#f99157"
+          --json-tree-null-color="#f99157"
+          --json-tree-undefined-color="#f99157"
+          --json-tree-date-color="#f8f8f2"
           --json-tree-operator-color="#f8f8f2"
-          --json-tree-regex-color="#9effff"
+          --json-tree-regex-color="#9cd1a1"
           --json-tree-li-identation="2em"
           --json-tree-li-line-height="1.5"
           --json-tree-font-size="16px"
