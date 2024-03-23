@@ -128,7 +128,7 @@
     </div>
 
     <div class="w-3/5 h-full bg-stone-600 p-2 overflow-y-auto scrollbar pb-28">
-      <span class="text-white" style="color: #f8f8f2"
+      <span class="text-white"
         >{($listeners
           .find((listener) => listener.title == selectedListenerId)
           ?.messages.find((msg) => msg.id == selectedMessageId)?.time) ||
