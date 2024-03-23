@@ -1,8 +1,23 @@
 <script lang="ts">
+  import { each, onMount } from "svelte/internal";
   import Modal from "./Modal.svelte";
 
   let visible = false;
   let modalTitleId = "helpModal";
+
+  let contributers = []
+  
+  onMount(()=>{
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        contributers = JSON.parse(this.responseText) || [];
+    };
+    xhttp.open(
+      "GET",
+      "https://api.github.com/repos/serajhqi/socketio-test-client/contributors"
+    );
+    xhttp.send();
+  })
 </script>
 
 <button
@@ -97,6 +112,24 @@
                 </ol>
             </div>
         </div>
+        <div>
+            <h2 class="text-bold text-xl">Contributers</h2>
+            <div class="text-gray-300 p-1">
+                <div class="flex gap-2 flex-wrap w-50">
+                    {#if Array.isArray(contributers)}
+                        {#each contributers || [] as contributer}
+                            <a class="flex gap-2 items-center" href={contributer.html_url} target="_blank">
+                                <img src={contributer.avatar_url} class="rounded" width="20px" alt={`${contributer.login} avatar`}/>
+                                <div class="hover:text-blue-500">
+                                    {contributer.login}
+                                </div>
+                            </a>
+                        {/each}
+                    {/if}
+                </div>
+            </div>
+        </div>
+
         <div>
             <h2 class="text-bold text-xl">Github</h2>
             <div class="text-gray-300 p-1">
