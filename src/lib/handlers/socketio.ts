@@ -44,7 +44,7 @@ export const toggleConnection = () => {
         serverSettings.set({...server, status: 'disconnected', id:undefined})
         logger('disconnected');
       });
-      function handleEvent(eventName: any, ...args: any[]) {
+      function handleEvent(eventName: string, ...args: any[]) {
         const _listeners = get(listeners);
         let listener = _listeners.find(item => item.title == eventName);
         if(listener){
