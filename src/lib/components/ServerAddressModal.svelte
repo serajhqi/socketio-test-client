@@ -9,47 +9,82 @@
   let tabAsSpaces = true;
   let modalTitleId = "settingsModal";
   let settingsModal = false;
-  let serverAddress = null;
-  let headers = null;
+  let serverAddress: string | null = null;
+  let socketPath = "";
+  let optionsText = "";
   let statusMessage = "";
 
+  const normalizePath = (value: string | null | undefined) => {
+    if (!value) return "";
+    const trimmed = value.trim();
+    if (!trimmed) return "";
+    return trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
+  };
+
   function handleSubmit() {
-    if (headers && isJson(headers)) {
-      $serverSettings.options = JSON.parse(headers);
-    } else if (headers == null) {
-      $serverSettings.options = {};
-    } else {
+    if (optionsText && !isJson(optionsText)) {
       addNotification({
-        text: "Headers must be json object",
+        text: "Socket.IO client options must be a valid JSON object",
         position: "bottom-center",
         type: "danger",
         removeAfter: 3000,
       });
       return;
     }
+
+    const parsedOptions =
+      optionsText && optionsText.trim() ? JSON.parse(optionsText) : {};
+    if (
+      parsedOptions &&
+      (typeof parsedOptions !== "object" || Array.isArray(parsedOptions))
+    ) {
+      addNotification({
+        text: "Socket.IO client options must be a JSON object",
+        position: "bottom-center",
+        type: "danger",
+        removeAfter: 3000,
+      });
+      return;
+    }
+
+    const normalizedPath = normalizePath(socketPath);
+    const mergedOptions = { ...parsedOptions };
+    if (normalizedPath) {
+      mergedOptions.path = normalizedPath;
+    }
+
+    $serverSettings.options = mergedOptions;
     $serverSettings.address = serverAddress;
+    $serverSettings.path = normalizedPath;
     localStorage.setItem("address", serverAddress);
+    localStorage.setItem("path", normalizedPath);
+    localStorage.setItem("options", JSON.stringify(mergedOptions));
+    socketPath = normalizedPath;
     settingsModal = false;
   }
 
   function clearSettings() {
     tabAsSpaces = true;
     serverAddress = null;
-    headers = null;
+    socketPath = "";
+    optionsText = "";
     serverSettings.set({
       address: null,
+      path: "",
       status: "disconnected",
       options: {},
       id: undefined,
     });
     localStorage.removeItem("address");
+    localStorage.removeItem("path");
+    localStorage.removeItem("options");
     settingsModal = false;
   }
 
   function handleTextArea(e) {
     if (e.code == "Tab" && tabAsSpaces) {
       e.preventDefault();
-      headers = headers + "    ";
+      optionsText = optionsText + "    ";
     } else if (e.code == "KeyM" && e.ctrlKey) {
       e.preventDefault();
       tabAsSpaces = !tabAsSpaces;
@@ -64,6 +99,11 @@
   }
   onMount(() => {
     serverAddress = localStorage.getItem("address");
+    socketPath = normalizePath(localStorage.getItem("path"));
+    const optionsFromStorage = localStorage.getItem("options");
+    if (optionsFromStorage && isJson(optionsFromStorage)) {
+      optionsText = JSON.stringify(JSON.parse(optionsFromStorage), null, 2);
+    }
   });
 </script>
 
@@ -118,18 +158,34 @@
           normal use of tab
         </p>
         <label
-          for="headers"
+          for="path"
           class="block mb-2 text-sm font-medium text-gray-300 text-left"
-          >Custom Headers Object</label
+          >Socket.IO Path (optional)</label
+        >
+        <input
+          type="text"
+          name="path"
+          id="path"
+          bind:value={socketPath}
+          placeholder="example: /my-custom-path (default: /socket.io/)"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+        />
+        <p class="text-xs text-gray-300 -mt-2 mb-3 text-left">
+          This is the Socket.IO endpoint path configured on your server (not the full URL). If your server uses the default, leave this empty.
+        </p>
+        <label
+          for="options"
+          class="block mb-2 text-sm font-medium text-gray-300 text-left"
+          >Socket.IO Client Options (JSON)</label
         >
         <textarea
-          name="headers"
-          id="headers"
-          aria-labelledby="headers tabuse"
+          name="options"
+          id="options"
+          aria-labelledby="options tabuse"
           on:keydown={(e) => handleTextArea(e)}
-          bind:value={headers}
+          bind:value={optionsText}
           spellcheck="false"
-          placeholder="Headers must be a JSON object"
+          placeholder={`Example: {"extraHeaders":{"x-api-key":"123"},"auth":{"token":"abc"}}`}
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
         />
       </div>
@@ -147,8 +203,9 @@
         </div>
         
         <ul class="ml-6">
+          <li>Use <b>Socket.IO Path</b> for custom endpoints (example: <code>/ws/chat</code>). Leave empty to use default <code>/socket.io/</code>.</li>
           <li> Add <b>CORS</b> to server in case of connection error in development environment. <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://github.com/serajhqi/socketio-test-client/issues/10">issue#10</a></li>  
-          <li><b>Custom header</b> <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://socket.io/docs/v3/client-initialization/#extraheaders">Offical Guide</a>.  
+          <li><b>Advanced options</b> <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://socket.io/docs/v3/client-initialization/#extraheaders">Offical Guide</a>.  
           Exmaple: <a target="_blank"rel="noreferrer" class="text-blue-500 underline" href="https://github.com/serajhqi/socketio-test-client/issues/15">issue#15</a></li>
         </ul>
       </div> 

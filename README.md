@@ -31,4 +31,10 @@ To manually run the app you might clone the project and:
 
 >  Make sure to add CORS to your server if you're getting "connection error: xhr poll error"
 
+## Custom Socket.IO path
+
+If your server uses a custom Socket.IO path (for example `/custom-path`), set it in:
+
+1. `Set URL` -> `Socket.IO Path`
+2. Optional: `Socket.IO Client Options (JSON)` for advanced options like `extraHeaders`, `auth`, and transports
 

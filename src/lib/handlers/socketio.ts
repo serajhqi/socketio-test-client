@@ -20,6 +20,11 @@ export const toggleConnection = () => {
     const {address,status,options} = get(serverSettings);
 
     if (status == "disconnected" ) {
+      if (!address) {
+        logger("connection error: server address is not set");
+        return;
+      }
+
       serverSettings.set({...server, status: 'connecting'})
       logger('connecting');
 
