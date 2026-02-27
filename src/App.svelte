@@ -38,7 +38,29 @@
 
 
   onMount(() => {
-    $serverSettings.address = localStorage.getItem("address") || null;
+    const addressFromStorage = localStorage.getItem("address");
+    const pathFromStorage = localStorage.getItem("path");
+    const optionsFromStorage = localStorage.getItem("options");
+    let parsedOptions = {};
+
+    if (optionsFromStorage) {
+      try {
+        parsedOptions = JSON.parse(optionsFromStorage);
+      } catch (e) {
+        parsedOptions = {};
+      }
+    }
+
+    serverSettings.set({
+      ...$serverSettings,
+      address: addressFromStorage || null,
+      path: pathFromStorage || "",
+      options:
+        parsedOptions && typeof parsedOptions === "object" && !Array.isArray(parsedOptions)
+          ? parsedOptions
+          : {},
+    });
+
     const historyFromStorage = readItems<RequestType>("history");
     const listenersFromStorage = readItems<ListenerType>("listeners");
     historyFromStorage && requestHistory.set(historyFromStorage);
