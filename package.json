@@ -49,10 +49,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/serajhqi/socketio-test-client.git"
+    "url": "git+https://github.com/serajhqi/socketio-test-client.git"
   },
   "bin": {
-    "socketio-test-client": "./bin/socketio-test-client.js"
+    "socketio-test-client": "bin/socketio-test-client.js"
   },
   "license": "MIT",
   "preferGlobal": true,
