@@ -10,9 +10,9 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && yarn firefox && yarn chrome",
-    "firefox": "rm -rf ./firefox-extension && mkdir ./firefox-extension && cp -r ./dist/* ./firefox-extension/ && cp -r ./extension-helper/images ./firefox-extension/ && cp ./extension-helper/firefox-background.js ./firefox-extension/background.js && cp ./extension-helper/firefox-manifest.json ./firefox-extension/manifest.json && echo $(jq .version=$(jq .version package.json) extension-helper/firefox-manifest.json) > extension-helper/firefox-manifest.json",
-    "chrome": "rm -rf ./chrome-extension && mkdir ./chrome-extension && cp -r ./dist/* ./chrome-extension/ && cp -r ./extension-helper/images ./chrome-extension/ && cp ./extension-helper/chrome-background.js ./chrome-extension/background.js && cp ./extension-helper/chrome-manifest.json ./chrome-extension/manifest.json && echo $(jq .version=$(jq .version package.json) extension-helper/chrome-manifest.json) > extension-helper/chrome-manifest.json"
+    "build": "pnpm exec vite build && pnpm firefox && pnpm chrome",
+    "firefox": "pnpm exec vite build && rm -rf ./firefox-extension && mkdir ./firefox-extension && cp -r ./dist/* ./firefox-extension/ && cp -r ./extension-helper/images ./firefox-extension/ && cp ./extension-helper/firefox-background.js ./firefox-extension/background.js && cp ./extension-helper/firefox-manifest.json ./firefox-extension/manifest.json && echo $(jq .version=$(jq .version package.json) extension-helper/firefox-manifest.json) > extension-helper/firefox-manifest.json",
+    "chrome": "pnpm exec vite build && rm -rf ./chrome-extension && mkdir ./chrome-extension && cp -r ./dist/* ./chrome-extension/ && cp -r ./extension-helper/images ./chrome-extension/ && cp ./extension-helper/chrome-background.js ./chrome-extension/background.js && cp ./extension-helper/chrome-manifest.json ./chrome-extension/manifest.json && echo $(jq .version=$(jq .version package.json) extension-helper/chrome-manifest.json) > extension-helper/chrome-manifest.json"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
