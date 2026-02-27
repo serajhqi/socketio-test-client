@@ -44,7 +44,7 @@ export const toggleConnection = () => {
         serverSettings.set({...server, status: 'disconnected', id:undefined})
         logger('disconnected');
       });
-      socket.onAny((eventName, ...args) => {
+      function handleEvent(eventName: string, ...args: any[]) {
         const _listeners = get(listeners);
         let listener = _listeners.find(item => item.title == eventName);
         if(listener){
@@ -54,8 +54,11 @@ export const toggleConnection = () => {
           listeners.set(_listeners);
         }
         logger(eventName + ' ' + args);
-        
-      });
+      }
+      
+      socket.onAny(handleEvent);
+      socket.onAnyOutgoing(handleEvent);
+
     } else if (status == "connected") {
       serverSettings.set({...server, status: 'disconnecting'})
       logger('disconnecting');
@@ -88,10 +91,10 @@ export const sendRequest = () => {
   const req = get(request);
   const reqJson = isJson(req.body) ? JSON.parse(req.body) : req;
   logger('[request] ' + req.emitName + ' ' + JSON.stringify(reqJson))
-
+  const startTime = Date.now();
   socket.emit(req.emitName, reqJson, (response: any, er:any) => {
-
-    request.set({...req, response});
+    const duration = Date.now() - startTime;
+    request.set({...req, response, duration});
     
     const historyStore:RequestType[] = get(requestHistory);
     const objIndex = historyStore.findIndex(item => item.title == req.title);

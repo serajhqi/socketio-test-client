@@ -9,9 +9,7 @@
         addNotification({
             text: 'Please Set the server address first',
             position: 'bottom-center',
-            heading: 'hi i am custom notification',
             type: 'danger',
-            description: 'lorem ipsum',
             removeAfter: 3000,
         })
         return;
@@ -20,7 +18,7 @@
   }
 </script>
 
-<button class="outline-none w-10 mr-3 h-10 flex items-center justify-start" on:click={toggler}>
+<button class="outline-none w-10 mr-3 h-10 flex items-center justify-start" aria-label="Connect" on:click={toggler}>
   {#if $serverSettings.status == "connected"}
   <span>
     <svg

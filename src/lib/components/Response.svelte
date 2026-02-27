@@ -8,8 +8,12 @@
     <div
       class="flex justify-between items-center px-2 py-2 h-10 text-center text-semiburnt border-b border-burning w-full shadow-b-lg"
     >
-      <div>Server ACK Response</div>
-      <div class="text-semiburnt text-xs">id: <span class="ml-2 text-gray-300">{$serverSettings.id || 'diconnected'}</span></div>
+      <div>
+        Connection id: <span class="ml-2 text-yellow-300 text-sm">{$serverSettings.id || 'disconnected'}</span>
+      </div>
+      <div class="text-sm flex flex-row justify-between w-30">
+        <div class="text-semiburnt">Duration: </div>
+        <div class="text-yellow-300 w-20">{$request.duration && $request.duration + "ms" || "0"}</div></div>
     </div>
   </div>
   <div class="p-4 flex flex-col overflow-y-auto scrollbar">

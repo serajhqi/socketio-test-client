@@ -5,19 +5,19 @@
 
 <img src="https://user-images.githubusercontent.com/7148972/177484177-0c824dc1-6d41-4c12-942e-ecc08ffba9fe.png" align="center" width="600">
 
-#### Chrome extenstion:
-https://chrome.google.com/webstore/detail/socketio-test-client/ophmdkgfcjapomjdpfobjfbihojchbko?hl=en
+## Browser Extensions
 
-#### Firefox addon:
-https://addons.mozilla.org/en-US/firefox/addon/socketio-client/
+- [Chrome](https://chrome.google.com/webstore/detail/socketio-test-client/ophmdkgfcjapomjdpfobjfbihojchbko?hl=en)
+- [Firefox](https://addons.mozilla.org/en-US/firefox/addon/socketio-client/)
 
-------------------
-To globally install the app run: (You might need to be sudoer)
+## Installation
+
+To globally install the app run: (You might need to be sudoer if the path is not set)
 
 ```
 yarn global add socketio-test-client
 ```
-By running the following command inside terminal the default browser opens and serves the app under `http://localhost:8888` (tested under Linux OS)
+By running the following command the default browser opens and serves the app under `http://localhost:8888` (tested under Linux OS)
 
 ```
 socketio-test-client
@@ -29,5 +29,6 @@ To manually run the app you might clone the project and:
 2. Run `yarn` to install the app depedencies
 3. By running `yarn dev` the app will be availble under `http://localhost:3000`
 
+>  Make sure to add CORS to your server if you're getting "connection error: xhr poll error"
 
 
