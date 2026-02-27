@@ -39,7 +39,6 @@
 
   onMount(() => {
     const addressFromStorage = localStorage.getItem("address");
-    const pathFromStorage = localStorage.getItem("path");
     const optionsFromStorage = localStorage.getItem("options");
     let parsedOptions = {};
 
@@ -54,7 +53,6 @@
     serverSettings.set({
       ...$serverSettings,
       address: addressFromStorage || null,
-      path: pathFromStorage || "",
       options:
         parsedOptions && typeof parsedOptions === "object" && !Array.isArray(parsedOptions)
           ? parsedOptions
