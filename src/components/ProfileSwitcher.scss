@@ -1,0 +1,242 @@
+@import '../index.scss';
+
+.profile-switcher {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-switcher__btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background-color: $burning;
+  color: $semiburnt;
+  border: 1px solid $burning;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  max-width: 200px;
+
+  &:hover {
+    background-color: rgba($semiburnt, 0.1);
+    color: $white;
+    border-color: $semiburnt;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.profile-switcher__icon {
+  font-size: 1rem;
+}
+
+.profile-switcher__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-switcher__placeholder {
+  color: $semiburnt;
+}
+
+.profile-switcher__arrow {
+  margin-left: auto;
+  font-size: 0.75rem;
+  transition: transform 0.2s;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background-color: $burnt;
+  border: 1px solid $burning;
+  border-radius: 4px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  min-width: 250px;
+  max-width: 400px;
+  max-height: 400px;
+  overflow-y: auto;
+  animation: slideDown 0.2s;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-dropdown__section {
+  padding: 0.75rem;
+  border-bottom: 1px solid $burning;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.profile-dropdown__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: $semiburnt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.profile-dropdown__action {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #3b82f6;
+  color: $white;
+  border: 1px solid #3b82f6;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #2563eb;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.profile-dropdown__empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: $semiburnt;
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
+.profile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: all 0.2s;
+
+  &--active {
+    background-color: rgba(74, 158, 255, 0.1);
+    border-color: #4a9eff;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  &__input {
+    flex: 1;
+    padding: 0.5rem;
+    background-color: darken($burnt, 5%);
+    border: 1px solid #4a9eff;
+    border-radius: 3px;
+    color: $white;
+    font-size: 0.9rem;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
+    }
+  }
+
+  &__button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: rgba($burning, 0.5);
+    }
+  }
+
+  &__name {
+    font-weight: 500;
+    color: $white;
+    font-size: 0.9rem;
+  }
+
+  &__url {
+    font-size: 0.75rem;
+    color: $semiburnt;
+    font-family: 'Monaco', 'Courier New', monospace;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  &__edit,
+  &__delete,
+  &__confirm,
+  &__cancel {
+    padding: 0.35rem 0.5rem;
+    background-color: $burning;
+    color: $semiburnt;
+    border: 1px solid $burning;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: rgba($semiburnt, 0.1);
+      color: $white;
+      border-color: $semiburnt;
+    }
+  }
+
+  &__delete {
+    &:hover {
+      border-color: #dc2626;
+      color: #dc2626;
+      background-color: rgba(220, 38, 38, 0.1);
+    }
+  }
+
+  &__confirm {
+    &:hover {
+      border-color: #22c55e;
+      color: #22c55e;
+      background-color: rgba(34, 197, 94, 0.1);
+    }
+  }
+}

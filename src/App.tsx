@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Toaster } from 'sonner'
 import { useStore } from './store'
 import { TopMenu } from './components/TopMenu'
+import { ProfileSwitcher } from './components/ProfileSwitcher'
+import { ExportImport } from './components/ExportImport'
 import { ConnectionController } from './components/ConnectionController'
 import { ServerAddressModal } from './components/ServerAddressModal'
 import { HelpModal } from './components/HelpModal'
@@ -42,7 +44,10 @@ export default function App() {
 
   return (
     <div className="app">
-      <TopMenu />
+      <TopMenu
+        profileSwitcher={<ProfileSwitcher />}
+        exportImport={<ExportImport />}
+      />
 
       <div className="app-container">
         <div className="app-toolbar">

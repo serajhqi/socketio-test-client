@@ -1,0 +1,46 @@
+@import '../index.scss';
+
+.export-import {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.export-import__btn {
+  padding: 0.6rem 1rem;
+  background-color: $burning;
+  color: $semiburnt;
+  border: 1px solid $burning;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: rgba($semiburnt, 0.1);
+    color: $white;
+    border-color: $semiburnt;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &--export {
+    &:hover {
+      border-color: #10b981;
+      color: #10b981;
+      background-color: rgba(16, 185, 129, 0.1);
+    }
+  }
+
+  &--import {
+    &:hover {
+      border-color: #3b82f6;
+      color: #3b82f6;
+      background-color: rgba(59, 130, 246, 0.1);
+    }
+  }
+}
