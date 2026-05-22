@@ -1,28 +1,42 @@
-import { get } from "svelte/store";
-import { requestHistory, RequestType, listeners, ListenerType } from "../store";
+import { useStore } from '../store';
 
-export const historyStorageKey = 'history';
-export const listenersStorageKey = 'listeners';
+export function readItems<T>(key: string): T[] | undefined {
+  try {
+    const data = localStorage.getItem(key);
+    if (!data) return undefined;
+    const parsed = JSON.parse(data);
+    return Array.isArray(parsed) ? parsed : undefined;
+  } catch {
+    return undefined;
+  }
+}
 
-export const saveRequest = () => {
-    localStorage.setItem(historyStorageKey, JSON.stringify(get(requestHistory)));
-};
-export const saveListeners = () => {
-    localStorage.setItem(listenersStorageKey, JSON.stringify(get(listeners)));
-};
-export const removeListener = (listenerKey: string) => {
-    const _listeners: string | null = localStorage.getItem(listenersStorageKey);
-    let arr: ListenerType[] = _listeners && JSON.parse(_listeners);
-    arr = arr.filter((item) => item.title !== listenerKey);
-    localStorage.setItem(listenersStorageKey, JSON.stringify(arr));
-};
+export function saveRequest(): void {
+  const history = useStore.getState().requestHistory;
+  try {
+    localStorage.setItem('history', JSON.stringify(history));
+  } catch (e) {
+    console.error('Failed to save request history:', e);
+  }
+}
 
-export const removeRequest = (requestKey: string) => {
-    const requestsHistory: string | null = localStorage.getItem(historyStorageKey);
-    let arr: RequestType[] = requestsHistory && JSON.parse(requestsHistory);
-    arr = arr.filter((item) => item.title !== requestKey);
-    localStorage.setItem(historyStorageKey, JSON.stringify(arr));
-};
-export function readItems<T>(key:'history'|'listeners'): T[]|undefined  {
-  return JSON.parse(localStorage.getItem(key));
-};
+export function saveListeners(): void {
+  const listeners = useStore.getState().listeners;
+  try {
+    localStorage.setItem('listeners', JSON.stringify(listeners));
+  } catch (e) {
+    console.error('Failed to save listeners:', e);
+  }
+}
+
+export function removeRequest(title: string): void {
+  const history = readItems<any>('history') ?? [];
+  const filtered = history.filter((r) => r.title !== title);
+  localStorage.setItem('history', JSON.stringify(filtered));
+}
+
+export function removeListener(title: string): void {
+  const listeners = readItems<any>('listeners') ?? [];
+  const filtered = listeners.filter((l) => l.title !== title);
+  localStorage.setItem('listeners', JSON.stringify(filtered));
+}
