@@ -1,15 +1,1 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  body {
-    @apply bg-burnt text-white;
-  }
-}
-
-@layer components {
-  .panel-resize-handle {
-    @apply bg-burning hover:bg-blue-500 transition-colors;
-  }
-}
+/* Tailwind will be removed - using SCSS instead */

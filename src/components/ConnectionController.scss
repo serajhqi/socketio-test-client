@@ -1,0 +1,108 @@
+@import '../index.scss';
+
+.connection-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+
+  &__indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    animation: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  &:not(:disabled):active {
+    transform: scale(0.98);
+  }
+}
+
+// Connected state
+.connection-btn.btn--connected {
+  background-color: rgba(220, 38, 38, 0.15);
+  border-color: #dc2626;
+  color: #fca5a5;
+
+  .connection-btn__indicator {
+    background-color: #22c55e;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+  }
+
+  &:hover:not(:disabled) {
+    background-color: rgba(220, 38, 38, 0.25);
+    border-color: #fca5a5;
+  }
+}
+
+// Disconnected state
+.connection-btn.btn--disconnected {
+  background-color: transparent;
+  border-color: $burning;
+  color: $semiburnt;
+
+  .connection-btn__indicator {
+    background-color: $semiburnt;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: rgba($semiburnt, 0.1);
+    border-color: $semiburnt;
+    color: $white;
+  }
+}
+
+// Connecting state
+.connection-btn.btn--connecting {
+  background-color: rgba(59, 130, 246, 0.15);
+  border-color: #3b82f6;
+  color: #93c5fd;
+
+  .connection-btn__indicator {
+    background-color: #3b82f6;
+    animation: pulse 1.5s infinite;
+  }
+}
+
+// Disconnecting state
+.connection-btn.btn--disconnecting {
+  background-color: rgba(234, 179, 8, 0.15);
+  border-color: #eab308;
+  color: #fde047;
+
+  .connection-btn__indicator {
+    background-color: #eab308;
+    animation: pulse 1s infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 currentColor;
+  }
+  50% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.8;
+    box-shadow: 0 0 0 6px transparent;
+  }
+  100% {
+    opacity: 0.6;
+    box-shadow: 0 0 0 0 transparent;
+  }
+}

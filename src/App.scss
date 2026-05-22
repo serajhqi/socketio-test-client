@@ -1,0 +1,115 @@
+@import './index.scss';
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: $burnt;
+  color: $white;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.app-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid $burning;
+  background-color: $burnt;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+.app-toolbar__left,
+.app-toolbar__center,
+.app-toolbar__right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.app-toolbar__left {
+  flex: 0 0 auto;
+}
+
+.app-toolbar__center {
+  flex: 1;
+  justify-content: center;
+}
+
+.app-toolbar__right {
+  flex: 0 0 auto;
+}
+
+.app-toolbar__btn {
+  padding: 0.6rem 1rem;
+  background-color: $burning;
+  color: $semiburnt;
+  border: 1px solid $burning;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: rgba($semiburnt, 0.1);
+    color: $white;
+    border-color: $semiburnt;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  flex: 1;
+  gap: 1rem;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+  }
+}
+
+.app-section {
+  display: flex;
+  overflow: hidden;
+  min-height: 200px;
+
+  @media (max-width: 1024px) {
+    min-height: 300px;
+  }
+
+  @media (max-width: 640px) {
+    min-height: 250px;
+  }
+}

@@ -1,0 +1,125 @@
+@import '../index.scss';
+
+.response-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: $burnt;
+  border: 1px solid $burning;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.response-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid $burning;
+  gap: 1rem;
+}
+
+.response-panel__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $white;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.response-panel__copy-btn {
+  padding: 0.5rem 0.75rem;
+  background-color: $burning;
+  color: $semiburnt;
+  border: 1px solid $burning;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: rgba($semiburnt, 0.1);
+    color: $white;
+    border-color: $semiburnt;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.response-panel__details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid $burning;
+  background-color: rgba($burning, 0.3);
+  font-size: 0.85rem;
+}
+
+.response-detail-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  &__label {
+    color: $semiburnt;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  &__value {
+    color: $white;
+    font-family: 'Monaco', 'Courier New', monospace;
+    background-color: rgba($burning, 0.5);
+    padding: 0.25rem 0.5rem;
+    border-radius: 2px;
+    word-break: break-all;
+  }
+}
+
+.response-panel__content {
+  flex: 1;
+  overflow: auto;
+  padding: 1.5rem;
+  background-color: $burnt;
+}
+
+.response-panel__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: $semiburnt;
+  text-align: center;
+
+  p {
+    margin: 0;
+    max-width: 300px;
+    line-height: 1.6;
+  }
+}
+
+.response-panel__json {
+  margin: 0;
+  padding: 0;
+  color: #d4d4d4;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background-color: transparent;
+  border: none;
+
+  // Simple syntax highlighting
+  &::first-letter {
+    color: #d4d4d4;
+  }
+}

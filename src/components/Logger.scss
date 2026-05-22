@@ -1,0 +1,132 @@
+@import '../index.scss';
+
+.logger-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: $burnt;
+  border: 1px solid $burning;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.logger-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid $burning;
+  gap: 1rem;
+}
+
+.logger-panel__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $white;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.logger-panel__clear-btn {
+  padding: 0.5rem 0.75rem;
+  background-color: $burning;
+  color: $semiburnt;
+  border: 1px solid $burning;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: rgba($semiburnt, 0.1);
+    color: $white;
+    border-color: $semiburnt;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.logger-panel__content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+  background-color: $burnt;
+}
+
+.logger-panel__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: $semiburnt;
+  text-align: center;
+  padding: 2rem;
+
+  p {
+    margin: 0;
+    max-width: 250px;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+}
+
+.logger-panel__logs {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.log-entry {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba($burning, 0.5);
+  align-items: flex-start;
+  font-size: 0.85rem;
+  line-height: 1.4;
+
+  &:hover {
+    background-color: rgba($burning, 0.3);
+  }
+
+  &__time {
+    color: #4a9eff;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  &__message {
+    color: $semiburnt;
+    word-break: break-word;
+    flex: 1;
+  }
+}
+
+.logger-panel__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid $burning;
+  background-color: rgba($burning, 0.3);
+  font-size: 0.75rem;
+}
+
+.logger-panel__count {
+  color: $semiburnt;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

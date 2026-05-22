@@ -1,0 +1,77 @@
+@import '../index.scss';
+
+.top-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid $burning;
+  background-color: $burnt;
+  gap: 1rem;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 0 0 auto;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $white;
+    margin: 0;
+  }
+
+  &__version {
+    font-size: 0.75rem;
+    color: $semiburnt;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__center {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    justify-content: center;
+  }
+
+  &__slot {
+    display: flex;
+    align-items: center;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 0 0 auto;
+  }
+
+  &__stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid $burning;
+    border-radius: 4px;
+    color: $semiburnt;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background-color: transparent;
+    transition: all 0.2s;
+
+    &:hover {
+      color: $white;
+      border-color: $semiburnt;
+      background-color: rgba($semiburnt, 0.1);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}

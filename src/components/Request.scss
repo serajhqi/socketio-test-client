@@ -1,0 +1,127 @@
+@import '../index.scss';
+
+.request-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: $burnt;
+  border: 1px solid $burning;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.request-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid $burning;
+  gap: 1rem;
+}
+
+.request-panel__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $white;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.request-panel__send-btn {
+  padding: 0.6rem 1.2rem;
+  background-color: #3b82f6;
+  color: $white;
+  border: 1px solid #3b82f6;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  &:hover:not(:disabled) {
+    background-color: #2563eb;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.request-panel__form {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.request-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: $white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__input,
+  &__textarea {
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: $white;
+    background-color: darken($burnt, 5%);
+    border: 1px solid $burning;
+    padding: 0.75rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: #4a9eff;
+      box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.1);
+    }
+
+    &::placeholder {
+      color: rgba($semiburnt, 0.6);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__textarea {
+    font-family: 'Monaco', 'Courier New', monospace;
+    min-height: 150px;
+    resize: vertical;
+  }
+
+  &__hint {
+    font-size: 0.75rem;
+    color: $semiburnt;
+    margin: 0;
+  }
+}
+
+.request-error {
+  padding: 0.75rem 1rem;
+  background-color: rgba(220, 38, 38, 0.1);
+  border: 1px solid #dc2626;
+  border-radius: 4px;
+  color: #fca5a5;
+  font-size: 0.9rem;
+}

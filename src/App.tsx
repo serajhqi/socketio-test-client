@@ -1,8 +1,21 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Toaster } from 'sonner'
 import { useStore } from './store'
+import { TopMenu } from './components/TopMenu'
+import { ConnectionController } from './components/ConnectionController'
+import { ServerAddressModal } from './components/ServerAddressModal'
+import { HelpModal } from './components/HelpModal'
+import { Request } from './components/Request'
+import { Response } from './components/Response'
+import { Logger } from './components/Logger'
+import { Listeners } from './components/Listeners'
+import { History } from './components/History'
+import './App.scss'
 
 export default function App() {
+  const [showAddressModal, setShowAddressModal] = useState(false)
+  const [showHelpModal, setShowHelpModal] = useState(false)
+
   useEffect(() => {
     // Initialize from localStorage
     const address = localStorage.getItem('address')
@@ -28,14 +41,66 @@ export default function App() {
   }, [])
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-burnt">
-      <header className="border-b border-burning p-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">Socket.IO Test Client</h1>
-        <div className="text-sm text-semiburnt">React Migration</div>
-      </header>
-      <main className="flex-1 flex items-center justify-center">
-        <p className="text-white text-lg">Building React components...</p>
-      </main>
+    <div className="app">
+      <TopMenu />
+
+      <div className="app-container">
+        <div className="app-toolbar">
+          <div className="app-toolbar__left">
+            <button
+              className="app-toolbar__btn"
+              onClick={() => setShowAddressModal(true)}
+              title="Configure server address"
+            >
+              ⚙️ Server
+            </button>
+          </div>
+
+          <div className="app-toolbar__center">
+            <ConnectionController />
+          </div>
+
+          <div className="app-toolbar__right">
+            <button
+              className="app-toolbar__btn"
+              onClick={() => setShowHelpModal(true)}
+              title="Show help"
+            >
+              ? Help
+            </button>
+          </div>
+        </div>
+
+        <div className="app-main">
+          <div className="app-grid">
+            <div className="app-section">
+              <Request />
+            </div>
+
+            <div className="app-section">
+              <Response />
+            </div>
+
+            <div className="app-section">
+              <Logger />
+            </div>
+
+            <div className="app-section">
+              <Listeners />
+            </div>
+          </div>
+
+          <History />
+        </div>
+      </div>
+
+      <ServerAddressModal
+        isOpen={showAddressModal}
+        onClose={() => setShowAddressModal(false)}
+      />
+
+      <HelpModal isOpen={showHelpModal} onClose={() => setShowHelpModal(false)} />
+
       <Toaster />
     </div>
   )

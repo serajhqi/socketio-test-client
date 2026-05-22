@@ -1,0 +1,193 @@
+@import '../index.scss';
+
+.history-panel {
+  background-color: $burnt;
+  border: 1px solid $burning;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.history-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid $burning;
+  color: $white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+
+  &:hover {
+    background-color: rgba($burning, 0.5);
+  }
+
+  &__arrow {
+    display: inline-flex;
+    width: 16px;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+
+  &__count {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(74, 158, 255, 0.2);
+    border: 1px solid #4a9eff;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #4a9eff;
+  }
+}
+
+.history-content {
+  max-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-search {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid $burning;
+  flex-shrink: 0;
+
+  &__input {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: darken($burnt, 5%);
+    border: 1px solid $burning;
+    border-radius: 4px;
+    color: $white;
+    font-size: 0.85rem;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: #4a9eff;
+      box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.1);
+    }
+
+    &::placeholder {
+      color: rgba($semiburnt, 0.6);
+    }
+  }
+}
+
+.history-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: $semiburnt;
+  min-height: 100px;
+
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  border-bottom: 1px solid rgba($burning, 0.5);
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: rgba($burning, 0.3);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: none;
+    border: none;
+    color: $white;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: rgba(74, 158, 255, 0.1);
+    }
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: $white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.25rem;
+  }
+
+  &__event {
+    font-size: 0.75rem;
+    color: $semiburnt;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 100%;
+    padding: 0;
+    background: none;
+    border: none;
+    color: $semiburnt;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0.5;
+    flex-shrink: 0;
+    border-right: 1px solid rgba($burning, 0.5);
+
+    &:hover {
+      opacity: 1;
+      color: #dc2626;
+      background-color: rgba(220, 38, 38, 0.1);
+    }
+  }
+}
