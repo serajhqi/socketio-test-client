@@ -75,29 +75,25 @@ export default function App() {
         </div>
 
         <div className="app-main">
-          <div className="app-layout">
-            {/* Left Panel: Request + Response */}
-            <div className="app-left-panel">
-              <div className="app-request-section">
-                <Request />
-              </div>
-              <div className="app-response-section">
-                <Response />
-              </div>
+          {/* Top Row: Request | Response | Logger */}
+          <div className="app-row app-row--top">
+            <div className="app-col app-col--request">
+              <Request />
             </div>
-
-            {/* Middle Panel: Logger + Listeners */}
-            <div className="app-middle-panel">
-              <div className="app-logger-section">
-                <Logger />
-              </div>
-              <div className="app-listeners-section">
-                <Listeners />
-              </div>
+            <div className="app-col app-col--response">
+              <Response />
             </div>
+            <div className="app-col app-col--logger">
+              <Logger />
+            </div>
+          </div>
 
-            {/* Right Panel: History */}
-            <div className="app-right-panel">
+          {/* Bottom Row: Listeners | History */}
+          <div className="app-row app-row--bottom">
+            <div className="app-col app-col--listeners">
+              <Listeners />
+            </div>
+            <div className="app-col app-col--history">
               <History />
             </div>
           </div>
