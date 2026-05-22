@@ -21,16 +21,16 @@
 }
 
 .help-modal {
-  background-color: $burnt;
-  border: 1px solid $burning;
-  border-radius: 8px;
-  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, rgba(43, 43, 43, 0.95) 0%, rgba(52, 52, 52, 1) 100%);
+  border: 1px solid rgba(149, 134, 134, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
   max-width: 600px;
   width: 90%;
   max-height: 80vh;
   display: flex;
   flex-direction: column;
-  animation: slideUp 0.2s;
+  animation: slideUp 0.3s ease;
 
   @media (max-width: 640px) {
     max-width: 95vw;

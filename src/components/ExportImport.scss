@@ -7,21 +7,22 @@
 }
 
 .export-import__btn {
-  padding: 0.6rem 1rem;
-  background-color: $burning;
-  color: $semiburnt;
-  border: 1px solid $burning;
-  border-radius: 4px;
+  padding: 0.625rem 1rem;
+  background: rgba(149, 134, 134, 0.08);
+  color: rgba($white, 0.8);
+  border: 1px solid rgba(149, 134, 134, 0.25);
+  border-radius: 6px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s ease;
   white-space: nowrap;
+  letter-spacing: 0.3px;
 
   &:hover {
-    background-color: rgba($semiburnt, 0.1);
+    background: rgba(149, 134, 134, 0.15);
     color: $white;
-    border-color: $semiburnt;
+    border-color: rgba(149, 134, 134, 0.4);
   }
 
   &:active {
@@ -30,17 +31,17 @@
 
   &--export {
     &:hover {
-      border-color: #10b981;
-      color: #10b981;
-      background-color: rgba(16, 185, 129, 0.1);
+      border-color: rgba(34, 197, 94, 0.4);
+      color: #4ade80;
+      background: rgba(34, 197, 94, 0.1);
     }
   }
 
   &--import {
     &:hover {
-      border-color: #3b82f6;
-      color: #3b82f6;
-      background-color: rgba(59, 130, 246, 0.1);
+      border-color: rgba(74, 158, 255, 0.4);
+      color: #4a9eff;
+      background: rgba(74, 158, 255, 0.1);
     }
   }
 }
