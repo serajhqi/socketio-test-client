@@ -132,6 +132,16 @@
     margin-bottom: 0.5rem;
   }
 
+  // Thin separator between in-app and external groups
+  &__divider {
+    display: inline-block;
+    width: 1px;
+    height: 18px;
+    background: rgba($semiburnt, 0.2);
+    margin: 0 0.125rem;
+    flex-shrink: 0;
+  }
+
   // Feedback email button
   &__feedback-btn {
     display: inline-flex;

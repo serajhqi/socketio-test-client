@@ -80,6 +80,20 @@ export function TopMenu({ profileSwitcher, exportImport, onHelpClick }: TopMenuP
           )}
         </div>
 
+        {/* Help */}
+        {onHelpClick && (
+          <button
+            className="top-menu__help-btn"
+            onClick={onHelpClick}
+            title="Help & keyboard shortcuts"
+            aria-label="Open help guide"
+          >
+            ?
+          </button>
+        )}
+
+        <span className="top-menu__divider" aria-hidden="true" />
+
         {/* Feedback / contact */}
         <a
           href="mailto:haqiqi.seraj@gmail.com?subject=Socket.IO%20Test%20Client%20Feedback"
@@ -107,18 +121,6 @@ export function TopMenu({ profileSwitcher, exportImport, onHelpClick }: TopMenuP
           </svg>
           <span>Donate</span>
         </a>
-
-        {/* Help */}
-        {onHelpClick && (
-          <button
-            className="top-menu__help-btn"
-            onClick={onHelpClick}
-            title="Help & keyboard shortcuts"
-            aria-label="Open help guide"
-          >
-            ?
-          </button>
-        )}
 
         {/* GitHub stars */}
         <a
