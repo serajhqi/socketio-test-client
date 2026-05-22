@@ -19,7 +19,6 @@ export default function App() {
   const [showHelpModal, setShowHelpModal] = useState(false)
 
   useEffect(() => {
-    // Initialize from localStorage
     const address = localStorage.getItem('address')
     const options = localStorage.getItem('options')
 
@@ -35,7 +34,6 @@ export default function App() {
       }
     }
 
-    // Fetch GitHub stars
     fetch('https://api.github.com/repos/serajhqi/socketio-test-client')
       .then((res) => res.json())
       .then((data) => useStore.getState().setRepoStars(data.stargazers_count || 0))
@@ -51,9 +49,9 @@ export default function App() {
 
       <div className="app-container">
         <div className="app-toolbar">
-          <div className="app-toolbar__left">
+          <div className="app-toolbar__section">
             <button
-              className="app-toolbar__btn"
+              className="app-toolbar__btn app-toolbar__btn--primary"
               onClick={() => setShowAddressModal(true)}
               title="Configure server address"
             >
@@ -61,41 +59,48 @@ export default function App() {
             </button>
           </div>
 
-          <div className="app-toolbar__center">
+          <div className="app-toolbar__section app-toolbar__section--center">
             <ConnectionController />
           </div>
 
-          <div className="app-toolbar__right">
+          <div className="app-toolbar__section">
             <button
               className="app-toolbar__btn"
               onClick={() => setShowHelpModal(true)}
-              title="Show help"
+              title="Show help and documentation"
             >
-              ? Help
+              ❓ Help
             </button>
           </div>
         </div>
 
         <div className="app-main">
-          <div className="app-grid">
-            <div className="app-section">
-              <Request />
+          <div className="app-layout">
+            {/* Left Panel: Request + Response */}
+            <div className="app-left-panel">
+              <div className="app-request-section">
+                <Request />
+              </div>
+              <div className="app-response-section">
+                <Response />
+              </div>
             </div>
 
-            <div className="app-section">
-              <Response />
+            {/* Middle Panel: Logger + Listeners */}
+            <div className="app-middle-panel">
+              <div className="app-logger-section">
+                <Logger />
+              </div>
+              <div className="app-listeners-section">
+                <Listeners />
+              </div>
             </div>
 
-            <div className="app-section">
-              <Logger />
-            </div>
-
-            <div className="app-section">
-              <Listeners />
+            {/* Right Panel: History */}
+            <div className="app-right-panel">
+              <History />
             </div>
           </div>
-
-          <History />
         </div>
       </div>
 
@@ -106,7 +111,7 @@ export default function App() {
 
       <HelpModal isOpen={showHelpModal} onClose={() => setShowHelpModal(false)} />
 
-      <Toaster />
+      <Toaster position="bottom-right" />
     </div>
   )
 }

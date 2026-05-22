@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useStore } from '../store'
 import { toast } from 'sonner'
+import { AddListenerModal } from './AddListenerModal'
 import './Listeners.scss'
 
 export function Listeners() {
@@ -9,17 +10,17 @@ export function Listeners() {
     listeners.length > 0 ? listeners[0].title : null
   )
   const [selectedMessageId, setSelectedMessageId] = useState<string | null>(null)
+  const [showAddModal, setShowAddModal] = useState(false)
 
   const currentListener = listeners.find((l) => l.title === selectedListener)
   const currentMessage = currentListener?.messages.find(
     (m) => m.id === selectedMessageId
   )
 
-  const handleAddListener = () => {
-    const title = prompt('Enter listener event name:', '')
-    if (!title) return
+  const handleAddListener = (title: string) => {
     useStore.getState().addListener(title)
     setSelectedListener(title)
+    setShowAddModal(false)
     toast.success(`Listener added: ${title}`)
   }
 
@@ -52,7 +53,7 @@ export function Listeners() {
         <h2 className="listeners-header__title">Listeners</h2>
         <button
           className="listeners-header__add-btn"
-          onClick={handleAddListener}
+          onClick={() => setShowAddModal(true)}
           title="Add listener"
         >
           + Add
@@ -172,6 +173,12 @@ export function Listeners() {
           )}
         </div>
       </div>
+
+      <AddListenerModal
+        isOpen={showAddModal}
+        onAdd={handleAddListener}
+        onClose={() => setShowAddModal(false)}
+      />
     </div>
   )
 }
