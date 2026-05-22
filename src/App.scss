@@ -90,23 +90,23 @@
   flex-direction: column;
   flex: 1;
   overflow: hidden;
-  padding: 0.75rem;
-  gap: 0.75rem;
+  padding: 0.5rem;
+  gap: 0.5rem;
 }
 
 .app-row {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.5rem;
   flex: 1;
   overflow: hidden;
   min-height: 0;
 
   &--top {
-    flex: 1.2;
+    flex: 1.5;
   }
 
   &--bottom {
-    flex: 0.8;
+    flex: 1;
   }
 
   @media (max-width: 1024px) {
@@ -133,7 +133,7 @@
   min-height: 0;
 
   &--request {
-    flex: 1.1;
+    flex: 1.2;
   }
 
   &--response {
@@ -141,21 +141,21 @@
   }
 
   &--logger {
-    flex: 0.9;
+    flex: 1;
   }
 
   &--listeners {
-    flex: 1.2;
+    flex: 1.3;
   }
 
   &--history {
-    flex: 0.8;
+    flex: 1;
   }
 
   @media (max-width: 1024px) {
     &--history {
       flex: 1;
-      min-height: 180px;
+      min-height: 150px;
     }
   }
 
