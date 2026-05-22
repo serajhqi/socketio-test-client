@@ -177,7 +177,7 @@ export const useStore = create<Store>()(
                 ...listener.messages,
                 {
                   id: nanoid(5),
-                  time: new Date().toISOString().slice(11, 19),
+                  time: new Date().toISOString(),
                   text: args,
                 },
               ],
@@ -200,7 +200,7 @@ export const useStore = create<Store>()(
             ...state.logs,
             {
               id: nanoid(5),
-              time: new Date().toISOString().slice(11, 19),
+              time: new Date().toISOString(),
               message,
             },
           ]

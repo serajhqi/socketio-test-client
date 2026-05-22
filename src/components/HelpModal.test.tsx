@@ -21,7 +21,7 @@ describe('HelpModal', () => {
     const { container } = render(
       <HelpModal isOpen={false} onClose={() => {}} />
     )
-    expect(container.firstChild).toBeEmptyDOMNode()
+    expect(container.innerHTML).toBe('')
   })
 
   it('renders when open', () => {

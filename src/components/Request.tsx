@@ -32,12 +32,12 @@ export function Request() {
 
     try {
       const parsedBody = body.trim() ? JSON.parse(body) : undefined
-      sendRequest(
+      useStore.getState().setRequest({
         emitName,
-        title || emitName,
-        body.trim() ? body : undefined,
-        parsedBody
-      )
+        title: title || emitName,
+        body: body.trim() ? body : undefined,
+      })
+      sendRequest()
       setError('')
       toast.success(`Sent: ${emitName}`)
     } catch (e) {

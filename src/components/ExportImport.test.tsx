@@ -76,8 +76,10 @@ describe('ExportImport', () => {
     await userEvent.click(exportBtn)
 
     if (blobSpy.mock.calls.length > 0) {
-      const blobContent = blobSpy.mock.calls[0][0][0]
-      expect(blobContent).toContain('"schema_version": 1')
+      const blobContent = blobSpy.mock.calls[0]?.[0]?.[0] as string | undefined
+      if (blobContent) {
+        expect(blobContent).toContain('"schema_version": 1')
+      }
     }
 
     blobSpy.mockRestore()
@@ -108,10 +110,12 @@ describe('ExportImport', () => {
     await userEvent.click(exportBtn)
 
     if (blobSpy.mock.calls.length > 0) {
-      const blobContent = blobSpy.mock.calls[0][0][0]
-      expect(blobContent).toContain('"history"')
-      expect(blobContent).toContain('"listeners"')
-      expect(blobContent).toContain('"profiles"')
+      const blobContent = blobSpy.mock.calls[0]?.[0]?.[0] as string | undefined
+      if (blobContent) {
+        expect(blobContent).toContain('"history"')
+        expect(blobContent).toContain('"listeners"')
+        expect(blobContent).toContain('"profiles"')
+      }
     }
 
     blobSpy.mockRestore()

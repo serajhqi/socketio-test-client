@@ -12,13 +12,13 @@ export type ListenerType = {
   title: string
   messages: {
     id: string
-    time: string
+    time: string | number
     text: string | Record<string, unknown>
   }[]
 }
 
 export type LogType = {
-  time: string
+  time: string | number
   message: string
   id: string
 }

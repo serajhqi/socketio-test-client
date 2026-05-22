@@ -5,7 +5,7 @@ import { ConnectionController } from './ConnectionController'
 import { useStore } from '../store'
 import * as socketio from '../services/socketio'
 
-vi.mock('../services/socketio', { spy: true })
+vi.mock('../services/socketio')
 
 describe('ConnectionController', () => {
   beforeEach(() => {

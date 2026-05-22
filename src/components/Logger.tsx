@@ -56,7 +56,6 @@ export function Logger() {
                     hour: '2-digit',
                     minute: '2-digit',
                     second: '2-digit',
-                    fractionalSecondDigits: 3,
                   })}
                 </span>
                 <span className="log-entry__message">{log.message}</span>

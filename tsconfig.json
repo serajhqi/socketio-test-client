@@ -15,7 +15,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
   "include": ["src", "test"],
   "references": [{ "path": "./tsconfig.node.json" }]
