@@ -90,13 +90,13 @@
   flex-direction: column;
   flex: 1;
   overflow: hidden;
-  padding: 0.5rem;
-  gap: 0.5rem;
+  padding: 1rem;
+  gap: 1rem;
 }
 
 .app-row {
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
   flex: 1;
   overflow: hidden;
   min-height: 0;
@@ -133,11 +133,11 @@
   min-height: 0;
 
   &--request {
-    flex: 1.2;
+    flex: 1.4;
   }
 
   &--response {
-    flex: 1;
+    flex: 1.2;
   }
 
   &--logger {
@@ -145,11 +145,11 @@
   }
 
   &--listeners {
-    flex: 1.3;
+    flex: 1.5;
   }
 
   &--history {
-    flex: 1;
+    flex: 1.2;
   }
 
   @media (max-width: 1024px) {
