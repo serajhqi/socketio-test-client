@@ -152,16 +152,3 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-
-.logger-panel__cursor {
-  width: 7px;
-  height: 12px;
-  background: #3fb950;
-  opacity: 0.6;
-  animation: blink-cursor 1.2s step-end infinite;
-}
-
-@keyframes blink-cursor {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 0; }
-}

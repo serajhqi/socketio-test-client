@@ -72,7 +72,6 @@ export function Logger() {
 
       <div className="logger-panel__footer">
         <span className="logger-panel__count">{logs.length} lines</span>
-        <span className="logger-panel__cursor" />
       </div>
     </div>
   )
