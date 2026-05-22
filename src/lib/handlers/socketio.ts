@@ -1,126 +1,158 @@
-import { io, Socket } from "socket.io-client";
-import { requestHistory, serverSettings, request, RequestType,logs, listeners } from "../store";
-import { get } from "svelte/store";
-import { saveRequest } from "./storage";
-import { nanoid } from "nanoid";
+import { io, Socket } from 'socket.io-client';
+import { useStore } from '../store';
+import { saveRequest, saveListeners } from './storage';
+import { nanoid } from 'nanoid';
 
-export const isJson = (str: string) => {
+export const isJson = (str: string): boolean => {
   try {
     JSON.parse(str);
-  } catch (e) {
+    return true;
+  } catch {
     return false;
   }
-  return true;
-}
+};
 
 let socket: Socket | null = null;
-export const toggleConnection = () => {
-  try {
-    const server = get(serverSettings);
-    const {address,status,options} = get(serverSettings);
 
-    if (status == "disconnected" ) {
+export const toggleConnection = (): void => {
+  try {
+    const state = useStore.getState();
+    const { address, status, options } = state;
+
+    if (status === 'disconnected') {
       if (!address) {
-        logger("connection error: server address is not set");
+        logger('connection error: server address is not set');
         return;
       }
 
-      serverSettings.set({...server, status: 'connecting'})
+      useStore.getState().setStatus('connecting');
       logger('connecting');
 
       socket = io(address, options);
       socket.connect();
-      
-      socket.on("connect", () => {
-        serverSettings.set({...server, status: 'connected',id: socket.id});
+
+      socket.on('connect', () => {
+        const transport = (socket?.io?.engine?.transport?.name as string) || 'unknown';
+        useStore.getState().setStatus('connected');
+        useStore.getState().setConnectionDetails({
+          socketId: socket?.id,
+          transport,
+          connectedAt: Date.now(),
+        });
         logger('connected');
       });
-      socket.on('connect_error', error => {
-        serverSettings.set({...server, status: 'disconnected', id:undefined})
+
+      socket.on('connect_error', (error) => {
+        useStore.getState().setStatus('disconnected');
+        useStore.getState().setConnectionDetails({
+          socketId: undefined,
+          connectedAt: undefined,
+        });
         logger('connection error: ' + error.message);
-        
-        if(get(serverSettings).status !== 'connected'){
+
+        if (useStore.getState().status !== 'connected' && socket) {
           socket.disconnect();
           logger('disconnected');
         }
+      });
 
-      })
-      socket.on("disconnect", () => {
-        serverSettings.set({...server, status: 'disconnected', id:undefined})
+      socket.on('disconnect', () => {
+        useStore.getState().setStatus('disconnected');
+        useStore.getState().setConnectionDetails({
+          socketId: undefined,
+          connectedAt: undefined,
+        });
         logger('disconnected');
       });
-      function handleEvent(eventName: string, ...args: any[]) {
-        const _listeners = get(listeners);
-        let listener = _listeners.find(item => item.title == eventName);
-        if(listener){
-          const index = _listeners.findIndex(item => item.title == eventName);
-          listener = {...listener, messages:[...listener.messages, {id: nanoid(5), time: new Date().toISOString().slice(11, 19), text: args}]};
-          _listeners[index] = listener;
-          listeners.set(_listeners);
-        }
-        logger(eventName + ' ' + args);
-      }
-      
+
+      socket.on('upgrade', () => {
+        const transport = (socket?.io?.engine?.transport?.name as string) || 'unknown';
+        useStore.getState().setConnectionDetails({ transport });
+      });
+
+      socket.on('reconnect', () => {
+        const current = useStore.getState().connectionDetails;
+        useStore.getState().setConnectionDetails({
+          reconnectionCount: current.reconnectionCount + 1,
+        });
+      });
+
+      const handleEvent = (eventName: string, ...args: unknown[]) => {
+        useStore.getState().appendMessage(eventName, args);
+        logger(`${eventName} ${JSON.stringify(args)}`);
+      };
+
       socket.onAny(handleEvent);
       socket.onAnyOutgoing(handleEvent);
-
-    } else if (status == "connected") {
-      serverSettings.set({...server, status: 'disconnecting'})
+    } else if (status === 'connected') {
+      useStore.getState().setStatus('disconnecting');
       logger('disconnecting');
 
       socket?.disconnect();
       socket?.close();
 
-      serverSettings.set({...server, status: 'disconnected', id:undefined})
+      useStore.getState().setStatus('disconnected');
+      useStore.getState().setConnectionDetails({
+        socketId: undefined,
+        connectedAt: undefined,
+      });
       socket = null;
-    }else if(status == "connecting" || status == "disconnecting"){
+    } else if (status === 'connecting' || status === 'disconnecting') {
       socket?.disconnect();
       socket?.close();
 
-      serverSettings.set({...server, status: 'disconnected', id:undefined})
+      useStore.getState().setStatus('disconnected');
+      useStore.getState().setConnectionDetails({
+        socketId: undefined,
+        connectedAt: undefined,
+      });
       socket = null;
     }
   } catch (e) {
-    console.log(e);
-    // logger(JSON.stringify(e));
-
+    console.error('toggleConnection error:', e);
   }
 };
-export const close = () =>{
+
+export const close = (): void => {
   socket?.disconnect();
   socket?.close();
-}
-export const sendRequest = () => {
-  if (!socket) throw new Error("socket problem");
+  socket = null;
+};
 
-  const req = get(request);
-  const reqJson = isJson(req.body) ? JSON.parse(req.body) : req;
-  logger('[request] ' + req.emitName + ' ' + JSON.stringify(reqJson))
+export const sendRequest = (): void => {
+  if (!socket) {
+    throw new Error('Socket is not connected');
+  }
+
+  const state = useStore.getState();
+  const req = state.request;
+
+  const reqBody = isJson(req.body || '') ? JSON.parse(req.body || '{}') : req.body;
+  logger(`[request] ${req.emitName} ${JSON.stringify(reqBody)}`);
+
   const startTime = Date.now();
-  socket.emit(req.emitName, reqJson, (response: any, er:any) => {
+  socket.emit(req.emitName, reqBody, (response: unknown) => {
     const duration = Date.now() - startTime;
-    request.set({...req, response, duration});
-    
-    const historyStore:RequestType[] = get(requestHistory);
-    const objIndex = historyStore.findIndex(item => item.title == req.title);
+    useStore.getState().setRequest({ response, duration });
+
+    const historyState = useStore.getState().requestHistory;
+    const objIndex = historyState.findIndex((item) => item.title === req.title);
 
     if (objIndex === -1) {
-      historyStore.push(req);
-      requestHistory.set(historyStore);
+      useStore.getState().upsertHistory({ ...req, response, duration });
     } else {
-      historyStore[objIndex] = req;
-      logger('[response] ' + req.emitName + ' ' + JSON.stringify(response))
+      historyState[objIndex] = { ...req, response, duration };
+      useStore.getState().setRequestHistory(historyState);
+      logger(`[response] ${req.emitName} ${JSON.stringify(response)}`);
     }
     saveRequest();
   });
 
-  socket.on("error", function(e) {
-    logger(JSON.stringify(e))
+  socket.on('error', (error: unknown) => {
+    logger(`[socket error] ${JSON.stringify(error)}`);
   });
-}
+};
 
-export const logger = (value:string) => {
-  const _logs = get(logs);
-  _logs.push({time: new Date().toISOString().slice(0, 19), message: value, id:nanoid(5)});
-  logs.set(_logs);
-}
+export const logger = (message: string): void => {
+  useStore.getState().appendLog(message);
+};
