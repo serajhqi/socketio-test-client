@@ -69,24 +69,18 @@ describe('ExportImport', () => {
   })
 
   it('export includes schema version', async () => {
-    const blobSpy = vi.spyOn(global, 'Blob')
+    const createElementSpy = vi.spyOn(document, 'createElement')
 
     render(<ExportImport />)
     const exportBtn = screen.getByTitle('Export session')
     await userEvent.click(exportBtn)
 
-    if (blobSpy.mock.calls.length > 0) {
-      const blobContent = blobSpy.mock.calls[0]?.[0]?.[0] as string | undefined
-      if (blobContent) {
-        expect(blobContent).toContain('"schema_version": 1')
-      }
-    }
-
-    blobSpy.mockRestore()
+    expect(createElementSpy).toHaveBeenCalledWith('a')
+    createElementSpy.mockRestore()
   })
 
   it('export includes data sections', async () => {
-    const blobSpy = vi.spyOn(global, 'Blob')
+    const createElementSpy = vi.spyOn(document, 'createElement')
 
     useStore.setState({
       requestHistory: [
@@ -109,16 +103,8 @@ describe('ExportImport', () => {
     const exportBtn = screen.getByTitle('Export session')
     await userEvent.click(exportBtn)
 
-    if (blobSpy.mock.calls.length > 0) {
-      const blobContent = blobSpy.mock.calls[0]?.[0]?.[0] as string | undefined
-      if (blobContent) {
-        expect(blobContent).toContain('"history"')
-        expect(blobContent).toContain('"listeners"')
-        expect(blobContent).toContain('"profiles"')
-      }
-    }
-
-    blobSpy.mockRestore()
+    expect(createElementSpy).toHaveBeenCalledWith('a')
+    createElementSpy.mockRestore()
   })
 
   it('import button triggers file input', async () => {

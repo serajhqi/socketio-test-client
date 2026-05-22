@@ -26,10 +26,18 @@ Object.defineProperty(window, 'matchMedia', {
 global.URL.createObjectURL = vi.fn(() => 'blob:mock-url')
 global.URL.revokeObjectURL = vi.fn()
 
-// Mock clipboard API
-Object.defineProperty(navigator, 'clipboard', {
-  value: {
-    writeText: vi.fn().mockResolvedValue(undefined),
-    readText: vi.fn().mockResolvedValue(''),
-  },
-})
+// Mock Blob for tests (jsdom limitation)
+global.Blob = class Blob {
+  constructor(public parts: Array<string | Blob> = [], public options: BlobPropertyBag = {}) {}
+} as any
+
+// Mock clipboard API - only if not already defined
+if (!navigator.clipboard) {
+  Object.defineProperty(navigator, 'clipboard', {
+    value: {
+      writeText: vi.fn().mockResolvedValue(undefined),
+      readText: vi.fn().mockResolvedValue(''),
+    },
+    configurable: true,
+  })
+}
