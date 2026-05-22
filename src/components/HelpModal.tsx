@@ -197,6 +197,43 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
             )}
           </section>
 
+          {/* Contact & Support */}
+          <section className="help-modal__section">
+            <h3 className="help-modal__section-title">Contact & Support</h3>
+            <p className="help-modal__text">
+              Found a bug, have a feature idea, or just want to say hi? I'd genuinely love to hear
+              from you — your feedback shapes this tool.
+            </p>
+            <ul className="help-modal__links">
+              <li>
+                <a href="mailto:haqiqi.seraj@gmail.com?subject=Socket.IO%20Test%20Client%20Feedback">
+                  haqiqi.seraj@gmail.com
+                </a>
+                {' '}— drop me an email
+              </li>
+              <li>
+                <a
+                  href="https://github.com/serajhqi/socketio-test-client/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub Issues
+                </a>
+                {' '}— bug reports and feature requests
+              </li>
+              <li>
+                <a
+                  href="DONATE_URL_HERE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Support this project ♥
+                </a>
+                {' '}— crypto donations welcome
+              </li>
+            </ul>
+          </section>
+
           {/* Resources */}
           <section className="help-modal__section">
             <h3 className="help-modal__section-title">Resources</h3>
