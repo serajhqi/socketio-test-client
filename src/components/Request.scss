@@ -171,24 +171,80 @@
   }
 }
 
-.request-body {
-  flex: 1;
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  color: #fbbf24 !important;
-  padding: 1rem !important;
-  font-size: 0.875rem;
-  font-family: 'Monaco', 'Courier New', monospace !important;
-  resize: none !important;
-  width: 100%;
-  outline: none !important;
-  box-shadow: none !important;
-  overflow-y: auto;
-  line-height: 1.65;
+.request-editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 28px;
+  padding: 0 0.5rem;
+  border-bottom: 1px solid rgba($burning, 0.8);
+  gap: 0.25rem;
+  flex-shrink: 0;
+  background: rgba($burning, 0.35);
 
-  &::placeholder { color: rgba($semiburnt, 0.4) !important; }
-  &:focus { box-shadow: none !important; }
+  &__btn {
+    padding: 0.15rem 0.5rem;
+    background: transparent;
+    border: 1px solid rgba($semiburnt, 0.25);
+    border-radius: 3px;
+    color: rgba($semiburnt, 0.7);
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1;
+
+    &:hover {
+      color: $white;
+      border-color: rgba($semiburnt, 0.5);
+      background: rgba($semiburnt, 0.1);
+    }
+
+    &--mode {
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 0.68rem;
+      min-width: 38px;
+      text-align: center;
+    }
+
+    &--active {
+      color: #fbbf24;
+      border-color: rgba(251, 191, 36, 0.4);
+
+      &:hover {
+        color: #fbbf24;
+        border-color: rgba(251, 191, 36, 0.65);
+        background: rgba(251, 191, 36, 0.06);
+      }
+    }
+  }
+}
+
+.request-editor {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+
+  // The CodeMirror wrapper div
+  > div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cm-editor {
+    height: 100%;
+    background: transparent !important;
+
+    &.cm-focused {
+      outline: none !important;
+    }
+  }
+
+  .cm-scroller {
+    overflow: auto !important;
+  }
 }
 
 @keyframes connect-pulse {

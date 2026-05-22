@@ -37,13 +37,21 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
       .finally(() => setLoading(false))
   }, [isOpen])
 
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (isOpen && e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [isOpen, onClose])
+
   if (!isOpen) return null
 
   return (
     <div className="help-modal-overlay" onClick={onClose}>
       <div className="help-modal" onClick={(e) => e.stopPropagation()}>
         <div className="help-modal__header">
-          <h2 className="help-modal__title">About Socket.IO Test Client</h2>
+          <h2 className="help-modal__title">Socket.IO Test Client — Guide</h2>
           <button
             className="help-modal__close"
             onClick={onClose}
@@ -54,16 +62,87 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
         </div>
 
         <div className="help-modal__content">
+
+          {/* Quick Start */}
           <section className="help-modal__section">
-            <h3>Project</h3>
-            <p>
-              A modern web application for testing Socket.IO connections and
-              events. Built with React and TypeScript.
-            </p>
+            <h3 className="help-modal__section-title">Quick Start</h3>
+            <ol className="help-modal__steps">
+              <li>Click the server URL area (left side of the request bar) to configure your Socket.IO server URL</li>
+              <li>Click the connection dot (●) to connect</li>
+              <li>Type your event name, optional title, and JSON payload</li>
+              <li>Press <strong>Send</strong> or <kbd>Ctrl+Enter</kbd> to emit the event</li>
+              <li>View the response and logs in the right panels</li>
+            </ol>
           </section>
 
+          {/* Keyboard Shortcuts */}
           <section className="help-modal__section">
-            <h3>Contributors</h3>
+            <h3 className="help-modal__section-title">Keyboard Shortcuts</h3>
+            <div className="help-modal__shortcuts">
+              <div className="help-modal__shortcut-row">
+                <div className="help-modal__shortcut-keys">
+                  <kbd>Ctrl</kbd><span className="help-modal__plus">+</span><kbd>Enter</kbd>
+                  <span className="help-modal__sep">/</span>
+                  <kbd>⌘</kbd><span className="help-modal__plus">+</span><kbd>Enter</kbd>
+                </div>
+                <span className="help-modal__shortcut-desc">Send request</span>
+              </div>
+              <div className="help-modal__shortcut-row">
+                <div className="help-modal__shortcut-keys">
+                  <kbd>Escape</kbd>
+                </div>
+                <span className="help-modal__shortcut-desc">Close any modal</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Connection Options */}
+          <section className="help-modal__section">
+            <h3 className="help-modal__section-title">Connection Options</h3>
+            <p className="help-modal__text">
+              The options field accepts a JSON object passed directly to the Socket.IO client constructor.
+              Common fields:
+            </p>
+            <pre className="help-modal__code">{`{
+  "transports": ["websocket"],
+  "auth": { "token": "your-token" },
+  "extraHeaders": { "Authorization": "Bearer ..." },
+  "path": "/socket.io"
+}`}</pre>
+          </section>
+
+          {/* Listeners */}
+          <section className="help-modal__section">
+            <h3 className="help-modal__section-title">Listeners</h3>
+            <ul className="help-modal__list">
+              <li>Type an event name in the listeners area and press <kbd>Enter</kbd> to subscribe</li>
+              <li>Messages appear in real-time as the server emits them</li>
+              <li>Click a message to inspect the full payload in the JSON viewer</li>
+            </ul>
+          </section>
+
+          {/* Profiles */}
+          <section className="help-modal__section">
+            <h3 className="help-modal__section-title">Profiles</h3>
+            <ul className="help-modal__list">
+              <li>Save server configurations (URL + options) as named profiles</li>
+              <li>Switch between profiles from the top toolbar</li>
+              <li>Profiles are persisted between sessions</li>
+            </ul>
+          </section>
+
+          {/* Export / Import */}
+          <section className="help-modal__section">
+            <h3 className="help-modal__section-title">Export / Import</h3>
+            <ul className="help-modal__list">
+              <li>Export saves your history, listeners, and profiles as a JSON file</li>
+              <li>Import restores a previously exported session</li>
+            </ul>
+          </section>
+
+          {/* Contributors */}
+          <section className="help-modal__section">
+            <h3 className="help-modal__section-title">Contributors</h3>
             {loading ? (
               <p className="help-modal__loading">Loading contributors...</p>
             ) : contributors.length > 0 ? (
@@ -92,8 +171,9 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
             )}
           </section>
 
+          {/* Resources */}
           <section className="help-modal__section">
-            <h3>Resources</h3>
+            <h3 className="help-modal__section-title">Resources</h3>
             <ul className="help-modal__links">
               <li>
                 <a
@@ -115,6 +195,7 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
               </li>
             </ul>
           </section>
+
         </div>
 
         <div className="help-modal__footer">

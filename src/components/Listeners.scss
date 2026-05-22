@@ -18,32 +18,6 @@
   flex-shrink: 0;
 }
 
-.listeners-header__icon {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.listeners-header__input {
-  flex: 1;
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  color: $white !important;
-  padding: 0 !important;
-  font-size: 0.9rem;
-  box-shadow: none !important;
-
-  &::placeholder {
-    color: $semiburnt !important;
-  }
-
-  &:focus {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-}
-
 .listeners-header__title {
   flex: 1;
   font-size: 0.8rem;
@@ -52,23 +26,6 @@
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-}
-
-.listeners-header__add-btn {
-  padding: 0.3rem 0.625rem;
-  background: transparent;
-  color: #4a9eff;
-  border: 1px solid rgba(74, 158, 255, 0.35);
-  border-radius: 3px;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: all 0.15s;
-  flex-shrink: 0;
-
-  &:hover {
-    background: rgba(74, 158, 255, 0.1);
-    border-color: rgba(74, 158, 255, 0.6);
-  }
 }
 
 .listeners-container {
@@ -84,12 +41,14 @@
   border-right: 1px solid $burning;
   overflow-y: auto;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 
   &__empty {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
     padding: 1rem;
     text-align: center;
     color: $semiburnt;
@@ -102,8 +61,72 @@
   }
 
   &__items {
+    flex: 1;
     display: flex;
     flex-direction: column;
+  }
+}
+
+// Compose row — permanent footer at the bottom of the listeners list
+.listeners-compose {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  min-height: 32px;
+  border-top: 1px solid rgba($burning, 1.2);
+  background: rgba($burning, 0.5);
+  padding: 0 0 0 0.5rem;
+  gap: 0;
+  flex-shrink: 0;
+  cursor: text;
+  transition: background 0.15s;
+
+  &--focused {
+    background: rgba($semiburnt, 0.07);
+    border-top-color: rgba($semiburnt, 0.25);
+  }
+
+  &__input {
+    flex: 1;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    color: rgba($white, 0.8) !important;
+    padding: 0 !important;
+    font-size: 0.78rem;
+    font-family: 'Monaco', 'Courier New', monospace;
+    box-shadow: none !important;
+    min-width: 0;
+
+    &::placeholder {
+      color: rgba($semiburnt, 0.55) !important;
+      font-style: italic;
+    }
+
+    &:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+
+  &__add {
+    height: 100%;
+    width: 28px;
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    color: rgba($semiburnt, 0.5);
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s;
+    padding: 0;
+
+    &:hover {
+      color: #fbbf24;
+    }
   }
 }
 

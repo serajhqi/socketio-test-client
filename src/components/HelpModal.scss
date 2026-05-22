@@ -3,7 +3,8 @@
 .help-modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,34 +13,34 @@
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .help-modal {
-  background: linear-gradient(135deg, rgba(43, 43, 43, 0.95) 0%, rgba(52, 52, 52, 1) 100%);
-  border: 1px solid rgba(149, 134, 134, 0.2);
-  border-radius: 10px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-  max-width: 600px;
-  width: 90%;
-  max-height: 80vh;
+  background: linear-gradient(150deg, rgba(43, 43, 43, 0.98) 0%, rgba(52, 52, 52, 1) 100%);
+  border: 1px solid rgba(149, 134, 134, 0.18);
+  border-radius: 12px;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.25),
+    0 24px 52px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
+  max-width: 640px;
+  width: 92%;
+  max-height: 84vh;
   display: flex;
   flex-direction: column;
-  animation: slideUp 0.3s ease;
+  animation: slideUp 0.25s ease;
 
   @media (max-width: 640px) {
-    max-width: 95vw;
+    max-width: 96vw;
+    max-height: 92vh;
   }
 }
 
 @keyframes slideUp {
   from {
-    transform: translateY(20px);
+    transform: translateY(16px);
     opacity: 0;
   }
   to {
@@ -52,129 +53,255 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
-  border-bottom: 1px solid $burning;
+  padding: 1.1rem 1.25rem 0.9rem;
+  border-bottom: 1px solid rgba($semiburnt, 0.12);
+  flex-shrink: 0;
 }
 
 .help-modal__title {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: $white;
   margin: 0;
+  letter-spacing: -0.2px;
 }
 
 .help-modal__close {
   background: none;
   border: none;
   color: $semiburnt;
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
   padding: 0;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  transition: all 0.2s;
+  transition: all 0.15s;
+  line-height: 1;
 
   &:hover {
     color: $white;
-    background-color: rgba($semiburnt, 0.1);
+    background-color: rgba($semiburnt, 0.12);
   }
 }
 
 .help-modal__content {
   flex: 1;
   overflow-y: auto;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  padding: 0.25rem 0;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
 }
 
 .help-modal__section {
-  h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: $white;
-    margin: 0 0 0.5rem 0;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.875rem;
-  }
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba($semiburnt, 0.08);
 
-  p {
-    color: $semiburnt;
-    margin: 0;
-    line-height: 1.6;
-    font-size: 0.9rem;
+  &:last-child {
+    border-bottom: none;
   }
 }
 
+.help-modal__section-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba($semiburnt, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.65rem 0;
+}
+
+.help-modal__text {
+  color: rgba($white, 0.65);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 0 0 0.65rem 0;
+}
+
+// Numbered quick-start steps
+.help-modal__steps {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  li {
+    color: rgba($white, 0.75);
+    font-size: 0.85rem;
+    line-height: 1.55;
+    padding-left: 0.2rem;
+  }
+}
+
+// Bullet lists
+.help-modal__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  li {
+    color: rgba($white, 0.75);
+    font-size: 0.85rem;
+    line-height: 1.55;
+    padding-left: 1rem;
+    position: relative;
+
+    &::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: rgba($semiburnt, 0.55);
+      font-size: 0.75rem;
+    }
+  }
+}
+
+// Keyboard key badges
+kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($burning, 0.9);
+  border: 1px solid rgba($semiburnt, 0.28);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.72rem;
+  font-family: 'Monaco', 'Courier New', monospace;
+  color: rgba($white, 0.85);
+  line-height: 1.4;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.help-modal__shortcuts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.help-modal__shortcut-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.help-modal__shortcut-keys {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 200px;
+  flex-shrink: 0;
+}
+
+.help-modal__plus {
+  font-size: 0.7rem;
+  color: rgba($semiburnt, 0.6);
+  padding: 0 0.1rem;
+}
+
+.help-modal__sep {
+  font-size: 0.75rem;
+  color: rgba($semiburnt, 0.5);
+  padding: 0 0.3rem;
+}
+
+.help-modal__shortcut-desc {
+  color: rgba($white, 0.65);
+  font-size: 0.85rem;
+}
+
+// Code block
+.help-modal__code {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba($semiburnt, 0.15);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.78rem;
+  color: rgba($white, 0.8);
+  line-height: 1.65;
+  overflow-x: auto;
+  margin: 0;
+  white-space: pre;
+}
+
+// Loading / empty
 .help-modal__loading,
 .help-modal__empty {
-  color: $semiburnt;
-  font-size: 0.9rem;
+  color: rgba($semiburnt, 0.8);
+  font-size: 0.85rem;
   margin: 0;
   text-align: center;
-  padding: 1rem 0;
+  padding: 0.75rem 0;
 }
 
+// Contributors grid
 .help-modal__contributors {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 0.6rem;
 }
 
 .help-modal__contributor {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem;
-  border: 1px solid $burning;
-  border-radius: 4px;
+  gap: 0.4rem;
+  padding: 0.65rem 0.5rem;
+  border: 1px solid rgba($semiburnt, 0.14);
+  border-radius: 6px;
   text-decoration: none;
-  transition: all 0.2s;
-  background-color: transparent;
+  transition: all 0.15s;
+  background-color: rgba($burnt, 0.4);
 
   &:hover {
-    background-color: rgba($semiburnt, 0.1);
-    border-color: $semiburnt;
+    background-color: rgba($semiburnt, 0.08);
+    border-color: rgba($semiburnt, 0.3);
   }
 }
 
 .help-modal__avatar {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: block;
 }
 
 .help-modal__login {
-  font-size: 0.75rem;
-  color: $white;
+  font-size: 0.72rem;
+  color: rgba($white, 0.8);
   text-align: center;
   word-break: break-all;
   font-weight: 500;
 }
 
 .help-modal__count {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: $semiburnt;
-  background-color: rgba($burning, 0.5);
-  padding: 0.25rem 0.5rem;
-  border-radius: 2px;
+  background-color: rgba($burning, 0.6);
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  border: 1px solid rgba($semiburnt, 0.15);
 }
 
+// Resource links
 .help-modal__links {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.45rem;
 
   li {
     margin: 0;
@@ -182,8 +309,17 @@
     a {
       color: #4a9eff;
       text-decoration: none;
-      font-size: 0.9rem;
-      transition: color 0.2s;
+      font-size: 0.85rem;
+      transition: color 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+
+      &::after {
+        content: '↗';
+        font-size: 0.7rem;
+        opacity: 0.6;
+      }
 
       &:hover {
         color: #6bb0ff;
@@ -193,28 +329,30 @@
   }
 }
 
+// Footer
 .help-modal__footer {
   display: flex;
   justify-content: flex-end;
-  padding: 1rem;
-  border-top: 1px solid $burning;
-  gap: 0.5rem;
+  padding: 0.85rem 1.25rem;
+  border-top: 1px solid rgba($semiburnt, 0.1);
+  flex-shrink: 0;
 }
 
 .help-modal__button {
-  padding: 0.5rem 1rem;
-  background-color: $burning;
-  color: $white;
-  border: 1px solid $semiburnt;
-  border-radius: 4px;
+  padding: 0.45rem 1.1rem;
+  background-color: rgba($burning, 0.9);
+  color: rgba($white, 0.8);
+  border: 1px solid rgba($semiburnt, 0.2);
+  border-radius: 5px;
   cursor: pointer;
   font-weight: 500;
-  font-size: 0.9rem;
-  transition: all 0.2s;
+  font-size: 0.85rem;
+  transition: all 0.15s;
 
   &:hover {
-    background-color: rgba($semiburnt, 0.2);
-    border-color: $white;
+    background-color: rgba($semiburnt, 0.15);
+    border-color: rgba($semiburnt, 0.4);
+    color: $white;
   }
 
   &:active {

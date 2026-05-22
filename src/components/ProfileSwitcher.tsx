@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useStore } from '../store'
 import { toast } from 'sonner'
 import './ProfileSwitcher.scss'
+import { SaveProfileModal } from './SaveProfileModal'
 
 interface DropdownState {
   isOpen: boolean
@@ -13,6 +14,7 @@ export function ProfileSwitcher() {
   const { profiles, activeProfileId, setActiveProfile, setProfiles, address, options } =
     useStore()
   const [dropdown, setDropdown] = useState<DropdownState>({ isOpen: false })
+  const [showSaveModal, setShowSaveModal] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const activeProfile = profiles.find((p) => p.id === activeProfileId)
@@ -37,9 +39,11 @@ export function ProfileSwitcher() {
   }, [dropdown.isOpen])
 
   const handleSaveAsProfile = () => {
-    const name = prompt('Profile name:', '')
-    if (!name) return
+    setDropdown({ isOpen: false })
+    setShowSaveModal(true)
+  }
 
+  const handleConfirmSave = (name: string) => {
     const newProfile = {
       id: Date.now().toString(),
       name,
@@ -51,7 +55,7 @@ export function ProfileSwitcher() {
     setProfiles([...profiles, newProfile])
     setActiveProfile(newProfile.id)
     toast.success(`Profile saved: ${name}`)
-    setDropdown({ isOpen: false })
+    setShowSaveModal(false)
   }
 
   const handleRenameProfile = (id: string, currentName: string) => {
@@ -113,6 +117,13 @@ export function ProfileSwitcher() {
         )}
         <span className="profile-switcher__arrow">▼</span>
       </button>
+
+      <SaveProfileModal
+        isOpen={showSaveModal}
+        serverAddress={address}
+        onSave={handleConfirmSave}
+        onClose={() => setShowSaveModal(false)}
+      />
 
       {dropdown.isOpen && (
         <div className="profile-dropdown">
