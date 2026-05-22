@@ -2,6 +2,16 @@ import { useEffect, useRef } from 'react'
 import { useStore } from '../store'
 import './Logger.scss'
 
+function classifyMessage(msg: string): string {
+  const lower = msg.toLowerCase()
+  if (lower.includes('connect') && !lower.includes('disconnect')) return 'connect'
+  if (lower.includes('disconnect') || lower.includes('error') || lower.includes('fail')) return 'disconnect'
+  if (lower.includes('emit') || lower.includes('sent')) return 'emit'
+  if (lower.includes('receiv') || lower.includes('response') || lower.includes('ack')) return 'receive'
+  if (lower.includes('warn')) return 'warn'
+  return ''
+}
+
 export function Logger() {
   const { logs } = useStore()
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -19,54 +29,52 @@ export function Logger() {
     shouldAutoScroll.current = scrollTop + clientHeight >= scrollHeight - 10
   }
 
-  const handleClear = () => {
-    useStore.getState().clearLogs()
-  }
-
   return (
     <div className="logger-panel">
       <div className="logger-panel__header">
-        <h2 className="logger-panel__title">Log</h2>
+        <div className="logger-panel__terminal-dots">
+          <span /><span /><span />
+        </div>
+        <h2 className="logger-panel__title">console</h2>
         <button
           className="logger-panel__clear-btn"
-          onClick={handleClear}
+          onClick={() => useStore.getState().clearLogs()}
           disabled={logs.length === 0}
-          title="Clear all logs"
         >
-          Clear
+          clear
         </button>
       </div>
 
-      <div
-        className="logger-panel__content"
-        onScroll={handleScroll}
-        ref={scrollRef}
-      >
+      <div className="logger-panel__content" onScroll={handleScroll} ref={scrollRef}>
         {logs.length === 0 ? (
           <div className="logger-panel__empty">
-            <p>No logs yet. Connect to a server or send requests to see logs.</p>
+            <p>Waiting for activity…</p>
           </div>
         ) : (
           <div className="logger-panel__logs">
-            {logs.map((log) => (
-              <div key={log.id} className="log-entry">
-                <span className="log-entry__time">
-                  {new Date(log.time).toLocaleTimeString('en-US', {
-                    hour12: false,
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                  })}
-                </span>
-                <span className="log-entry__message">{log.message}</span>
-              </div>
-            ))}
+            {logs.map((log) => {
+              const kind = classifyMessage(log.message)
+              return (
+                <div key={log.id} className="log-entry">
+                  <span className="log-entry__time">
+                    {new Date(log.time).toLocaleTimeString('en-US', {
+                      hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit',
+                    })}
+                  </span>
+                  <span className="log-entry__prompt">›</span>
+                  <span className={`log-entry__message${kind ? ` log-entry__message--${kind}` : ''}`}>
+                    {log.message}
+                  </span>
+                </div>
+              )
+            })}
           </div>
         )}
       </div>
 
       <div className="logger-panel__footer">
-        <span className="logger-panel__count">{logs.length} entries</span>
+        <span className="logger-panel__count">{logs.length} lines</span>
+        <span className="logger-panel__cursor" />
       </div>
     </div>
   )

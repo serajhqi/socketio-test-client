@@ -5,45 +5,69 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  background-color: $burnt;
+  background: #0d1117;
+  font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
 }
 
 .logger-panel__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1rem;
-  height: 42px;
-  border-bottom: 1px solid $burning;
+  padding: 0 0.875rem;
+  height: 34px;
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
   flex-shrink: 0;
+  gap: 0.5rem;
+}
+
+.logger-panel__terminal-dots {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: block;
+
+    &:nth-child(1) { background: #ff5f57; }
+    &:nth-child(2) { background: #febc2e; }
+    &:nth-child(3) { background: #28c840; }
+  }
 }
 
 .logger-panel__title {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: $semiburnt;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #484f58;
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
+  flex: 1;
+  text-align: center;
 }
 
 .logger-panel__clear-btn {
-  padding: 0.3rem 0.625rem;
+  padding: 0.2rem 0.5rem;
   background: transparent;
-  color: $semiburnt;
-  border: 1px solid rgba(149, 134, 134, 0.3);
+  color: #484f58;
+  border: 1px solid #21262d;
   border-radius: 3px;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
+  font-family: inherit;
   cursor: pointer;
   transition: all 0.15s;
+  letter-spacing: 0.3px;
 
   &:hover:not(:disabled) {
-    color: $white;
-    border-color: $semiburnt;
+    color: #8b949e;
+    border-color: #30363d;
   }
 
   &:disabled {
-    opacity: 0.4;
+    opacity: 0.3;
     cursor: not-allowed;
   }
 }
@@ -52,6 +76,10 @@
   flex: 1;
   overflow-y: auto;
   background: transparent;
+
+  &::-webkit-scrollbar { width: 5px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: #21262d; border-radius: 2px; }
 }
 
 .logger-panel__empty {
@@ -59,63 +87,98 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: $semiburnt;
-  text-align: center;
   padding: 1.5rem;
+  text-align: center;
 
   p {
     margin: 0;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
+    color: #30363d;
     line-height: 1.6;
+
+    &::before {
+      content: '$ ';
+      color: #3fb950;
+    }
   }
 }
 
 .logger-panel__logs {
   display: flex;
   flex-direction: column;
+  padding: 0.25rem 0;
 }
 
 .log-entry {
   display: flex;
-  gap: 0.75rem;
-  padding: 0.4rem 0.875rem;
-  border-bottom: 1px solid rgba($burning, 0.6);
-  align-items: flex-start;
-  font-size: 0.8rem;
-  line-height: 1.4;
+  gap: 0;
+  padding: 0.15rem 0;
+  align-items: baseline;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  border-bottom: none;
 
-  &:hover {
-    background: rgba($burning, 0.5);
-  }
+  &:hover { background: rgba(255,255,255,0.02); }
 
   &__time {
-    color: #4a9eff;
-    font-family: 'Monaco', 'Courier New', monospace;
-    font-size: 0.7rem;
+    color: #3d444d;
+    font-size: 0.65rem;
     white-space: nowrap;
     flex-shrink: 0;
-    padding-top: 1px;
+    padding: 0 0.5rem 0 0.75rem;
+    min-width: 68px;
+    text-align: right;
+  }
+
+  &__prompt {
+    color: #3fb950;
+    flex-shrink: 0;
+    padding-right: 0.4rem;
+    user-select: none;
   }
 
   &__message {
-    color: rgba($white, 0.75);
+    color: #adbac7;
     word-break: break-word;
     flex: 1;
+    padding-right: 0.75rem;
+
+    // color-coded keywords
+    &--connect  { color: #3fb950; }
+    &--disconnect { color: #f85149; }
+    &--error    { color: #f85149; }
+    &--emit     { color: #79c0ff; }
+    &--receive  { color: #d2a8ff; }
+    &--warn     { color: #e3b341; }
   }
 }
 
 .logger-panel__footer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: 0.35rem 1rem;
-  border-top: 1px solid $burning;
+  justify-content: space-between;
+  padding: 0.2rem 0.875rem;
+  border-top: 1px solid #21262d;
+  background: #161b22;
   flex-shrink: 0;
 }
 
 .logger-panel__count {
-  color: $semiburnt;
-  font-size: 0.7rem;
+  color: #484f58;
+  font-size: 0.62rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.logger-panel__cursor {
+  width: 7px;
+  height: 12px;
+  background: #3fb950;
+  opacity: 0.6;
+  animation: blink-cursor 1.2s step-end infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0; }
 }

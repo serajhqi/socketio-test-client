@@ -9,7 +9,7 @@ interface RequestProps {
 }
 
 export function Request({ onServerClick }: RequestProps) {
-  const { request, status } = useStore()
+  const { request, status, address } = useStore()
   const [emitName, setEmitName] = useState('')
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
@@ -54,32 +54,49 @@ export function Request({ onServerClick }: RequestProps) {
   const isConnected = status === 'connected'
   const isTransitioning = status === 'connecting' || status === 'disconnecting'
 
+  const serverLabel = address
+    ? address.replace(/^https?:\/\//, '')
+    : null
+
   return (
     <div className="request-panel">
       <div className="request-bar">
         <button
-          className="request-bar__server"
+          className={`request-bar__server ${!address ? 'request-bar__server--empty' : ''}`}
           onClick={onServerClick}
-          title="Configure server URL"
+          title={address ? `Server: ${address} — click to change` : 'Click to set server URL'}
         >
-          Set URL
+          {serverLabel ? (
+            <span className="request-bar__server-url">{serverLabel}</span>
+          ) : (
+            <span className="request-bar__server-placeholder">set server url</span>
+          )}
+          <span className="request-bar__server-edit">✎</span>
         </button>
+
         <button
           className={`request-bar__connect request-bar__connect--${status}`}
           onClick={toggleConnection}
           disabled={isTransitioning}
-          title={isConnected ? 'Disconnect' : 'Connect'}
+          title={
+            isTransitioning
+              ? status
+              : isConnected
+              ? 'Connected — click to disconnect'
+              : 'Disconnected — click to connect'
+          }
         >
           <span className="request-bar__connect-dot" />
         </button>
+
         <input
           className="request-bar__emit"
           placeholder="Emit Name"
           value={emitName}
-          onChange={e => {
-            setEmitName(e.target.value)
-          }}
+          onChange={e => setEmitName(e.target.value)}
           onKeyDown={handleKeyDown}
+          spellCheck={false}
+          autoComplete="off"
         />
         <input
           className="request-bar__title-input"
@@ -87,14 +104,17 @@ export function Request({ onServerClick }: RequestProps) {
           value={title}
           onChange={e => setTitle(e.target.value)}
           onKeyDown={handleKeyDown}
+          spellCheck={false}
+          autoComplete="off"
         />
         <button
           className="request-bar__send"
           onClick={validateAndSend}
           disabled={!isConnected}
           title="Send (Ctrl+Enter)"
+          aria-label="Send request"
         >
-          <svg width="22" height="22" viewBox="0 0 1024 1024" style={{ fill: isConnected ? '#f97316' : '#6b7280' }}>
+          <svg width="20" height="20" viewBox="0 0 1024 1024">
             <path d="M85.333333 896 981.333333 512 85.333333 128 85.333333 426.666667 725.333333 512 85.333333 597.333333 85.333333 896Z" />
           </svg>
         </button>
