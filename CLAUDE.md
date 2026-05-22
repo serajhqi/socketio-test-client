@@ -4,109 +4,225 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-`socketio-test-client` is a browser-based testing tool for Socket.IO APIs. It allows developers to connect to Socket.IO servers, emit events, listen to responses, and view request history—available as both a web app and browser extensions (Chrome, Firefox).
+`socketio-test-client` is a React 18 browser-based testing tool for Socket.IO APIs. Developers connect to Socket.IO servers, emit events, listen for responses, manage server profiles, and inspect request/response history—available as a web app and browser extensions (Chrome, Firefox).
 
 ## Build & Development Commands
 
-- `pnpm dev` — Start Vite dev server (runs on `http://localhost:5173`)
-- `pnpm build` — Build production bundle and generate both Firefox and Chrome extension distributions
+- `pnpm dev` — Start Vite dev server with hot reload (runs on `http://localhost:5173`)
+- `pnpm build` — Build production bundle and generate Firefox + Chrome extension distributions
 - `pnpm firefox` — Build Firefox extension only (output: `./firefox-extension/`)
 - `pnpm chrome` — Build Chrome extension only (output: `./chrome-extension/`)
+- `pnpm test` — Run Vitest unit + integration tests once
+- `pnpm test:watch` — Run tests in watch mode
+- `pnpm test:e2e` — Run Playwright E2E tests
+- `pnpm test:all` — Run all tests (unit, integration, E2E)
 
 ## Architecture
 
 ### Tech Stack
-- **UI Framework**: Svelte 3 + TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS + PostCSS
-- **State Management**: Svelte stores (writable + derived)
-- **Socket.IO**: `socket.io-client` library for WebSocket connections
-- **Components**: `svelte-notifications` (notifications), `svelte-json-tree` (JSON display)
+- **UI Framework**: React 18 + TypeScript 5
+- **Build Tool**: Vite with React plugin
+- **Styling**: SASS/SCSS with design variables ($burnt #2b2b2b, $semiburnt #958686, $burning #343434)
+- **State Management**: Zustand with 5 slices + localStorage persistence (schema_version: 1)
+- **Socket.IO**: `socket.io-client` for WebSocket connections
+- **Testing**: Vitest (jsdom) for unit/integration, Playwright for E2E
+- **Notifications**: sonner
+- **Code Editor**: @uiw/react-codemirror with @codemirror/lang-json
 
 ### Directory Structure
 
 ```
 src/
-├── main.ts              — Entry point; mounts App.svelte to #app
-├── App.svelte           — Root component; layout and page state
-├── lib/
-│   ├── store.ts         — Centralized state: ConnectionStatus, RequestType, ListenerType, LogType
-│   ├── tailwind.css     — Tailwind imports
-│   ├── handlers/
-│   │   ├── socketio.ts  — Socket.IO connection lifecycle and event emission/listening
-│   │   └── storage.ts   — localStorage persistence for server address and options
-│   └── components/      — Reusable UI components (TopMenu, Request, Response, History, Logger, Listeners, etc.)
-├── index.html           — HTML entry point
-└── vite-env.d.ts        — Vite type definitions
+├── main.tsx                     — React entry point
+├── App.tsx                      — Root component with layout, modal management, GitHub API fetch
+├── index.scss                   — SASS variables, resets, utilities
+├── types/
+│   └── index.ts                 — Shared types: ConnectionStatus, RequestType, ListenerType, LogType,
+│                                   ServerProfile (id, name, address, options, socketioVersion?),
+│                                   ConnectionDetails (socketId, transport, connectedAt, reconnectionCount)
+├── store/
+│   └── index.ts                 — Zustand store combining 5 slices:
+│                                   - ConnectionSlice (address, status, options, connectionDetails, profiles[], activeProfileId)
+│                                   - RequestSlice (request, requestHistory[] with upsertHistory, removeFromHistory)
+│                                   - ListenerSlice (listeners[] with appendMessage, clearMessages)
+│                                   - LogSlice (logs[] with auto-cleanup at 2000 entries)
+│                                   - UiSlice (repoStars, appVersion, historyCollapsed)
+│                                   Persisted to localStorage via persist middleware
+├── services/
+│   ├── socketio.ts              — Socket.IO lifecycle and handlers:
+│                                   - toggleConnection(): connect/disconnect, status management, connectionDetails capture
+│                                   - sendRequest(): emit event, measure duration, capture response
+│                                   - logger(): append timestamped logs
+│                                   - Tracks transport upgrades, reconnections, socket ID
+│   └── storage.ts               — localStorage persistence:
+│                                   - readItems(), saveRequest(), saveListeners(), removeRequest(), removeListener()
+│
+└── components/                  — 10 React components with .tsx + .scss
+    ├── TopMenu.tsx/scss         — Header: logo, version, GitHub stars badge, profile & export/import slots
+    ├── HelpModal.tsx/scss       — Dialog: contributors, resources
+    ├── ConnectionController.tsx/scss — 4-state button (connecting|connected|disconnecting|disconnected)
+    ├── ServerAddressModal.tsx/scss — Dialog: server URL input, JSON options editor
+    ├── Request.tsx/scss         — Event name/title inputs, JSON body textarea, send button, Ctrl+Enter
+    ├── Response.tsx/scss        — JSON viewer, copy button, connection details (ID/transport/duration)
+    ├── Logger.tsx/scss          — Auto-scrolling log list, clear button, entry count footer
+    ├── Listeners.tsx/scss       — 3-column layout: listeners | messages | JSON viewer; add/remove/clear
+    ├── History.tsx/scss         — Collapsible panel: search, list with count badge, open/remove
+    ├── ProfileSwitcher.tsx/scss — Dropdown: list/create/edit/delete profiles, save current, switch
+    └── ExportImport.tsx/scss    — Export session JSON, import with schema validation
 
-extension-helper/       — Browser extension metadata and scripts
-├── *-manifest.json     — Firefox/Chrome-specific manifests
-├── *-background.js     — Firefox/Chrome-specific service workers
-└── images/             — Extension assets
+test/
+├── setup.ts                     — Vitest setup: jest-dom imports, matchMedia/URL/clipboard mocks
+├── fixtures/
+│   ├── socket-server.ts         — Test Socket.IO server on port 3099 (echo, slow-echo, broadcast, error-event)
+│   ├── global-setup.ts          — Playwright: start socket server before E2E tests
+│   └── global-teardown.ts       — Playwright: stop socket server after E2E tests
+└── e2e/
+    ├── connection.spec.ts       — Connect/disconnect, server settings, status display
+    ├── request-response.spec.ts — Emit event, response viewer, duration, copy
+    ├── history.spec.ts          — History persistence, search, removal, page reload
+    ├── listeners.spec.ts        — Add listener, message capture, JSON viewer
+    ├── profiles.spec.ts         — Profile create/edit/delete/switch
+    └── export-import.spec.ts    — Session export/import with validation
 
-dist/                   — Production build (web app)
-firefox-extension/      — Firefox extension distribution (created by pnpm firefox)
-chrome-extension/       — Chrome extension distribution (created by pnpm chrome)
+extension-helper/               — Browser extension metadata (shared across Chrome + Firefox)
+├── *-manifest.json             — Browser-specific manifests (manifest_version: 3 for Chrome, 2 for Firefox)
+├── *-background.js             — Service Workers (Chrome) / Background Pages (Firefox)
+└── images/                      — Extension icons and assets
+
+dist/                           — Production web app bundle (served by bin/socketio-test-client.js)
+firefox-extension/              — Firefox extension distribution
+chrome-extension/               — Chrome extension distribution
+
+vite.config.ts                  — Vite config: React plugin, dev server 0.0.0.0:5173, Vitest jsdom setup
+tsconfig.json                   — React/Vite standard config: jsx "react-jsx", strict mode, vitest types
+playwright.config.ts            — E2E config: webServer for Vite dev server, globalSetup/teardown for test socket server
 ```
 
-### State Management (Svelte Stores)
+### State Management (Zustand Store)
 
-All reactive state is centralized in `src/lib/store.ts`:
+Centralized in `src/store/index.ts`. All state slices combined into a single `useStore` hook with Zustand's `persist` middleware:
 
-- **`serverSettings`** — Connection address, status (`connecting|connected|disconnecting|disconnected`), client options (headers, auth, transports), and socket ID
-- **`request`** — Currently active request: event name, title, request body, response, duration
-- **`requestHistory`** — Array of past requests
-- **`listeners`** — Array of event listeners with received messages
-- **`logs`** — Timestamped log messages (connection events, errors)
-- **`repoStars`** — GitHub star count (fetched on mount)
+**ConnectionSlice**:
+- `address` — Server URL (e.g., "http://localhost:3000")
+- `status` — "disconnected" | "connecting" | "connected" | "disconnecting"
+- `options` — Socket.IO client options as JSON object (extraHeaders, auth, transports, etc.)
+- `connectionDetails` — { socketId?: string, transport?: string, connectedAt?: number, reconnectionCount?: number }
+- `profiles` — Array of ServerProfile objects (id, name, address, options, socketioVersion?: "3" | "4")
+- `activeProfileId` — Currently selected profile ID
 
-Subscribe to these stores in components using Svelte's `$` auto-subscription syntax.
+**RequestSlice**:
+- `request` — Current request: { emitName, title?, body?, response?, duration? }
+- `requestHistory` — Array of past requests, deduplicated by title via `upsertHistory()`
 
-### Key Handlers
+**ListenerSlice**:
+- `listeners` — Array of { title, messages: { id, time, data }[] }
+- `appendMessage()` — Add message to listener's messages array
 
-**`socketio.ts`** — Socket.IO lifecycle and communication:
-- `toggleConnection()` — Establish or close Socket.IO connection; handles connection status, error recovery, event listener registration
-- `emitRequest()` — Send an event to the server; logs duration and response
-- Event listeners dynamically registered from UI; receive messages appended to listener state
-- Utility: `isJson()` — Check if a string is valid JSON
+**LogSlice**:
+- `logs` — Array of { id, time, message }, auto-cleared when > 2000 entries
 
-**`storage.ts`** — localStorage persistence:
-- Save/load server address, Socket.IO client options, and request history to survive page reloads
+**UiSlice**:
+- `repoStars` — GitHub star count (fetched from GitHub API on App mount)
+- `appVersion` — Package version
+- `historyCollapsed` — Boolean for History panel expand/collapse state
+
+**Persistence**: Uses `persist` middleware with key `'connection'`, saves profiles, address, and options to localStorage on every change. On init, reads schema_version to support future data migrations.
+
+### Key Services
+
+**`src/services/socketio.ts`** — Socket.IO lifecycle:
+- `toggleConnection()` — Connect to server at `address` with `options`; capture socket ID, transport, initial reconnection count; register auto-listeners from UI
+- `sendRequest()` — Emit event from `request.emitName` with parsed body; measure round-trip duration; capture response
+- `logger(message)` — Append timestamped log entry
+- Handles transport upgrades, reconnection events, connection errors
+- **Future**: `io()` call isolated behind factory for easy injection of socket.io-client-v3 or other versions later
+
+**`src/services/storage.ts`** — localStorage persistence:
+- `readItems(key)` — Read from localStorage (returns [] if key absent)
+- `saveRequest()`, `saveListeners()` — Persist to localStorage
+- `removeRequest(title)`, `removeListener(title)` — Delete entries
+- Uses localStorage keys `'history'` and `'listeners'` for backward compat with Svelte version
+
+### Testing Strategy
+
+Three layers, all runnable before every release:
+
+**Unit Tests** (`src/**/*.test.tsx`):
+- Component rendering (props, state, user interactions)
+- Store slices (state updates, edge cases)
+- Utilities (JSON validation, date formatting)
+- Run: `pnpm test`
+
+**Integration Tests** (same files with `beforeAll` socket server):
+- `socketio.ts` handler with test server on port 3099
+- Connection lifecycle: connect → ACK echo event → disconnect
+- Request/response round-trip with duration measurement
+- Run: `pnpm test` (Vitest starts socket server via `beforeAll`)
+
+**E2E Tests** (`test/e2e/*.spec.ts`):
+- Full user flows in Playwright browser (Chrome)
+- Test server started by `globalSetup`, torn down by `globalTeardown`
+- Coverage: connection → request → response, history, listeners, profiles, export/import
+- Run: `pnpm test:e2e`
+
+**Test Socket.IO Server** (`test/fixtures/socket-server.ts`):
+- Runs on port 3099 (unlikely to conflict)
+- Implements: `echo` (ACK with same payload), `slow-echo` (200ms delay), `broadcast` (server-push event to all), `error-event` (malformed)
+- Exports `start()` and `stop()` functions for both Vitest and Playwright lifecycle hooks
+
+### Design System (SCSS)
+
+Variables in `src/index.scss`:
+- `$burnt`: #2b2b2b — Dark backgrounds
+- `$semiburnt`: #958686 — Muted text, borders
+- `$burning`: #343434 — Slightly lighter than burnt
+- `$white`: #ffffff — Light text
+
+All component styles in `src/components/*.scss` use these variables. No Tailwind; utilities defined inline or in index.scss.
 
 ### Extension Distribution
 
-The build process generates both Firefox and Chrome extensions from a single codebase:
+Build process (pnpm build):
+1. Vite builds `dist/` (web app)
+2. Copies `dist/` to `firefox-extension/` and `chrome-extension/`
+3. Copies browser-specific manifests and background scripts
+4. Injects version from `package.json` into manifest files
+5. Both distributions ready for app store submission
 
-- **Manifest differences**: `extension-helper/*-manifest.json` contain browser-specific fields (e.g., Chrome's `manifest_version: 3`, Firefox's `manifest_version: 2`)
-- **Background scripts**: `extension-helper/*-background.js` differ slightly per browser API (Service Workers vs. Background Pages)
-- **Image assets**: Shared `extension-helper/images/` copied to both distributions
-- **Build scripts** in `package.json` handle file copying and manifest versioning via `jq`
+## Component List
 
-Version number is read from `package.json` and injected into manifests during build.
+- `TopMenu` — Header with branding, version, stars, slots for ProfileSwitcher and ExportImport
+- `ConnectionController` — Status-aware button (Connect/Disconnect, Connecting, Disconnecting)
+- `ServerAddressModal` — Dialog to configure server URL and client options
+- `Request` — Form to compose and send Socket.IO events with JSON bodies
+- `Response` — Viewer for event responses with connection metadata
+- `Logger` — Real-time log display with auto-scroll and clear
+- `Listeners` — Register event listeners, view messages, inspect with JSON tree
+- `History` — Browse, search, and reopen past requests
+- `HelpModal` — Project info, contributors, documentation links
+- `ProfileSwitcher` — Manage server profiles, switch between saved configurations
+- `ExportImport` — Export session (history + listeners + profiles), import from file
 
-### Vite Configuration
+## Architecture Decisions
 
-`vite.config.ts` configures:
-- Dev server on `0.0.0.0:5173` (accessible from any network interface)
-- Svelte plugin for `.svelte` file compilation
-
-TypeScript and PostCSS are pre-configured via `svelte-preprocess` and `tsconfig.json`.
+1. **Zustand over React Context** — Handlers like `socketio.ts` run outside React tree; need synchronous `getState()`/`setState()` from any module
+2. **One store, five slices** — Avoids prop-drilling in deeply nested panel layout; all components import `useStore`
+3. **SASS/SCSS exclusively** — No Tailwind; design system variables drive theming; simpler customization for future themes
+4. **Test server on port 3099** — Dedicated, low-conflict port; started once per test suite via Playwright `globalSetup` and Vitest `beforeAll`
+5. **`ServerProfile.socketioVersion?`** — Optional now, reserved for future multi-version support (socket.io v3 vs v4); no schema migration cost later
+6. **`schema_version: 1` in localStorage** — Enables future data migrations without guessing old data format
+7. **`io()` factory pattern** — Socket.IO client call isolated, so future versions can be injected (e.g., dynamic import of socket.io-client-v3) without restructuring handlers
 
 ## Common Patterns
 
-- **Reactive declarations**: Use `$` prefix in components to subscribe to stores (e.g., `$serverSettings`)
-- **Derived stores**: Use `derived()` for computed state (e.g., `requestInFocus` is derived from `request`)
-- **Component state**: Prefer Svelte stores over local component state when data must be shared across components
-- **Type safety**: Leverage `RequestType`, `ListenerType`, `LogType`, `ConnectionStatus` enums defined in `store.ts`
-- **Error handling**: Log errors to `logs` store via `logger()` in `socketio.ts` for user visibility
+- **State updates**: `useStore.setState()` or use hook `const { field, setField } = useStore()`
+- **Component-specific state**: Use React's `useState()` for transient UI state (form inputs, modals); Zustand for shared, persistent state
+- **Side effects**: `useEffect()` for subscriptions to store or socket events; clean up event listeners in return
+- **Error handling**: Log via `useStore.getState().appendLog()` for user visibility in Logger panel
+- **Type safety**: All types in `src/types/index.ts`; import and extend as needed
 
-## Build Process for Extensions
+## Backward Compatibility
 
-Running `pnpm build` performs these steps in sequence:
-1. Vite build produces `dist/` (web app bundle)
-2. Copy `dist/` to `firefox-extension/` and `chrome-extension/`
-3. Copy `extension-helper/images/` to both extension directories
-4. Copy browser-specific background scripts and manifests
-5. Inject version from `package.json` into manifest files
-
-The extension distributions are ready to submit to the respective app stores.
+- localStorage keys `'history'` and `'listeners'` preserved from Svelte version
+- Import flow validates schema_version for future-proof migrations
+- Socket.IO options and profiles fully compatible between versions (socketioVersion field optional)
