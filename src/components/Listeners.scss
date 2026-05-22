@@ -4,19 +4,21 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: $burnt;
-  border: 1px solid $burning;
-  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(43, 43, 43, 0.9) 0%, rgba(52, 52, 52, 0.95) 100%);
+  border: 1px solid rgba(149, 134, 134, 0.15);
+  border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .listeners-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
-  border-bottom: 1px solid $burning;
+  padding: 1.125rem 1.5rem;
+  border-bottom: 1px solid rgba(149, 134, 134, 0.1);
   gap: 1rem;
+  background: linear-gradient(180deg, rgba(52, 52, 52, 0.5) 0%, rgba(43, 43, 43, 1) 100%);
 }
 
 .listeners-header__title {
@@ -25,23 +27,26 @@
   color: $white;
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.5px;
   font-size: 0.85rem;
+  color: rgba($white, 0.95);
 }
 
 .listeners-header__add-btn {
-  padding: 0.5rem 0.75rem;
-  background-color: #3b82f6;
-  color: $white;
-  border: 1px solid #3b82f6;
-  border-radius: 4px;
+  padding: 0.65rem 1rem;
+  background: rgba(74, 158, 255, 0.15);
+  color: #4a9eff;
+  border: 1px solid rgba(74, 158, 255, 0.3);
+  border-radius: 6px;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s ease;
+  letter-spacing: 0.3px;
 
   &:hover {
-    background-color: #2563eb;
+    background: rgba(74, 158, 255, 0.25);
+    border-color: rgba(74, 158, 255, 0.5);
   }
 
   &:active {
@@ -58,10 +63,10 @@
 
 // Listeners List
 .listeners-list {
-  width: 180px;
-  border-right: 1px solid $burning;
+  width: 160px;
+  border-right: 1px solid rgba(149, 134, 134, 0.1);
   overflow-y: auto;
-  background-color: $burnt;
+  background: rgba(149, 134, 134, 0.03);
 
   &__empty {
     display: flex;
@@ -70,11 +75,11 @@
     height: 100%;
     padding: 1rem;
     text-align: center;
-    color: $semiburnt;
+    color: rgba($white, 0.4);
 
     p {
       margin: 0;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       line-height: 1.4;
     }
   }
