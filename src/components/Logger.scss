@@ -21,23 +21,6 @@
   gap: 0.5rem;
 }
 
-.logger-panel__terminal-dots {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-
-  span {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: block;
-
-    &:nth-child(1) { background: #ff5f57; }
-    &:nth-child(2) { background: #febc2e; }
-    &:nth-child(3) { background: #28c840; }
-  }
-}
-
 .logger-panel__title {
   font-size: 0.7rem;
   font-weight: 500;

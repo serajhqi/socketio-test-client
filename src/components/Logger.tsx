@@ -32,14 +32,12 @@ export function Logger() {
   return (
     <div className="logger-panel">
       <div className="logger-panel__header">
-        <div className="logger-panel__terminal-dots">
-          <span /><span /><span />
-        </div>
         <h2 className="logger-panel__title">console</h2>
         <button
           className="logger-panel__clear-btn"
           onClick={() => useStore.getState().clearLogs()}
           disabled={logs.length === 0}
+          aria-label="Clear console logs"
         >
           clear
         </button>

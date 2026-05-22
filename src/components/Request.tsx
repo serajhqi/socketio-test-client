@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import CodeMirror, { EditorView } from '@uiw/react-codemirror'
 import { json } from '@codemirror/lang-json'
 import { useStore } from '../store'
@@ -66,6 +66,8 @@ export function Request({ onServerClick }: RequestProps) {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const [jsonMode, setJsonMode] = useState(true)
+  const [editorStatus, setEditorStatus] = useState('')
+  const sendBtnRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     if (request) {
@@ -115,10 +117,24 @@ export function Request({ onServerClick }: RequestProps) {
   }
 
   const ctrlEnterExtension = EditorView.domEventHandlers({
-    keydown(event) {
+    keydown(event, view) {
       if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
         event.preventDefault()
         validateAndSend()
+        return true
+      }
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        view.contentDOM.blur()
+        sendBtnRef.current?.focus()
+        setEditorStatus('Exited editor. Focus moved to Send button.')
+        setTimeout(() => setEditorStatus(''), 2000)
+        return true
+      }
+      if ((event.ctrlKey || event.metaKey) && event.key === 'm') {
+        event.preventDefault()
+        setEditorStatus('Tab inserts indent. Press Escape to exit the editor.')
+        setTimeout(() => setEditorStatus(''), 3000)
         return true
       }
       return false
@@ -138,11 +154,13 @@ export function Request({ onServerClick }: RequestProps) {
 
   return (
     <div className="request-panel">
+      <div role="status" aria-live="polite" className="sr-only">{editorStatus}</div>
       <div className="request-bar">
         <button
           className={`request-bar__server ${!address ? 'request-bar__server--empty' : ''}`}
           onClick={onServerClick}
           title={address ? `Server: ${address} — click to change` : 'Click to set server URL'}
+          aria-label={address ? `Server: ${address}. Click to change.` : 'No server set. Click to configure server URL.'}
         >
           {serverLabel ? (
             <span className="request-bar__server-url">{serverLabel}</span>
@@ -162,6 +180,13 @@ export function Request({ onServerClick }: RequestProps) {
               : isConnected
               ? 'Connected — click to disconnect'
               : 'Disconnected — click to connect'
+          }
+          aria-label={
+            isTransitioning
+              ? `Connection status: ${status}`
+              : isConnected
+              ? 'Connected. Click to disconnect.'
+              : 'Disconnected. Click to connect.'
           }
         >
           <span className="request-bar__connect-dot" />
@@ -186,11 +211,12 @@ export function Request({ onServerClick }: RequestProps) {
           autoComplete="off"
         />
         <button
+          ref={sendBtnRef}
           className="request-bar__send"
           onClick={validateAndSend}
           disabled={!isConnected}
           title="Send (Ctrl+Enter)"
-          aria-label="Send request"
+          aria-label="Send request (Ctrl+Enter)"
         >
           <svg width="20" height="20" viewBox="0 0 1024 1024">
             <path d="M85.333333 896 981.333333 512 85.333333 128 85.333333 426.666667 725.333333 512 85.333333 597.333333 85.333333 896Z" />
@@ -203,6 +229,7 @@ export function Request({ onServerClick }: RequestProps) {
           className="request-editor-toolbar__btn"
           onClick={handleFormat}
           title="Pretty-print JSON"
+          aria-label="Format JSON body"
         >
           Format
         </button>
@@ -210,12 +237,14 @@ export function Request({ onServerClick }: RequestProps) {
           className={`request-editor-toolbar__btn request-editor-toolbar__btn--mode ${jsonMode ? 'request-editor-toolbar__btn--active' : ''}`}
           onClick={() => setJsonMode(m => !m)}
           title={jsonMode ? 'Switch to plain text mode' : 'Switch to JSON mode'}
+          aria-label={jsonMode ? 'Currently JSON mode. Click to switch to plain text.' : 'Currently text mode. Click to switch to JSON.'}
+          aria-pressed={jsonMode}
         >
           {jsonMode ? 'JSON' : 'Text'}
         </button>
       </div>
 
-      <div className="request-editor">
+      <div className="request-editor" role="region" aria-label="Request body editor. Tab indents. Press Escape to exit the editor.">
         <CodeMirror
           value={body}
           onChange={setBody}

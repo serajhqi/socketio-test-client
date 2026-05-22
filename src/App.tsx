@@ -39,13 +39,14 @@ export default function App() {
         onHelpClick={() => setShowHelpModal(true)}
       />
 
-      <div className="app-body">
+      <div className="app-body" role="main">
         {historyCollapsed ? (
           <div className="app-col app-col--history-collapsed">
             <button
               className="app-col__expand-btn"
               onClick={() => setHistoryCollapsed(false)}
               title="Show history"
+              aria-label="Expand history panel"
             >
               ▶
             </button>

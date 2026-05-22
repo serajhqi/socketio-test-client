@@ -85,15 +85,41 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
                   <span className="help-modal__sep">/</span>
                   <kbd>⌘</kbd><span className="help-modal__plus">+</span><kbd>Enter</kbd>
                 </div>
-                <span className="help-modal__shortcut-desc">Send request</span>
+                <span className="help-modal__shortcut-desc">Send request (works inside the editor too)</span>
               </div>
               <div className="help-modal__shortcut-row">
                 <div className="help-modal__shortcut-keys">
                   <kbd>Escape</kbd>
                 </div>
-                <span className="help-modal__shortcut-desc">Close any modal</span>
+                <span className="help-modal__shortcut-desc">Exit the body editor (moves focus to Send), or close any modal</span>
+              </div>
+              <div className="help-modal__shortcut-row">
+                <div className="help-modal__shortcut-keys">
+                  <kbd>Tab</kbd>
+                </div>
+                <span className="help-modal__shortcut-desc">Indent inside the body editor</span>
+              </div>
+              <div className="help-modal__shortcut-row">
+                <div className="help-modal__shortcut-keys">
+                  <kbd>Ctrl</kbd><span className="help-modal__plus">+</span><kbd>M</kbd>
+                </div>
+                <span className="help-modal__shortcut-desc">Announce current editor Tab behaviour (for screen readers)</span>
               </div>
             </div>
+          </section>
+
+          {/* Accessibility */}
+          <section className="help-modal__section">
+            <h3 className="help-modal__section-title">Accessibility</h3>
+            <ul className="help-modal__list">
+              <li>All panels are navigable with <kbd>Tab</kbd> — screen reader landmarks identify Request, Logger, Response, and Listeners regions</li>
+              <li>Inside the body editor, <kbd>Tab</kbd> inserts indentation. Press <kbd>Escape</kbd> to exit the editor and resume normal keyboard navigation</li>
+              <li><kbd>Ctrl+M</kbd> inside the editor announces the current Tab behaviour to your screen reader</li>
+              <li>All interactive buttons carry descriptive <code>aria-label</code> text, including the connection status button which describes the current state</li>
+              <li>Dynamic events (connection status changes, sent/received messages) are announced via <code>aria-live</code> regions</li>
+              <li>Modals (Server Settings, Save Profile, Help) can be closed with <kbd>Escape</kbd></li>
+              <li>Listener messages and history items are individually labelled for screen reader navigation</li>
+            </ul>
           </section>
 
           {/* Connection Options */}

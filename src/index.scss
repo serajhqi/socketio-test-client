@@ -104,6 +104,19 @@ textarea {
   }
 }
 
+// Screen-reader only — visually hidden but announced by assistive tech
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 // Utilities
 .flex {
   display: flex;

@@ -89,6 +89,7 @@ export function Listeners() {
                     className="listener-item__remove"
                     onClick={e => { e.stopPropagation(); handleRemoveListener(listener.title) }}
                     title="Remove listener"
+                    aria-label={`Remove listener: ${listener.title}`}
                   >
                     ×
                   </button>
@@ -118,6 +119,7 @@ export function Listeners() {
               className="listeners-compose__add"
               onClick={e => { e.stopPropagation(); handleAddListener() }}
               title="Add listener"
+              aria-label="Add listener"
               tabIndex={-1}
             >
               →
@@ -134,6 +136,7 @@ export function Listeners() {
                 className="messages-header__clear"
                 onClick={() => handleClearMessages(currentListener.title)}
                 disabled={currentListener.messages.length === 0}
+                aria-label={`Clear messages for ${currentListener.title}`}
               >
                 clear
               </button>
