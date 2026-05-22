@@ -4,7 +4,6 @@ import { useStore } from './store'
 import { TopMenu } from './components/TopMenu'
 import { ProfileSwitcher } from './components/ProfileSwitcher'
 import { ExportImport } from './components/ExportImport'
-import { ConnectionController } from './components/ConnectionController'
 import { ServerAddressModal } from './components/ServerAddressModal'
 import { HelpModal } from './components/HelpModal'
 import { Request } from './components/Request'
@@ -17,26 +16,18 @@ import './App.scss'
 export default function App() {
   const [showAddressModal, setShowAddressModal] = useState(false)
   const [showHelpModal, setShowHelpModal] = useState(false)
+  const { historyCollapsed, setHistoryCollapsed } = useStore()
 
   useEffect(() => {
     const address = localStorage.getItem('address')
     const options = localStorage.getItem('options')
-
-    if (address) {
-      useStore.getState().setAddress(address)
-    }
-
+    if (address) useStore.getState().setAddress(address)
     if (options) {
-      try {
-        useStore.getState().setOptions(JSON.parse(options))
-      } catch {
-        // Invalid JSON, skip
-      }
+      try { useStore.getState().setOptions(JSON.parse(options)) } catch {}
     }
-
     fetch('https://api.github.com/repos/serajhqi/socketio-test-client')
-      .then((res) => res.json())
-      .then((data) => useStore.getState().setRepoStars(data.stargazers_count || 0))
+      .then(res => res.json())
+      .then(data => useStore.getState().setRepoStars(data.stargazers_count || 0))
       .catch(() => {})
   }, [])
 
@@ -45,68 +36,47 @@ export default function App() {
       <TopMenu
         profileSwitcher={<ProfileSwitcher />}
         exportImport={<ExportImport />}
+        onHelpClick={() => setShowHelpModal(true)}
       />
 
-      <div className="app-container">
-        <div className="app-toolbar">
-          <div className="app-toolbar__section">
+      <div className="app-body">
+        {historyCollapsed ? (
+          <div className="app-col app-col--history-collapsed">
             <button
-              className="app-toolbar__btn app-toolbar__btn--primary"
-              onClick={() => setShowAddressModal(true)}
-              title="Configure server address"
+              className="app-col__expand-btn"
+              onClick={() => setHistoryCollapsed(false)}
+              title="Show history"
             >
-              ⚙️ Server
+              ▶
             </button>
           </div>
-
-          <div className="app-toolbar__section app-toolbar__section--center">
-            <ConnectionController />
+        ) : (
+          <div className="app-col app-col--history">
+            <History onCollapse={() => setHistoryCollapsed(true)} />
           </div>
+        )}
 
-          <div className="app-toolbar__section">
-            <button
-              className="app-toolbar__btn"
-              onClick={() => setShowHelpModal(true)}
-              title="Show help and documentation"
-            >
-              ❓ Help
-            </button>
+        <div className="app-col app-col--center">
+          <div className="app-pane app-pane--request">
+            <Request onServerClick={() => setShowAddressModal(true)} />
+          </div>
+          <div className="app-pane app-pane--logger">
+            <Logger />
           </div>
         </div>
 
-        <div className="app-main">
-          {/* Top Row: Request | Response | Logger */}
-          <div className="app-row app-row--top">
-            <div className="app-col app-col--request">
-              <Request />
-            </div>
-            <div className="app-col app-col--response">
-              <Response />
-            </div>
-            <div className="app-col app-col--logger">
-              <Logger />
-            </div>
+        <div className="app-col app-col--right">
+          <div className="app-pane app-pane--response">
+            <Response />
           </div>
-
-          {/* Bottom Row: Listeners | History */}
-          <div className="app-row app-row--bottom">
-            <div className="app-col app-col--listeners">
-              <Listeners />
-            </div>
-            <div className="app-col app-col--history">
-              <History />
-            </div>
+          <div className="app-pane app-pane--listeners">
+            <Listeners />
           </div>
         </div>
       </div>
 
-      <ServerAddressModal
-        isOpen={showAddressModal}
-        onClose={() => setShowAddressModal(false)}
-      />
-
+      <ServerAddressModal isOpen={showAddressModal} onClose={() => setShowAddressModal(false)} />
       <HelpModal isOpen={showHelpModal} onClose={() => setShowHelpModal(false)} />
-
       <Toaster position="bottom-right" />
     </div>
   )

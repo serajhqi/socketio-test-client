@@ -2,19 +2,23 @@ import { useState } from 'react'
 import { useStore } from '../store'
 import './History.scss'
 
-export function History() {
-  const { requestHistory, historyCollapsed, setHistoryCollapsed } = useStore()
+interface HistoryProps {
+  onCollapse?: () => void
+}
+
+export function History({ onCollapse }: HistoryProps) {
+  const { requestHistory } = useStore()
   const [searchTerm, setSearchTerm] = useState('')
 
-  const filteredHistory = requestHistory.filter((item) =>
-    (item.title || item.emitName).toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  const filteredHistory = [...requestHistory]
+    .reverse()
+    .filter(item =>
+      (item.title || item.emitName).toLowerCase().includes(searchTerm.toLowerCase())
+    )
 
   const handleOpenRequest = (title: string) => {
-    const item = requestHistory.find((h) => h.title === title)
-    if (item) {
-      useStore.getState().setRequest(item)
-    }
+    const item = requestHistory.find(h => h.title === title)
+    if (item) useStore.getState().setRequest(item)
   }
 
   const handleRemoveRequest = (title: string) => {
@@ -22,76 +26,60 @@ export function History() {
   }
 
   return (
-    <div className="history-panel">
-      <button
-        className="history-toggle"
-        onClick={() => setHistoryCollapsed(!historyCollapsed)}
-        title={historyCollapsed ? 'Expand history' : 'Collapse history'}
-      >
-        <span className="history-toggle__arrow">
-          {historyCollapsed ? '▶' : '▼'}
-        </span>
-        History
-        {requestHistory.length > 0 && (
-          <span className="history-toggle__count">{requestHistory.length}</span>
+    <div className="history-sidebar">
+      <div className="history-sidebar__header">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+          <path d="M11 6C13.7614 6 16 8.23858 16 11M16.6588 16.6549L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="#fbbf24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        <input
+          className="history-sidebar__search"
+          placeholder="Search Requests"
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
+        {onCollapse && (
+          <button className="history-sidebar__collapse" onClick={onCollapse} title="Collapse">
+            <svg width="16" height="16" viewBox="0 0 20 20" style={{ fill: 'currentColor' }}>
+              <path d="M24 23h-24v-22h24v22zm-2-20h-14v18h14v-18zm-4 4l-6 5 6 5v-10z"/>
+            </svg>
+          </button>
         )}
-      </button>
+      </div>
 
-      {!historyCollapsed && (
-        <div className="history-content">
-          {requestHistory.length === 0 ? (
-            <div className="history-empty">
-              <p>No history yet. Send some requests to populate history.</p>
-            </div>
-          ) : (
-            <>
-              <div className="history-search">
-                <input
-                  type="text"
-                  className="history-search__input"
-                  placeholder="Search requests..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
+      <div className="history-sidebar__list">
+        {requestHistory.length === 0 ? (
+          <div className="history-sidebar__empty">
+            <p>No history yet. Send some requests to populate history.</p>
+          </div>
+        ) : filteredHistory.length === 0 ? (
+          <div className="history-sidebar__empty">
+            <p>No matching requests.</p>
+          </div>
+        ) : (
+          filteredHistory.map(item => (
+            <div key={item.title || item.emitName} className="history-item">
+              <div className="history-item__info">
+                <span className="history-item__title">{item.title || item.emitName}</span>
+                <span className="history-item__event">{item.emitName}</span>
               </div>
-
-              {filteredHistory.length === 0 ? (
-                <div className="history-empty">
-                  <p>No matching requests.</p>
-                </div>
-              ) : (
-                <div className="history-list">
-                  {filteredHistory.map((item) => (
-                    <div key={item.title} className="history-item">
-                      <button
-                        className="history-item__button"
-                        onClick={() => handleOpenRequest(item.title)}
-                        title="Open request"
-                      >
-                        <div className="history-item__info">
-                          <div className="history-item__title">
-                            {item.title}
-                          </div>
-                          <div className="history-item__event">
-                            {item.emitName}
-                          </div>
-                        </div>
-                      </button>
-                      <button
-                        className="history-item__remove"
-                        onClick={() => handleRemoveRequest(item.title)}
-                        title="Remove"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      )}
+              <div className="history-item__actions">
+                <button
+                  className="history-item__open"
+                  onClick={() => handleOpenRequest(item.title || item.emitName)}
+                >
+                  Open
+                </button>
+                <button
+                  className="history-item__remove"
+                  onClick={() => handleRemoveRequest(item.title || item.emitName)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   )
 }

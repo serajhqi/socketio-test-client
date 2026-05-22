@@ -4,9 +4,10 @@ import './TopMenu.scss'
 interface TopMenuProps {
   profileSwitcher?: React.ReactNode
   exportImport?: React.ReactNode
+  onHelpClick?: () => void
 }
 
-export function TopMenu({ profileSwitcher, exportImport }: TopMenuProps) {
+export function TopMenu({ profileSwitcher, exportImport, onHelpClick }: TopMenuProps) {
   const { repoStars, appVersion } = useStore()
 
   return (
@@ -22,6 +23,11 @@ export function TopMenu({ profileSwitcher, exportImport }: TopMenuProps) {
       </div>
 
       <div className="top-menu__right">
+        {onHelpClick && (
+          <button className="top-menu__help-btn" onClick={onHelpClick} title="Help">
+            ?
+          </button>
+        )}
         <a
           href="https://github.com/serajhqi/socketio-test-client"
           target="_blank"
@@ -29,7 +35,7 @@ export function TopMenu({ profileSwitcher, exportImport }: TopMenuProps) {
           className="top-menu__stars"
           title={`${repoStars} stars on GitHub`}
         >
-          ★ {repoStars}
+          ★ {repoStars || '...'}
         </a>
       </div>
     </header>

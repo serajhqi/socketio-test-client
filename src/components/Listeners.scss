@@ -4,53 +4,70 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: linear-gradient(135deg, rgba(43, 43, 43, 0.9) 0%, rgba(52, 52, 52, 0.95) 100%);
-  border: 1px solid rgba(149, 134, 134, 0.15);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  background-color: $burnt;
 }
 
 .listeners-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1.125rem 1.5rem;
-  border-bottom: 1px solid rgba(149, 134, 134, 0.1);
-  gap: 1rem;
-  background: linear-gradient(180deg, rgba(52, 52, 52, 0.5) 0%, rgba(43, 43, 43, 1) 100%);
+  height: 42px;
+  padding: 0 0.875rem;
+  border-bottom: 1px solid $burning;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.listeners-header__icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.listeners-header__input {
+  flex: 1;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: $white !important;
+  padding: 0 !important;
+  font-size: 0.9rem;
+  box-shadow: none !important;
+
+  &::placeholder {
+    color: $semiburnt !important;
+  }
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
 }
 
 .listeners-header__title {
-  font-size: 1rem;
+  flex: 1;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: $white;
+  color: $semiburnt;
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-size: 0.85rem;
-  color: rgba($white, 0.95);
 }
 
 .listeners-header__add-btn {
-  padding: 0.65rem 1rem;
-  background: rgba(74, 158, 255, 0.15);
+  padding: 0.3rem 0.625rem;
+  background: transparent;
   color: #4a9eff;
-  border: 1px solid rgba(74, 158, 255, 0.3);
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.8rem;
+  border: 1px solid rgba(74, 158, 255, 0.35);
+  border-radius: 3px;
+  font-size: 0.75rem;
   cursor: pointer;
-  transition: all 0.15s ease;
-  letter-spacing: 0.3px;
+  transition: all 0.15s;
+  flex-shrink: 0;
 
   &:hover {
-    background: rgba(74, 158, 255, 0.25);
-    border-color: rgba(74, 158, 255, 0.5);
-  }
-
-  &:active {
-    transform: scale(0.98);
+    background: rgba(74, 158, 255, 0.1);
+    border-color: rgba(74, 158, 255, 0.6);
   }
 }
 
@@ -58,15 +75,15 @@
   display: flex;
   flex: 1;
   overflow: hidden;
-  gap: 0;
 }
 
 // Listeners List
 .listeners-list {
-  width: 180px;
-  border-right: 1px solid rgba(149, 134, 134, 0.1);
+  width: 160px;
+  min-width: 160px;
+  border-right: 1px solid $burning;
   overflow-y: auto;
-  background: rgba(149, 134, 134, 0.03);
+  flex-shrink: 0;
 
   &__empty {
     display: flex;
@@ -75,7 +92,7 @@
     height: 100%;
     padding: 1rem;
     text-align: center;
-    color: rgba($white, 0.4);
+    color: $semiburnt;
 
     p {
       margin: 0;
@@ -87,7 +104,6 @@
   &__items {
     display: flex;
     flex-direction: column;
-    gap: 0;
   }
 }
 
@@ -95,21 +111,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem;
-  border-bottom: 1px solid rgba($burning, 0.5);
+  padding: 0.5rem 0.625rem;
+  border-bottom: 1px solid rgba($burning, 0.8);
   cursor: pointer;
-  transition: all 0.2s;
-  background-color: transparent;
-  gap: 0.5rem;
+  transition: background 0.1s;
+  gap: 0.25rem;
 
   &:hover {
-    background-color: rgba($burning, 0.5);
+    background: $burning;
   }
 
   &--active {
-    background-color: rgba($semiburnt, 0.15);
-    border-left: 3px solid #3b82f6;
-    padding-left: calc(0.75rem - 3px);
+    background: rgba($semiburnt, 0.1);
+    border-left: 2px solid #3b82f6;
+    padding-left: calc(0.625rem - 2px);
   }
 
   &__content {
@@ -118,17 +133,17 @@
   }
 
   &__name {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: $white;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.15rem;
   }
 
   &__count {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: $semiburnt;
   }
 
@@ -136,11 +151,10 @@
     background: none;
     border: none;
     color: $semiburnt;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     cursor: pointer;
-    padding: 0.25rem;
+    padding: 0.15rem;
     opacity: 0.5;
-    transition: all 0.2s;
     flex-shrink: 0;
 
     &:hover {
@@ -152,12 +166,14 @@
 
 // Messages List
 .messages-list {
-  width: 220px;
+  width: 180px;
+  min-width: 180px;
   border-right: 1px solid $burning;
   overflow-y: auto;
   background-color: $burnt;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 
   &--empty {
     pointer-events: none;
@@ -174,7 +190,7 @@
 
     p {
       margin: 0;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       line-height: 1.4;
     }
   }
@@ -182,7 +198,6 @@
   &__items {
     display: flex;
     flex-direction: column;
-    gap: 0;
     flex: 1;
   }
 }
@@ -191,14 +206,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem;
+  padding: 0 0.625rem;
+  height: 36px;
   border-bottom: 1px solid $burning;
   gap: 0.5rem;
   flex-shrink: 0;
 }
 
 .messages-header__title {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: $white;
   margin: 0;
@@ -210,56 +226,52 @@
 }
 
 .messages-header__clear {
-  padding: 0.35rem 0.5rem;
-  background-color: $burning;
+  padding: 0.2rem 0.4rem;
+  background: transparent;
   color: $semiburnt;
-  border: 1px solid $burning;
+  border: 1px solid rgba(149, 134, 134, 0.3);
   border-radius: 2px;
-  font-weight: 500;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   cursor: pointer;
-  transition: all 0.2s;
   flex-shrink: 0;
+  transition: all 0.15s;
 
   &:hover:not(:disabled) {
-    background-color: rgba($semiburnt, 0.1);
     color: $white;
     border-color: $semiburnt;
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.4;
     cursor: not-allowed;
   }
 }
 
 .message-item {
-  padding: 0.75rem;
-  border-bottom: 1px solid rgba($burning, 0.5);
+  padding: 0.5rem 0.625rem;
+  border-bottom: 1px solid rgba($burning, 0.8);
   cursor: pointer;
-  transition: all 0.2s;
-  background-color: transparent;
+  transition: background 0.1s;
 
   &:hover {
-    background-color: rgba($burning, 0.5);
+    background: $burning;
   }
 
   &--active {
-    background-color: rgba($semiburnt, 0.15);
-    border-left: 3px solid #3b82f6;
-    padding-left: calc(0.75rem - 3px);
+    background: rgba($semiburnt, 0.1);
+    border-left: 2px solid #3b82f6;
+    padding-left: calc(0.625rem - 2px);
   }
 
   &__time {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: #4a9eff;
     font-family: 'Monaco', 'Courier New', monospace;
-    margin-bottom: 0.25rem;
-    font-weight: 500;
+    margin-bottom: 0.15rem;
   }
 
   &__preview {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: $semiburnt;
     white-space: nowrap;
     overflow: hidden;
@@ -274,15 +286,19 @@
   flex-direction: column;
   background-color: $burnt;
   overflow: hidden;
+  min-width: 0;
 
   &__header {
-    padding: 0.75rem 1rem;
+    padding: 0 0.875rem;
+    height: 36px;
     border-bottom: 1px solid $burning;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
   }
 
   &__title {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     color: $white;
     margin: 0;
@@ -293,10 +309,10 @@
   &__content {
     flex: 1;
     overflow: auto;
-    padding: 1.5rem;
+    padding: 0.875rem;
     margin: 0;
     font-family: 'Monaco', 'Courier New', monospace;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #d4d4d4;
     line-height: 1.5;
     white-space: pre-wrap;
@@ -310,13 +326,13 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    padding: 2rem;
+    padding: 1.5rem;
     text-align: center;
     color: $semiburnt;
 
     p {
       margin: 0;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
   }
 }

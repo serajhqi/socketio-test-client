@@ -74,26 +74,41 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.6rem 1rem;
-    border: 1px solid rgba(74, 158, 255, 0.2);
-    border-radius: 6px;
-    color: #4a9eff;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid rgba(149, 134, 134, 0.3);
+    border-radius: 4px;
+    color: $white;
     text-decoration: none;
     font-size: 0.8rem;
     font-weight: 600;
-    background: rgba(74, 158, 255, 0.08);
+    background: rgba(149, 134, 134, 0.1);
     transition: all 0.15s ease;
-    letter-spacing: 0.3px;
 
     &:hover {
-      color: #6bb0ff;
+      color: #93c5fd;
       border-color: rgba(74, 158, 255, 0.4);
-      background: rgba(74, 158, 255, 0.15);
-      transform: translateY(-2px);
+      background: rgba(74, 158, 255, 0.1);
     }
+  }
 
-    &:active {
-      transform: translateY(0);
+  &__help-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(149, 134, 134, 0.3);
+    border-radius: 50%;
+    color: $semiburnt;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $white;
+      border-color: $semiburnt;
     }
   }
 }
