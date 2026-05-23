@@ -17,12 +17,6 @@ export default function App() {
   const { historyCollapsed, setHistoryCollapsed } = useStore()
 
   useEffect(() => {
-    const address = localStorage.getItem('address')
-    const options = localStorage.getItem('options')
-    if (address) useStore.getState().setAddress(address)
-    if (options) {
-      try { useStore.getState().setOptions(JSON.parse(options)) } catch {}
-    }
     fetch('https://api.github.com/repos/serajhqi/socketio-test-client')
       .then(res => res.json())
       .then(data => useStore.getState().setRepoStars(data.stargazers_count || 0))

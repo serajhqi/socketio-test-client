@@ -1,6 +1,5 @@
 import { io, Socket } from 'socket.io-client'
 import { useStore } from '../store'
-import { saveRequest } from './storage'
 
 export const isJson = (str: string): boolean => {
   try {
@@ -133,18 +132,8 @@ export const sendRequest = (): void => {
   socket.emit(req.emitName, reqBody, (response: unknown) => {
     const duration = Date.now() - startTime
     useStore.getState().setRequest({ response, duration })
-
-    const historyState = useStore.getState().requestHistory
-    const objIndex = historyState.findIndex((item) => item.title === req.title)
-
-    if (objIndex === -1) {
-      useStore.getState().upsertHistory({ ...req, response, duration })
-    } else {
-      historyState[objIndex] = { ...req, response, duration }
-      useStore.getState().setRequestHistory(historyState)
-      logger(`[response] ${req.emitName} ${JSON.stringify(response)}`)
-    }
-    saveRequest()
+    useStore.getState().upsertHistory({ ...req, response, duration })
+    logger(`[response] ${req.emitName} ${JSON.stringify(response)}`)
   })
 
   socket.on('error', (error: unknown) => {
