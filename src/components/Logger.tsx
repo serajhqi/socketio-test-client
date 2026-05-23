@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { useStore } from '../store'
 import './Logger.scss'
 
@@ -16,6 +16,14 @@ export function Logger() {
   const { logs } = useStore()
   const scrollRef = useRef<HTMLDivElement>(null)
   const shouldAutoScroll = useRef(true)
+  const [copiedId, setCopiedId] = useState<string | null>(null)
+
+  const handleCopy = useCallback((id: string, message: string) => {
+    navigator.clipboard.writeText(message).then(() => {
+      setCopiedId(id)
+      setTimeout(() => setCopiedId(null), 1500)
+    })
+  }, [])
 
   useEffect(() => {
     if (shouldAutoScroll.current && scrollRef.current) {
@@ -63,6 +71,14 @@ export function Logger() {
                   <span className={`log-entry__message${kind ? ` log-entry__message--${kind}` : ''}`}>
                     {log.message}
                   </span>
+                  <button
+                    className={`log-entry__copy${copiedId === log.id ? ' log-entry__copy--done' : ''}`}
+                    onClick={() => handleCopy(log.id, log.message)}
+                    aria-label="Copy log message"
+                    title="Copy"
+                  >
+                    {copiedId === log.id ? '✓' : '⎘'}
+                  </button>
                 </div>
               )
             })}

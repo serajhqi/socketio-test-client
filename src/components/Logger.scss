@@ -100,8 +100,13 @@
   font-size: 0.78rem;
   line-height: 1.5;
   border-bottom: none;
+  position: relative;
 
-  &:hover { background: rgba(255,255,255,0.02); }
+  &:hover {
+    background: rgba(255,255,255,0.02);
+
+    .log-entry__copy { opacity: 1; }
+  }
 
   &__time {
     color: #3d444d;
@@ -120,11 +125,42 @@
     user-select: none;
   }
 
+  &__copy {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-right: 0.4rem;
+    margin-left: 0.25rem;
+    background: none;
+    border: none;
+    color: #484f58;
+    font-size: 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.1s, color 0.1s, background 0.1s;
+    align-self: center;
+    padding: 0;
+
+    &:hover {
+      color: #8b949e;
+      background: rgba(255,255,255,0.06);
+    }
+
+    &--done {
+      color: #3fb950;
+      opacity: 1 !important;
+    }
+  }
+
   &__message {
     color: #adbac7;
     word-break: break-word;
     flex: 1;
-    padding-right: 0.75rem;
+    padding-right: 0;
 
     // color-coded keywords
     &--connect  { color: #3fb950; }
