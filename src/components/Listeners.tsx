@@ -80,10 +80,10 @@ export function Listeners() {
                   onClick={() => setSelectedListener(listener.title)}
                 >
                   <div className="listener-item__content">
-                    <div className="listener-item__name">{listener.title}</div>
-                    <div className="listener-item__count">
-                      {listener.messages.length} msg{listener.messages.length !== 1 ? 's' : ''}
-                    </div>
+                    <span className="listener-item__name">{listener.title}</span>
+                    {listener.messages.length > 0 && (
+                      <span className="listener-item__count">({listener.messages.length})</span>
+                    )}
                   </div>
                   <button
                     className="listener-item__remove"

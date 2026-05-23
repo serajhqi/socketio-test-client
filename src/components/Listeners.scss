@@ -134,7 +134,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0.625rem;
+  padding: 0.35rem 0.625rem;
   border-bottom: 1px solid rgba($burning, 0.8);
   cursor: pointer;
   transition: background 0.1s;
@@ -153,6 +153,10 @@
   &__content {
     flex: 1;
     min-width: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    overflow: hidden;
   }
 
   &__name {
@@ -162,12 +166,15 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 0.15rem;
+    flex-shrink: 1;
+    min-width: 0;
   }
 
   &__count {
     font-size: 0.65rem;
     color: $semiburnt;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   &__remove {
