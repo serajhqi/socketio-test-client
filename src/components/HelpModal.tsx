@@ -129,12 +129,14 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
               The options field accepts a JSON object passed directly to the Socket.IO client constructor.
               Common fields:
             </p>
-            <pre className="help-modal__code">{`{
-  "transports": ["websocket"],
-  "auth": { "token": "your-token" },
-  "extraHeaders": { "Authorization": "Bearer ..." },
-  "path": "/socket.io"
-}`}</pre>
+            <pre className="help-modal__code">
+              <span className="hm-json__brace">{'{'}</span>{'\n'}
+              {'  '}<span className="hm-json__key">"transports"</span><span className="hm-json__punct">: [</span><span className="hm-json__string">"websocket"</span><span className="hm-json__punct">],</span>{'\n'}
+              {'  '}<span className="hm-json__key">"auth"</span><span className="hm-json__punct">: {'{'} </span><span className="hm-json__key">"token"</span><span className="hm-json__punct">: </span><span className="hm-json__string">"your-token"</span><span className="hm-json__punct">{' }'}, </span>{'\n'}
+              {'  '}<span className="hm-json__key">"extraHeaders"</span><span className="hm-json__punct">: {'{'} </span><span className="hm-json__key">"Authorization"</span><span className="hm-json__punct">: </span><span className="hm-json__string">"Bearer ..."</span><span className="hm-json__punct">{' }'},</span>{'\n'}
+              {'  '}<span className="hm-json__key">"path"</span><span className="hm-json__punct">: </span><span className="hm-json__string">"/socket.io"</span>{'\n'}
+              <span className="hm-json__brace">{'}'}</span>
+            </pre>
           </section>
 
           {/* Listeners */}

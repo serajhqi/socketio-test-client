@@ -253,6 +253,12 @@ kbd {
   white-space: pre;
 }
 
+// JSON syntax tokens inside the code block
+.hm-json__key    { color: #7dd3fc; }
+.hm-json__string { color: #86efac; }
+.hm-json__brace  { color: #958686; }
+.hm-json__punct  { color: #958686; }
+
 // Loading / empty
 .help-modal__loading,
 .help-modal__empty {
