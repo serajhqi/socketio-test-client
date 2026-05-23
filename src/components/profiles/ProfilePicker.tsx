@@ -54,7 +54,7 @@ export function ProfilePicker() {
     const newProfile = {
       id: Date.now().toString(),
       name,
-      address,
+      address: address ?? '',
       options,
       socketioVersion: '4' as const,
     }
@@ -157,7 +157,7 @@ export function ProfilePicker() {
 
       <SaveProfileModal
         isOpen={showSaveModal}
-        serverAddress={address}
+        serverAddress={address ?? ''}
         onSave={handleConfirmSave}
         onClose={() => setShowSaveModal(false)}
       />

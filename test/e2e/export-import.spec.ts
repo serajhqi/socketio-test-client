@@ -37,7 +37,7 @@ test.describe('Export/Import Sessions', () => {
     await expect(importBtn).toBeVisible()
   })
 
-  test('should export session data', async ({ page, context }) => {
+  test('should export session data', async ({ page, context: _context }) => {
     // Add some data
     const eventInput = page.locator('input[placeholder*="message, user:update"]')
     const titleInput = page.locator('input[placeholder*="Description for history"]')

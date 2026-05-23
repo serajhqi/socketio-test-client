@@ -16,7 +16,7 @@ export function ServerAddressModal({ isOpen, onClose }: ServerAddressModalProps)
 
   useEffect(() => {
     if (isOpen) {
-      setUrl(address)
+      setUrl(address ?? '')
       setOptionsText(options ? JSON.stringify(options, null, 2) : '{}')
       setError('')
     }

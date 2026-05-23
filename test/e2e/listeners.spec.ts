@@ -130,8 +130,7 @@ test.describe('Listeners Panel', () => {
     await page.waitForTimeout(1000)
 
     // Message should appear in listener
-    const messageCount = page.locator('text=/\\d+ messages?/')
-    // This depends on the test server implementation
+    // Message count depends on test server implementation
   })
 
   test('should display JSON viewer for selected message', async ({ page }) => {
@@ -163,8 +162,7 @@ test.describe('Listeners Panel', () => {
     await page.waitForTimeout(300)
 
     // JSON viewer should show the data
-    const jsonViewer = page.locator('text=Select a message')
-    // Depends on implementation
+    // JSON viewer presence depends on implementation
   })
 
   test('should clear listener messages', async ({ page }) => {
@@ -197,8 +195,7 @@ test.describe('Listeners Panel', () => {
       await page.waitForTimeout(300)
 
       // Messages should be cleared
-      const emptyMsg = page.locator('text=No messages yet')
-      // Should be visible if messages were cleared
+      // Should show "No messages yet" if messages were cleared
     }
   })
 

@@ -4,9 +4,10 @@ import './TopMenu.scss'
 
 interface TopMenuProps {
   onHelpClick?: () => void
+  onDonateClick?: () => void
 }
 
-export function TopMenu({ onHelpClick }: TopMenuProps) {
+export function TopMenu({ onHelpClick, onDonateClick }: TopMenuProps) {
   const { repoStars, appVersion } = useStore()
 
   return (
@@ -58,19 +59,19 @@ export function TopMenu({ onHelpClick }: TopMenuProps) {
         </a>
 
         {/* Donate */}
-        <a
-          href="DONATE_URL_HERE"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="top-menu__donate-btn"
-          title="Support this project"
-          aria-label="Support this project with a donation"
-        >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 21.593c-.525-.445-4.783-4.048-6.584-5.718C2.896 13.4 1 11.4 1 8.5A5.48 5.48 0 0 1 6.5 3C8.46 3 10.083 4.009 11 5.49 11.917 4.009 13.54 3 15.5 3A5.48 5.48 0 0 1 21 8.5c0 2.9-1.896 4.9-4.416 7.375C14.783 17.545 12.525 21.148 12 21.593z"/>
-          </svg>
-          <span>Donate</span>
-        </a>
+        {onDonateClick && (
+          <button
+            className="top-menu__donate-btn"
+            onClick={onDonateClick}
+            title="Support this project with a crypto donation"
+            aria-label="Open donation modal"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 21.593c-.525-.445-4.783-4.048-6.584-5.718C2.896 13.4 1 11.4 1 8.5A5.48 5.48 0 0 1 6.5 3C8.46 3 10.083 4.009 11 5.49 11.917 4.009 13.54 3 15.5 3A5.48 5.48 0 0 1 21 8.5c0 2.9-1.896 4.9-4.416 7.375C14.783 17.545 12.525 21.148 12 21.593z"/>
+            </svg>
+            <span>Donate</span>
+          </button>
+        )}
 
         {/* GitHub stars */}
         <a

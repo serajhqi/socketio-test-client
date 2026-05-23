@@ -11,9 +11,10 @@ interface Contributor {
 interface HelpModalProps {
   isOpen: boolean
   onClose: () => void
+  onDonateClick?: () => void
 }
 
-export function HelpModal({ isOpen, onClose }: HelpModalProps) {
+export function HelpModal({ isOpen, onClose, onDonateClick }: HelpModalProps) {
   const [contributors, setContributors] = useState<Contributor[]>([])
   const [loading, setLoading] = useState(false)
 
@@ -224,13 +225,12 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
                 {' '}— bug reports and feature requests
               </li>
               <li>
-                <a
-                  href="DONATE_URL_HERE"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  className="hm-donate-link"
+                  onClick={onDonateClick}
                 >
                   Support this project ♥
-                </a>
+                </button>
                 {' '}— crypto donations welcome
               </li>
             </ul>

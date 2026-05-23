@@ -383,3 +383,15 @@ kbd {
     transform: scale(0.98);
   }
 }
+
+.hm-donate-link {
+  color: #fbbf24;
+  text-decoration: underline;
+  text-decoration-color: rgba(251, 191, 36, 0.4);
+  cursor: pointer;
+  font-size: inherit;
+
+  &:hover {
+    text-decoration-color: #fbbf24;
+  }
+}

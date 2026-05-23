@@ -13,7 +13,7 @@ export type ListenerType = {
   messages: {
     id: string
     time: string | number
-    text: string | Record<string, unknown>
+    text: unknown
   }[]
 }
 

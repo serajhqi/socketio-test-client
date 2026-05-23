@@ -94,7 +94,7 @@ type Store = ConnectionSlice & RequestSlice & ListenerSlice & LogSlice & UiSlice
 
 export const useStore = create<Store>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       // Connection
       address: null,
       status: 'disconnected',

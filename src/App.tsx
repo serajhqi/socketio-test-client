@@ -4,6 +4,7 @@ import { useStore } from './store'
 import { TopMenu } from './components/layout/TopMenu'
 import { ServerAddressModal } from './components/modals/ServerAddressModal'
 import { HelpModal } from './components/modals/HelpModal'
+import { DonateModal } from './components/modals/DonateModal'
 import { Request } from './components/panels/Request'
 import { Response } from './components/panels/Response'
 import { Logger } from './components/panels/Logger'
@@ -14,6 +15,7 @@ import './App.scss'
 export default function App() {
   const [showAddressModal, setShowAddressModal] = useState(false)
   const [showHelpModal, setShowHelpModal] = useState(false)
+  const [showDonateModal, setShowDonateModal] = useState(false)
   const { historyCollapsed, setHistoryCollapsed } = useStore()
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <TopMenu onHelpClick={() => setShowHelpModal(true)} />
+      <TopMenu onHelpClick={() => setShowHelpModal(true)} onDonateClick={() => setShowDonateModal(true)} />
 
       <div className="app-body" role="main">
         {historyCollapsed ? (
@@ -65,7 +67,8 @@ export default function App() {
       </div>
 
       <ServerAddressModal isOpen={showAddressModal} onClose={() => setShowAddressModal(false)} />
-      <HelpModal isOpen={showHelpModal} onClose={() => setShowHelpModal(false)} />
+      <HelpModal isOpen={showHelpModal} onClose={() => setShowHelpModal(false)} onDonateClick={() => { setShowHelpModal(false); setShowDonateModal(true) }} />
+      <DonateModal isOpen={showDonateModal} onClose={() => setShowDonateModal(false)} />
       <Toaster position="bottom-right" />
     </div>
   )

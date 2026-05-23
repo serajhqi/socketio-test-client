@@ -1,0 +1,209 @@
+@use '../../index.scss' as *;
+
+.donate-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+}
+
+.donate-modal {
+  background: $burnt;
+  border: 1px solid $burning;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fbbf24;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__close {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: $semiburnt;
+    transition: color 0.15s, background 0.15s;
+
+    &:hover {
+      color: $white;
+      background: rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  &__intro {
+    font-size: 0.8rem;
+    color: $semiburnt;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+
+  // Crypto selector row
+  &__selector {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__crypto-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 0.5rem 0.25rem;
+    border-radius: 8px;
+    background: $burning;
+    border: 1px solid transparent;
+    transition: border-color 0.15s, background 0.15s;
+    cursor: pointer;
+
+    &:hover {
+      background: darken($burning, 2%);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    &--active {
+      border-color: var(--crypto-color);
+      background: rgba(255, 255, 255, 0.04);
+    }
+  }
+
+  &__crypto-symbol {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  &__crypto-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $white;
+  }
+
+  &__crypto-network {
+    font-size: 0.6rem;
+    color: $semiburnt;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  // Active state tints label with crypto color
+  .donate-modal__crypto-btn--active .donate-modal__crypto-label {
+    color: var(--crypto-color);
+  }
+
+  // QR code
+  &__qr-area {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  &__qr-wrap {
+    padding: 12px;
+    background: #ffffff;
+    border-radius: 8px;
+    display: inline-flex;
+  }
+
+  &__qr-placeholder {
+    width: 204px;
+    height: 204px;
+    background: $burning;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $semiburnt;
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+
+  // Address row
+  &__address-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: $burning;
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+  }
+
+  &__address {
+    flex: 1;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.72rem;
+    color: $white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+
+    &--placeholder {
+      color: $semiburnt;
+      font-style: italic;
+    }
+  }
+
+  &__copy {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $semiburnt;
+    transition: color 0.15s, background 0.15s;
+
+    &:hover {
+      color: $white;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    &--done {
+      color: #4ade80;
+    }
+  }
+
+  // Network note
+  &__network-note {
+    font-size: 0.72rem;
+    color: $semiburnt;
+    text-align: center;
+
+    strong {
+      color: $white;
+      font-weight: 500;
+    }
+  }
+
+  &__warning {
+    color: #f87171;
+  }
+}

@@ -1,5 +1,6 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { TopMenu } from './TopMenu'
 import { useStore } from '../../store'
 
@@ -30,24 +31,17 @@ describe('TopMenu', () => {
     expect(link).toHaveAttribute('target', '_blank')
   })
 
-  it('renders profile switcher slot when provided', () => {
-    render(<TopMenu profileSwitcher={<div>Profile Switcher</div>} />)
-    expect(screen.getByText('Profile Switcher')).toBeInTheDocument()
+  it('calls onHelpClick when help button clicked', async () => {
+    const onHelp = vi.fn()
+    render(<TopMenu onHelpClick={onHelp} />)
+    await userEvent.click(screen.getByLabelText('Open help guide'))
+    expect(onHelp).toHaveBeenCalled()
   })
 
-  it('renders export/import slot when provided', () => {
-    render(<TopMenu exportImport={<div>Export Import</div>} />)
-    expect(screen.getByText('Export Import')).toBeInTheDocument()
-  })
-
-  it('renders both slots when provided', () => {
-    render(
-      <TopMenu
-        profileSwitcher={<div>Profile</div>}
-        exportImport={<div>Export</div>}
-      />
-    )
-    expect(screen.getByText('Profile')).toBeInTheDocument()
-    expect(screen.getByText('Export')).toBeInTheDocument()
+  it('calls onDonateClick when donate button clicked', async () => {
+    const onDonate = vi.fn()
+    render(<TopMenu onDonateClick={onDonate} />)
+    await userEvent.click(screen.getByLabelText('Open donation modal'))
+    expect(onDonate).toHaveBeenCalled()
   })
 })

@@ -20,7 +20,7 @@ describe('ServerAddressModal', () => {
     const { container } = render(
       <ServerAddressModal isOpen={false} onClose={() => {}} />
     )
-    expect(container.firstChild).toBeEmptyDOMNode()
+    expect(container.firstChild).toBeNull()
   })
 
   it('renders when open', () => {

@@ -39,7 +39,6 @@ test.describe('History Management', () => {
       await toggleBtn.click()
     }
 
-    const emptyMsg = page.locator('text=No history yet')
     // History might be collapsed initially, which is fine
     await expect(toggleBtn).toBeVisible()
   })
