@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 import { Toaster } from 'sonner'
 import { useStore } from './store'
 import { TopMenu } from './components/TopMenu'
-import { ProfileSwitcher } from './components/ProfileSwitcher'
-import { ExportImport } from './components/ExportImport'
 import { ServerAddressModal } from './components/ServerAddressModal'
 import { HelpModal } from './components/HelpModal'
 import { Request } from './components/Request'
@@ -33,11 +31,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <TopMenu
-        profileSwitcher={<ProfileSwitcher />}
-        exportImport={<ExportImport />}
-        onHelpClick={() => setShowHelpModal(true)}
-      />
+      <TopMenu onHelpClick={() => setShowHelpModal(true)} />
 
       <div className="app-body" role="main">
         {historyCollapsed ? (

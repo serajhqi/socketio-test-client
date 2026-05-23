@@ -48,87 +48,18 @@
     font-family: 'Monaco', monospace;
   }
 
+  &__center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
   &__right {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     flex: 0 0 auto;
-  }
-
-  // Generic small icon button (gear, help)
-  &__icon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    border: 1px solid rgba($semiburnt, 0.25);
-    border-radius: 50%;
-    color: rgba($semiburnt, 0.6);
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.15s;
-
-    &:hover {
-      color: $white;
-      border-color: rgba($semiburnt, 0.6);
-      background: rgba($semiburnt, 0.1);
-    }
-
-    &--active {
-      color: #fbbf24;
-      border-color: rgba(251, 191, 36, 0.4);
-      background: rgba(251, 191, 36, 0.06);
-    }
-  }
-
-  // Settings gear dropdown container
-  &__settings-wrap {
-    position: relative;
-  }
-
-  &__settings-dropdown {
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    background: #1e1e1e;
-    border: 1px solid rgba($semiburnt, 0.2);
-    border-radius: 6px;
-    min-width: 240px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-
-    // Arrow pointing up
-    &::before {
-      content: '';
-      position: absolute;
-      top: -5px;
-      right: 9px;
-      width: 9px;
-      height: 9px;
-      background: #1e1e1e;
-      border-left: 1px solid rgba($semiburnt, 0.2);
-      border-top: 1px solid rgba($semiburnt, 0.2);
-      transform: rotate(45deg);
-    }
-  }
-
-  &__settings-section {
-    padding: 0.75rem 0.875rem;
-
-    & + & {
-      border-top: 1px solid rgba($semiburnt, 0.12);
-    }
-  }
-
-  &__settings-label {
-    display: block;
-    font-size: 0.62rem;
-    font-weight: 600;
-    color: rgba($semiburnt, 0.5);
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    margin-bottom: 0.5rem;
   }
 
   // Thin separator between in-app and external groups
