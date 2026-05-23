@@ -1,0 +1,207 @@
+@import '../../index.scss';
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background-color: $burnt;
+  border: 1px solid $burning;
+  border-radius: 8px;
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.5);
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.2s;
+
+  @media (max-width: 640px) {
+    max-width: 95vw;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid $burning;
+}
+
+.modal__title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: $white;
+  margin: 0;
+}
+
+.modal__close {
+  background: none;
+  border: none;
+  color: $semiburnt;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+
+  &:hover {
+    color: $white;
+    background-color: rgba($semiburnt, 0.1);
+  }
+}
+
+.modal__content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
+  }
+
+  &__input,
+  &__textarea {
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: $white;
+    background-color: darken($burnt, 5%);
+    border: 1px solid $burning;
+    padding: 0.75rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: #4a9eff;
+      box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.1);
+    }
+
+    &::placeholder {
+      color: rgba($semiburnt, 0.6);
+    }
+  }
+
+  &__textarea {
+    font-family: 'Monaco', 'Courier New', monospace;
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  &__hint {
+    font-size: 0.8rem;
+    color: $semiburnt;
+    margin: 0;
+  }
+}
+
+.error-message {
+  padding: 0.75rem 1rem;
+  background-color: rgba(220, 38, 38, 0.1);
+  border: 1px solid #dc2626;
+  border-radius: 4px;
+  color: #fca5a5;
+  font-size: 0.9rem;
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-top: 1px solid $burning;
+  gap: 0.5rem;
+}
+
+.modal__footer-right {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+
+  &--primary {
+    background-color: #3b82f6;
+    color: $white;
+    border: 1px solid #3b82f6;
+
+    &:hover {
+      background-color: #2563eb;
+      border-color: #2563eb;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  &--secondary {
+    background-color: transparent;
+    color: $semiburnt;
+    border: 1px solid $burning;
+
+    &:hover {
+      background-color: rgba($semiburnt, 0.1);
+      color: $white;
+      border-color: $semiburnt;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}

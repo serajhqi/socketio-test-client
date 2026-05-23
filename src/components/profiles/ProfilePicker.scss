@@ -1,0 +1,278 @@
+@import '../../index.scss';
+
+.profile-picker {
+  position: relative;
+}
+
+// ── Trigger button ──────────────────────────────────────────────
+.profile-picker__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.65rem;
+  background: rgba($semiburnt, 0.07);
+  border: 1px solid rgba($semiburnt, 0.18);
+  border-radius: 4px;
+  color: rgba($white, 0.65);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  max-width: 180px;
+
+  &:hover {
+    color: $white;
+    border-color: rgba($semiburnt, 0.45);
+    background: rgba($semiburnt, 0.12);
+  }
+
+  &--open {
+    color: $white;
+    border-color: rgba($semiburnt, 0.4);
+    background: rgba($semiburnt, 0.12);
+  }
+}
+
+.profile-picker__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+  color: #fbbf24;
+  font-weight: 500;
+
+  &--empty {
+    color: rgba($semiburnt, 0.55);
+    font-style: italic;
+    font-weight: 400;
+  }
+}
+
+.profile-picker__chevron {
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: transform 0.15s;
+
+  &--open { transform: rotate(180deg); opacity: 0.8; }
+}
+
+// ── Dropdown panel ──────────────────────────────────────────────
+.profile-picker__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: #1e1e1e;
+  border: 1px solid rgba($semiburnt, 0.2);
+  border-radius: 6px;
+  min-width: 260px;
+  max-width: 340px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+  z-index: 1100;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 14px;
+    width: 9px;
+    height: 9px;
+    background: #1e1e1e;
+    border-left: 1px solid rgba($semiburnt, 0.2);
+    border-top: 1px solid rgba($semiburnt, 0.2);
+    transform: rotate(45deg);
+  }
+}
+
+.profile-picker__section {
+  padding: 0.625rem 0.75rem;
+
+  & + & { border-top: 1px solid rgba($semiburnt, 0.1); }
+
+  &--row {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+.profile-picker__section-label {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: rgba(251, 191, 36, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 0.4rem;
+}
+
+.profile-picker__empty {
+  padding: 1rem 0.75rem;
+  font-size: 0.78rem;
+  color: rgba($semiburnt, 0.5);
+  text-align: center;
+  font-style: italic;
+}
+
+// ── Profile list items ──────────────────────────────────────────
+.profile-picker__item {
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  margin-bottom: 0.2rem;
+  border: 1px solid transparent;
+
+  &:last-child { margin-bottom: 0; }
+
+  &--active {
+    background: rgba(251, 191, 36, 0.06);
+    border-color: rgba(251, 191, 36, 0.2);
+
+    .profile-picker__item-name {
+      color: #fbbf24;
+    }
+  }
+}
+
+.profile-picker__item-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.45rem 0.5rem;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  min-width: 0;
+  transition: background 0.1s;
+
+  &:hover { background: rgba($semiburnt, 0.08); }
+}
+
+.profile-picker__item-name {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: $white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-picker__item-host {
+  font-size: 0.68rem;
+  color: rgba($semiburnt, 0.7);
+  font-family: 'Monaco', 'Courier New', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-picker__rename-input {
+  flex: 1;
+  margin: 0.3rem 0.4rem;
+  padding: 0.3rem 0.5rem;
+  background: rgba($burnt, 0.8);
+  border: 1px solid #4a9eff;
+  border-radius: 3px;
+  color: $white;
+  font-size: 0.82rem;
+  font-family: inherit;
+
+  &:focus { outline: none; box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2); }
+}
+
+.profile-picker__item-actions {
+  display: flex;
+  gap: 0.15rem;
+  padding-right: 0.4rem;
+  flex-shrink: 0;
+}
+
+.profile-picker__act {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: rgba($semiburnt, 0.5);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.12s;
+
+  &:hover {
+    color: $white;
+    border-color: rgba($semiburnt, 0.3);
+    background: rgba($semiburnt, 0.1);
+  }
+
+  &--danger:hover {
+    color: #f85149;
+    border-color: rgba(248, 81, 73, 0.3);
+    background: rgba(248, 81, 73, 0.08);
+  }
+
+  &--confirm:hover {
+    color: #3fb950;
+    border-color: rgba(63, 185, 80, 0.3);
+    background: rgba(63, 185, 80, 0.08);
+  }
+
+  &--cancel:hover {
+    color: rgba($semiburnt, 0.9);
+  }
+}
+
+// ── Save current button ─────────────────────────────────────────
+.profile-picker__save-btn {
+  width: 100%;
+  padding: 0.45rem 0.5rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 4px;
+  color: #7dd3fc;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+
+  &:hover {
+    background: rgba(59, 130, 246, 0.18);
+    border-color: rgba(59, 130, 246, 0.45);
+    color: #bae6fd;
+  }
+}
+
+// ── Separator ───────────────────────────────────────────────────
+.profile-picker__rule {
+  height: 1px;
+  background: rgba($semiburnt, 0.12);
+  margin: 0;
+}
+
+// ── Export / Import row ─────────────────────────────────────────
+.profile-picker__io-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.5rem;
+  background: rgba($semiburnt, 0.06);
+  border: 1px solid rgba($semiburnt, 0.18);
+  border-radius: 4px;
+  color: rgba($semiburnt, 0.8);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    color: $white;
+    border-color: rgba($semiburnt, 0.4);
+    background: rgba($semiburnt, 0.12);
+  }
+}
