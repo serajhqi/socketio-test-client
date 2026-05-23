@@ -39,10 +39,13 @@
   white-space: nowrap;
   flex: 1;
   min-width: 0;
+  color: #fbbf24;
+  font-weight: 500;
 
   &--empty {
     color: rgba($semiburnt, 0.55);
     font-style: italic;
+    font-weight: 400;
   }
 }
 
@@ -96,7 +99,7 @@
   display: block;
   font-size: 0.6rem;
   font-weight: 600;
-  color: rgba($semiburnt, 0.5);
+  color: rgba(251, 191, 36, 0.45);
   text-transform: uppercase;
   letter-spacing: 0.6px;
   margin-bottom: 0.4rem;
@@ -121,8 +124,12 @@
   &:last-child { margin-bottom: 0; }
 
   &--active {
-    background: rgba(74, 158, 255, 0.08);
-    border-color: rgba(74, 158, 255, 0.25);
+    background: rgba(251, 191, 36, 0.06);
+    border-color: rgba(251, 191, 36, 0.2);
+
+    .profile-picker__item-name {
+      color: #fbbf24;
+    }
   }
 }
 

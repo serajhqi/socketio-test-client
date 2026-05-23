@@ -165,6 +165,24 @@
   }
 }
 
+// Amber highlight for important terms and inline code
+.help-modal__content {
+  strong {
+    color: #fbbf24;
+    font-weight: 600;
+  }
+
+  code {
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.15);
+    border-radius: 3px;
+    padding: 0.1rem 0.35rem;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.78rem;
+  }
+}
+
 // Keyboard key badges
 kbd {
   display: inline-flex;

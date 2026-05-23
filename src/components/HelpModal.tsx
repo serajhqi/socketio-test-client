@@ -67,11 +67,11 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
           <section className="help-modal__section">
             <h3 className="help-modal__section-title">Quick Start</h3>
             <ol className="help-modal__steps">
-              <li>Click the server URL area (left side of the request bar) to configure your Socket.IO server URL</li>
-              <li>Click the connection dot (●) to connect</li>
-              <li>Type your event name, optional title, and JSON payload</li>
+              <li>Click the <strong>server URL</strong> area (left side of the request bar) to configure your Socket.IO server</li>
+              <li>Click the <strong>connection dot</strong> (●) to connect</li>
+              <li>Type your <strong>event name</strong>, optional title, and JSON payload</li>
               <li>Press <strong>Send</strong> or <kbd>Ctrl+Enter</kbd> to emit the event</li>
-              <li>View the response and logs in the right panels</li>
+              <li>View the <strong>response</strong> and <strong>logs</strong> in the right panels</li>
             </ol>
           </section>
 
@@ -141,9 +141,9 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
           <section className="help-modal__section">
             <h3 className="help-modal__section-title">Listeners</h3>
             <ul className="help-modal__list">
-              <li>Type an event name in the listeners area and press <kbd>Enter</kbd> to subscribe</li>
-              <li>Messages appear in real-time as the server emits them</li>
-              <li>Click a message to inspect the full payload in the JSON viewer</li>
+              <li>Type an <strong>event name</strong> in the listeners area and press <kbd>Enter</kbd> to subscribe</li>
+              <li>Messages appear in <strong>real-time</strong> as the server emits them</li>
+              <li>Click a message to inspect the full payload in the <strong>JSON viewer</strong></li>
             </ul>
           </section>
 
@@ -151,9 +151,9 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
           <section className="help-modal__section">
             <h3 className="help-modal__section-title">Profiles</h3>
             <ul className="help-modal__list">
-              <li>Save server configurations (URL + options) as named profiles</li>
-              <li>Switch between profiles from the top toolbar</li>
-              <li>Profiles are persisted between sessions</li>
+              <li>Save <strong>server URL + options</strong> as named profiles</li>
+              <li><strong>Switch</strong> between profiles from the top toolbar</li>
+              <li>Profiles are <strong>persisted</strong> between sessions</li>
             </ul>
           </section>
 
@@ -161,8 +161,8 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
           <section className="help-modal__section">
             <h3 className="help-modal__section-title">Export / Import</h3>
             <ul className="help-modal__list">
-              <li>Export saves your history, listeners, and profiles as a JSON file</li>
-              <li>Import restores a previously exported session</li>
+              <li><strong>Export</strong> saves your history, listeners, and profiles as a <strong>JSON file</strong></li>
+              <li><strong>Import</strong> restores a previously exported session</li>
             </ul>
           </section>
 
