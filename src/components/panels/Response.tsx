@@ -83,7 +83,7 @@ export function Response() {
         ) : typeof response === 'string' ? (
           <pre className="response-panel__json">{response}</pre>
         ) : (
-          <ReactJson src={response} collapsed={expanded ? false : 1} enableClipboard={true} />
+          <ReactJson key={`${expanded}`} src={response} collapsed={expanded ? false : 2} enableClipboard={true} />
         )}
       </div>
     </div>
