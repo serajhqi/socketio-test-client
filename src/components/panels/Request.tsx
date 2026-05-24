@@ -87,8 +87,17 @@ export function Request({ onServerClick }: RequestProps) {
       toast.error('Not connected to server')
       return
     }
+
+    if (jsonMode && body.trim()) {
+      try {
+        JSON.parse(body)
+      } catch {
+        toast.error('Invalid JSON in body')
+        return
+      }
+    }
+
     try {
-      if (jsonMode && body.trim()) JSON.parse(body)
       useStore.getState().setRequest({
         emitName,
         title: title || emitName,
@@ -96,8 +105,9 @@ export function Request({ onServerClick }: RequestProps) {
       })
       sendRequest()
       toast.success(`Sent: ${emitName}`)
-    } catch {
-      toast.error('Invalid JSON in body')
+    } catch (error) {
+      console.error('Send error:', error)
+      toast.error('Failed to send request')
     }
   }, [emitName, title, body, status, jsonMode])
 
