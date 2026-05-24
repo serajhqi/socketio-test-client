@@ -168,6 +168,14 @@ export function Request() {
           autoComplete="off"
         />
         <button
+          className="request-bar__new"
+          onClick={() => useStore.getState().clearRequest()}
+          title="Create a new request and clear response"
+          aria-label="New request. Clear event name, title, body, and response."
+        >
+          New
+        </button>
+        <button
           ref={sendBtnRef}
           className="request-bar__send"
           onClick={validateAndSend}
@@ -178,35 +186,6 @@ export function Request() {
           <svg width="20" height="20" viewBox="0 0 1024 1024">
             <path d="M85.333333 896 981.333333 512 85.333333 128 85.333333 426.666667 725.333333 512 85.333333 597.333333 85.333333 896Z" />
           </svg>
-        </button>
-      </div>
-
-      <div className="request-editor-toolbar">
-        <button
-          className="request-editor-toolbar__btn"
-          onClick={handleFormat}
-          disabled={!jsonMode}
-          title={jsonMode ? 'Pretty-print JSON' : 'Format only works in JSON mode'}
-          aria-label="Format JSON body"
-        >
-          Format
-        </button>
-        <button
-          className={`request-editor-toolbar__btn request-editor-toolbar__btn--mode ${jsonMode ? 'request-editor-toolbar__btn--active' : ''}`}
-          onClick={() => setJsonMode(m => !m)}
-          title={jsonMode ? 'Switch to plain text mode' : 'Switch to JSON mode'}
-          aria-label={jsonMode ? 'Currently JSON mode. Click to switch to plain text.' : 'Currently text mode. Click to switch to JSON.'}
-          aria-pressed={jsonMode}
-        >
-          {jsonMode ? 'JSON' : 'Text'}
-        </button>
-        <button
-          className="request-editor-toolbar__btn request-editor-toolbar__btn--new"
-          onClick={() => useStore.getState().clearRequest()}
-          title="Create a new request and clear response"
-          aria-label="New request. Clear the current event name, title, body, and response."
-        >
-          New
         </button>
       </div>
 
@@ -233,6 +212,27 @@ export function Request() {
           theme="none"
           style={{ height: '100%' }}
         />
+      </div>
+
+      <div className="request-editor-footer">
+        <button
+          className="request-editor-footer__btn"
+          onClick={handleFormat}
+          disabled={!jsonMode}
+          title={jsonMode ? 'Pretty-print JSON' : 'Format only works in JSON mode'}
+          aria-label="Format JSON body"
+        >
+          Format
+        </button>
+        <button
+          className={`request-editor-footer__btn request-editor-footer__btn--mode ${jsonMode ? 'request-editor-footer__btn--active' : ''}`}
+          onClick={() => setJsonMode(m => !m)}
+          title={jsonMode ? 'Switch to plain text mode' : 'Switch to JSON mode'}
+          aria-label={jsonMode ? 'Currently JSON mode. Click to switch to plain text.' : 'Currently text mode. Click to switch to JSON.'}
+          aria-pressed={jsonMode}
+        >
+          {jsonMode ? 'JSON' : 'Text'}
+        </button>
       </div>
     </div>
   )

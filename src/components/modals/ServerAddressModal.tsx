@@ -91,6 +91,7 @@ export function ServerAddressModal({ isOpen, onClose }: ServerAddressModalProps)
             <label className="form-group__label">Connection Options (JSON)</label>
             <div className="form-group__editor" style={{"overflow":"auto"}}>
               <CodeMirror
+                style={{"height":"100%"}}
                 value={optionsText}
                 onChange={(value) => {
                   setOptionsText(value)

@@ -48,6 +48,28 @@
     &:focus { box-shadow: none !important; color: rgba($white, 0.8) !important; }
   }
 
+  &__new {
+    height: 100%;
+    padding: 0 0.75rem;
+    background: transparent;
+    border: none;
+    border-left: 2px solid $burning;
+    border-right: 2px solid $burning;
+    color: #f97316;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s;
+    font-weight: 600;
+
+    &:hover {
+      background: rgba(249, 115, 22, 0.08);
+      color: #fed7aa;
+    }
+  }
+
   &__send {
     height: 100%;
     padding: 0 0.875rem;
@@ -76,13 +98,13 @@
   }
 }
 
-.request-editor-toolbar {
+.request-editor-footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   height: 28px;
   padding: 0 0.5rem;
-  border-bottom: 1px solid rgba($burning, 0.8);
+  border-top: 1px solid rgba($burning, 0.8);
   gap: 0.25rem;
   flex-shrink: 0;
   background: rgba($burning, 0.35);
@@ -119,17 +141,6 @@
         color: #fbbf24;
         border-color: rgba(251, 191, 36, 0.65);
         background: rgba(251, 191, 36, 0.06);
-      }
-    }
-
-    &--new {
-      color: #f97316;
-      border-color: rgba(249, 115, 22, 0.3);
-
-      &:hover {
-        color: #fed7aa;
-        border-color: rgba(249, 115, 22, 0.6);
-        background: rgba(249, 115, 22, 0.08);
       }
     }
   }
