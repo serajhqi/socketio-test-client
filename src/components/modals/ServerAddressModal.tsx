@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react'
+import CodeMirror from '@uiw/react-codemirror'
+import { json } from '@codemirror/lang-json'
+import { oneDark } from '@codemirror/theme-one-dark'
 import { useStore } from '../../store'
 import { toast } from 'sonner'
 import './ServerAddressModal.scss'
@@ -17,7 +20,7 @@ export function ServerAddressModal({ isOpen, onClose }: ServerAddressModalProps)
   useEffect(() => {
     if (isOpen) {
       setUrl(address ?? '')
-      setOptionsText(options ? JSON.stringify(options, null, 2) : '{}')
+      setOptionsText(options ? JSON.stringify(options, null, 2) : '')
       setError('')
     }
   }, [isOpen, address, options])
@@ -84,18 +87,34 @@ export function ServerAddressModal({ isOpen, onClose }: ServerAddressModalProps)
             </p>
           </div>
 
-          <div className="form-group">
+          <div className="form-group" onClick={(e) => e.stopPropagation()}>
             <label className="form-group__label">Connection Options (JSON)</label>
-            <textarea
-              className="form-group__textarea"
-              placeholder={'{\n  "reconnection": true,\n  "reconnectionDelay": 1000\n}'}
-              value={optionsText}
-              onChange={(e) => {
-                setOptionsText(e.target.value)
-                setError('')
-              }}
-              spellCheck="false"
-            />
+            <div className="form-group__editor">
+              <CodeMirror
+                value={optionsText}
+                onChange={(value) => {
+                  setOptionsText(value)
+                  setError('')
+                }}
+                extensions={[json()]}
+                theme={oneDark}
+                placeholder="Optional Socket.IO connection options"
+                basicSetup={{
+                  lineNumbers: false,
+                  foldGutter: false,
+                  dropCursor: false,
+                  allowMultipleSelections: false,
+                  indentOnInput: true,
+                  bracketMatching: true,
+                  closeBrackets: true,
+                  autocompletion: true,
+                  highlightActiveLine: true,
+                  highlightSelectionMatches: false,
+                  searchKeymap: false,
+                  tabSize: 2,
+                }}
+              />
+            </div>
             <p className="form-group__hint">
               Optional Socket.IO connection options as JSON
             </p>
