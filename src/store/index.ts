@@ -98,7 +98,12 @@ export const useStore = create<Store>()(
       // Connection
       address: null,
       status: 'disconnected',
-      options: {},
+      options: {
+        reconnection: true,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        reconnectionAttempts: 5,
+      },
       connectionDetails: { reconnectionCount: 0 },
       profiles: [],
       activeProfileId: null,
@@ -115,7 +120,12 @@ export const useStore = create<Store>()(
         set({
           address: null,
           status: 'disconnected',
-          options: {},
+          options: {
+            reconnection: true,
+            reconnectionDelay: 1000,
+            reconnectionDelayMax: 5000,
+            reconnectionAttempts: 5,
+          },
           connectionDetails: { reconnectionCount: 0 },
           activeProfileId: null,
         }),

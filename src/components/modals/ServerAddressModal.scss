@@ -136,13 +136,17 @@
   }
 
   &__editor {
-    height: 150px;
+    height: 200px;
     border: 1px solid $burning;
     border-radius: 4px;
     overflow: hidden;
 
     .cm-editor {
-      height: 100%;
+      height: 100% !important;
+    }
+
+    .cm-scroller {
+      overflow: auto !important;
     }
 
     .cm-gutters {
