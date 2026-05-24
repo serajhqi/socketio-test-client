@@ -26,7 +26,7 @@ export const toggleConnection = (): void => {
       useStore.getState().setStatus('connecting')
       logger('connecting')
 
-      socket = io(address, options)
+      socket = io(address, structuredClone(options))
       socket.connect()
 
       socket.on('connect', () => {
