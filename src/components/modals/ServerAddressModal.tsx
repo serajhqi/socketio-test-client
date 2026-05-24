@@ -12,7 +12,7 @@ interface ServerAddressModalProps {
 }
 
 export function ServerAddressModal({ isOpen, onClose }: ServerAddressModalProps) {
-  const { address, options, setAddress, setOptions } = useStore()
+  const { address, options, setAddress, setOptions, clearSettings } = useStore()
   const [url, setUrl] = useState('')
   const [optionsText, setOptionsText] = useState('')
   const [error, setError] = useState('')
@@ -43,9 +43,8 @@ export function ServerAddressModal({ isOpen, onClose }: ServerAddressModalProps)
   }
 
   const handleClear = () => {
+    clearSettings()
     setUrl('')
-    setOptions({})
-    setAddress('')
     toast.success('Settings cleared')
     onClose()
   }

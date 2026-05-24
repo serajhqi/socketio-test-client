@@ -117,19 +117,16 @@ export const useStore = create<Store>()(
         })),
       setProfiles: (profiles) => set({ profiles }),
       setActiveProfile: (id) => set({ activeProfileId: id }),
-      clearSettings: () =>
+      clearSettings: () => {
+        localStorage.removeItem('socketio-client')
         set({
           address: null,
           status: 'disconnected',
-          options: {
-            reconnection: true,
-            reconnectionDelay: 1000,
-            reconnectionDelayMax: 5000,
-            reconnectionAttempts: 5,
-          },
+          options: {},
           connectionDetails: { reconnectionCount: 0 },
           activeProfileId: null,
-        }),
+        })
+      },
 
       // Request
       request: {
