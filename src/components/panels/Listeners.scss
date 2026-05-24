@@ -349,6 +349,51 @@
     word-break: break-word;
     background-color: transparent;
     border: none;
+
+    pre {
+      margin: 0;
+      color: #e6edf3;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .react-json-view {
+      background: transparent !important;
+      font-family: 'Monaco', 'Courier New', monospace !important;
+      font-size: 0.82rem !important;
+      line-height: 1.6 !important;
+
+      .string-value {
+        color: #85e89d !important;
+      }
+
+      .number-value {
+        color: #79b8ff !important;
+      }
+
+      .boolean-value {
+        color: #f97583 !important;
+      }
+
+      .null-value {
+        color: #6f42c1 !important;
+      }
+
+      .key-string {
+        color: #79b8ff !important;
+      }
+
+      .object-key {
+        color: #79b8ff !important;
+      }
+
+      .name-key {
+        color: #79b8ff !important;
+      }
+    }
   }
 
   &__empty {

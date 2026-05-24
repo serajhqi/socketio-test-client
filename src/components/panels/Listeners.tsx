@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import ReactJson from 'react-json-view'
 import { useStore } from '../../store'
 import { toast } from 'sonner'
 import './Listeners.scss'
@@ -179,7 +180,13 @@ export function Listeners() {
               <div className="json-viewer__header">
                 <h3 className="json-viewer__title">Payload</h3>
               </div>
-              <pre className="json-viewer__content">{formatJson(currentMessage.text)}</pre>
+              <div className="json-viewer__content">
+                {typeof currentMessage.text === 'string' ? (
+                  <pre>{currentMessage.text}</pre>
+                ) : (
+                  <ReactJson src={currentMessage.text} collapsed={false} enableClipboard={true} />
+                )}
+              </div>
             </>
           ) : (
             <div className="json-viewer__empty">
