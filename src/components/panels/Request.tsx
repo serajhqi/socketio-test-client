@@ -88,22 +88,11 @@ export function Request({ onServerClick }: RequestProps) {
       return
     }
 
-    const trimmedBody = body.trim()
-
-    if (jsonMode && trimmedBody) {
-      try {
-        JSON.parse(trimmedBody)
-      } catch (e) {
-        toast.error(`Invalid JSON. Switch to Text mode to send plain text. Error: ${(e as Error).message}`)
-        return
-      }
-    }
-
     try {
       useStore.getState().setRequest({
         emitName,
         title: title || emitName,
-        body: trimmedBody || undefined,
+        body: body.trim() || undefined,
       })
       sendRequest()
       toast.success(`Sent: ${emitName}`)
@@ -111,7 +100,7 @@ export function Request({ onServerClick }: RequestProps) {
       console.error('Send error:', error)
       toast.error('Failed to send request')
     }
-  }, [emitName, title, body, status, jsonMode])
+  }, [emitName, title, body, status])
 
   const handleFormat = () => {
     if (!body.trim()) return
