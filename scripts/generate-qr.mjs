@@ -10,9 +10,9 @@ const outDir = resolve(__dirname, '../public/qr')
 
 const CRYPTOS = [
   { id: 'usdt-trc20', address: 'TWtfL74KCjAWCnD7gsj83J2pS9yzbAeqHu' },
-  { id: 'trx',        address: 'TWtfL74KCjAWCnD7gsj83J2pS9yzbAeqHu' },
-  { id: 'sol',        address: 'YOUR_SOLANA_ADDRESS_HERE' },
-  { id: 'eth',        address: 'YOUR_ETH_ADDRESS_HERE' },
+  { id: 'btc',        address: 'bc1q5mmtmpqkf8lm4zyph93l7rny6hae6vyfkmaznp' },
+  { id: 'sol',        address: '6BLjWH3x3Hgr5Qiu5W7C25ZcMryEqms17AS9t7YgYyNF' },
+  { id: 'eth',        address: '0x1F7150eE6bb33ff66e43bd2Ce122f43C83f0cf2C' },
 ]
 
 await mkdir(outDir, { recursive: true })
