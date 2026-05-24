@@ -10,7 +10,6 @@ export function ConnectionController({ onServerClick }: ConnectionControllerProp
   const { address, status } = useStore()
 
   const isConnected = status === 'connected'
-  const isTransitioning = status === 'connecting' || status === 'disconnecting'
 
   const serverLabel = address
     ? address.replace(/^https?:\/\//, '')
@@ -35,17 +34,20 @@ export function ConnectionController({ onServerClick }: ConnectionControllerProp
       <button
         className={`connection-controller__connect connection-controller__connect--${status}`}
         onClick={toggleConnection}
-        disabled={isTransitioning}
         title={
-          isTransitioning
-            ? status
+          status === 'connecting'
+            ? 'Connecting — click to cancel'
+            : status === 'disconnecting'
+            ? 'Disconnecting — click to force disconnect'
             : isConnected
             ? 'Connected — click to disconnect'
             : 'Disconnected — click to connect'
         }
         aria-label={
-          isTransitioning
-            ? `Connection status: ${status}`
+          status === 'connecting'
+            ? 'Connecting. Click to cancel.'
+            : status === 'disconnecting'
+            ? 'Disconnecting. Click to force disconnect.'
             : isConnected
             ? 'Connected. Click to disconnect.'
             : 'Disconnected. Click to connect.'

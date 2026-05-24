@@ -75,12 +75,10 @@
   justify-content: center;
   transition: all 0.15s;
 
-  &:hover:not(:disabled) {
+  &:hover {
     background: rgba($semiburnt, 0.08);
     border-color: rgba($semiburnt, 0.4);
   }
-
-  &:disabled { cursor: not-allowed; }
 
   &--connected .connection-controller__connect-dot {
     background: #4ade80;
