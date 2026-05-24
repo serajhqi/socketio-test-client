@@ -19,12 +19,12 @@ export function Response() {
   const { response, duration } = request || {}
 
   const handleCopy = () => {
-    if (!response) return
+    if (response === undefined) return
     const text = typeof response === 'string' ? response : JSON.stringify(response, null, 2)
     navigator.clipboard.writeText(text).then(() => toast.success('Copied to clipboard'))
   }
 
-  const hasResponse = response !== undefined && response !== null
+  const hasResponse = response !== undefined
   const socketId = connectionDetails?.socketId
   const transport = connectionDetails?.transport
   const reconnections = connectionDetails?.reconnectionCount ?? 0
