@@ -29,6 +29,7 @@ export function TopMenu({ onHelpClick, onDonateClick, onServerClick }: TopMenuPr
 
       <div className="top-menu__center">
         <ConnectionController onServerClick={onServerClick} />
+        <div className="top-menu__divider" aria-hidden="true" />
         <ProfilePicker />
       </div>
 

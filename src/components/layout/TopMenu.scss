@@ -80,14 +80,14 @@
   &__stars {
     display: flex;
     align-items: center;
-    height: 32px;
-    gap: 0.4rem;
-    padding: 0 0.6rem;
+    height: 26px;
+    gap: 0.35rem;
+    padding: 0 0.55rem;
     border: 1px solid rgba($semiburnt, 0.2);
     border-radius: 4px;
     background: transparent;
     text-decoration: none;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     cursor: pointer;
     transition: all 0.15s;
     white-space: nowrap;
@@ -98,7 +98,7 @@
   // Help ? button
   &__help-btn {
     padding: 0;
-    width: 32px;
+    width: 26px;
     justify-content: center;
     color: rgba($semiburnt, 0.7);
     font-weight: 700;
