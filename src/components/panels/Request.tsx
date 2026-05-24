@@ -200,6 +200,14 @@ export function Request() {
         >
           {jsonMode ? 'JSON' : 'Text'}
         </button>
+        <button
+          className="request-editor-toolbar__btn request-editor-toolbar__btn--new"
+          onClick={() => useStore.getState().clearRequest()}
+          title="Create a new request and clear response"
+          aria-label="New request. Clear the current event name, title, body, and response."
+        >
+          New
+        </button>
       </div>
 
       <div className="request-editor" role="region" aria-label="Request body editor. Tab indents. Press Escape to exit the editor.">

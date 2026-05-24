@@ -121,6 +121,17 @@
         background: rgba(251, 191, 36, 0.06);
       }
     }
+
+    &--new {
+      color: #f97316;
+      border-color: rgba(249, 115, 22, 0.3);
+
+      &:hover {
+        color: #fed7aa;
+        border-color: rgba(249, 115, 22, 0.6);
+        background: rgba(249, 115, 22, 0.08);
+      }
+    }
   }
 }
 

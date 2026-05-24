@@ -42,6 +42,7 @@ interface RequestSlice {
   setRequestHistory: (history: RequestType[]) => void
   upsertHistory: (req: RequestType) => void
   removeFromHistory: (title: string) => void
+  clearRequest: () => void
 }
 
 // ============================================================================
@@ -158,6 +159,16 @@ export const useStore = create<Store>()(
         set((state) => ({
           requestHistory: state.requestHistory.filter((r) => r.title !== title),
         })),
+      clearRequest: () =>
+        set({
+          request: {
+            emitName: '',
+            title: '',
+            body: undefined,
+            response: undefined,
+            duration: undefined,
+          },
+        }),
 
       // Listeners
       listeners: [],
