@@ -52,12 +52,14 @@
 }
 
 .response-statusbar__value {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: #fbbf24;
   font-family: 'Monaco', monospace;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-shrink: 1;
+  min-width: 0;
 
   &--muted { color: rgba($semiburnt, 0.6); }
 }

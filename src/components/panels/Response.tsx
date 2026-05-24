@@ -35,8 +35,11 @@ export function Response() {
         <div className="response-statusbar__left">
           <span className="response-statusbar__item">
             <span className="response-statusbar__label">id</span>
-            <span className={`response-statusbar__value ${socketId ? '' : 'response-statusbar__value--muted'}`}>
-              {socketId ? socketId.substring(0, 14) + '…' : status === 'disconnected' ? 'disconnected' : '…'}
+            <span
+              className={`response-statusbar__value ${socketId ? '' : 'response-statusbar__value--muted'}`}
+              title={socketId ? `Socket ID: ${socketId}` : ''}
+            >
+              {socketId ? socketId.substring(0, 24) + (socketId.length > 24 ? '…' : '') : status === 'disconnected' ? 'disconnected' : '…'}
             </span>
           </span>
           {transport && (
