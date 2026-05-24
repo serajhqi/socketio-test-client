@@ -128,6 +128,8 @@ export const sendRequest = (): void => {
   const reqBody = isJson(req.body || '') ? JSON.parse(req.body || '{}') : req.body
   logger(`[request] ${req.emitName} ${JSON.stringify(reqBody)}`)
 
+  useStore.getState().upsertHistory({ ...req, response: undefined, duration: undefined })
+
   const startTime = Date.now()
   socket.emit(req.emitName, reqBody, (response: unknown) => {
     const duration = Date.now() - startTime
