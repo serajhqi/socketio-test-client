@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useStore } from '../../store'
 import { toast } from 'sonner'
 import ReactJson from 'react-json-view'
@@ -10,6 +11,7 @@ function formatDuration(ms?: number): string {
 }
 
 export function Response() {
+  const [expanded, setExpanded] = useState(false)
   const { request, connectionDetails, status } = useStore()
   const { response, duration } = request || {}
 
@@ -49,6 +51,21 @@ export function Response() {
           <span className="response-statusbar__duration">
             {formatDuration(duration)}
           </span>
+          {hasResponse && typeof response !== 'string' && (
+            <button
+              className="response-panel__expand-btn"
+              onClick={() => setExpanded(!expanded)}
+              title={expanded ? 'Show collapsed' : 'Show expanded'}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                {expanded ? (
+                  <path d="M8 15H16M8 9H16M4 7V17C4 18.1046 4.89543 19 6 19H18C19.1046 19 20 18.1046 20 17V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7Z" />
+                ) : (
+                  <path d="M4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2H6C4.89543 2 4 2.89543 4 4Z" />
+                )}
+              </svg>
+            </button>
+          )}
           {hasResponse && (
             <button className="response-panel__copy-btn" onClick={handleCopy} title="Copy response">
               copy
@@ -66,7 +83,7 @@ export function Response() {
         ) : typeof response === 'string' ? (
           <pre className="response-panel__json">{response}</pre>
         ) : (
-          <ReactJson src={response} collapsed={1} enableClipboard={true} />
+          <ReactJson src={response} collapsed={expanded ? false : 1} enableClipboard={true} />
         )}
       </div>
     </div>

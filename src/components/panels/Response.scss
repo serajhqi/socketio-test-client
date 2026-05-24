@@ -71,7 +71,8 @@
   text-align: right;
 }
 
-.response-panel__copy-btn {
+.response-panel__copy-btn,
+.response-panel__expand-btn {
   padding: 0.2rem 0.5rem;
   background: transparent;
   color: rgba($semiburnt, 0.6);
@@ -82,12 +83,19 @@
   cursor: pointer;
   transition: all 0.15s;
   letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     color: $white;
     border-color: rgba($semiburnt, 0.5);
     background: rgba($semiburnt, 0.08);
   }
+}
+
+.response-panel__expand-btn {
+  padding: 0.2rem 0.4rem;
 }
 
 .response-panel__content {
