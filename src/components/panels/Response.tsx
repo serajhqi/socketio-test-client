@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useStore } from '../../store'
 import { toast } from 'sonner'
 import ReactJson from 'react-json-view'
+import CodeMirror from '@uiw/react-codemirror'
+import { json } from '@codemirror/lang-json'
 import './Response.scss'
 
 function formatDuration(ms?: number): string {
@@ -83,7 +85,12 @@ export function Response() {
         ) : typeof response === 'string' ? (
           <pre className="response-panel__json">{response}</pre>
         ) : expanded ? (
-          <pre className="response-panel__json">{JSON.stringify(response, null, 2)}</pre>
+          <CodeMirror
+            value={JSON.stringify(response, null, 2)}
+            extensions={[json()]}
+            readOnly
+            className="response-panel__codemirror"
+          />
         ) : (
           <ReactJson src={response} collapsed={1} enableClipboard={true} />
         )}

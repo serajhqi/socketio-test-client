@@ -133,11 +133,19 @@
   line-height: 1.6;
   white-space: pre-wrap;
   word-break: break-word;
-  background: linear-gradient(90deg, transparent 0%, transparent 100%);
+}
 
-  // Syntax highlighting for plain JSON
-  &::before {
-    content: '';
+.response-panel__codemirror {
+  height: 100%;
+  font-size: 0.82rem;
+
+  .cm-editor {
+    background: transparent !important;
+  }
+
+  .cm-gutters {
+    background: transparent !important;
+    border-right: 1px solid rgba($semiburnt, 0.2) !important;
   }
 }
 
