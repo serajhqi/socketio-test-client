@@ -88,11 +88,13 @@ export function Request({ onServerClick }: RequestProps) {
       return
     }
 
-    if (jsonMode && body.trim()) {
+    const trimmedBody = body.trim()
+
+    if (jsonMode && trimmedBody) {
       try {
-        JSON.parse(body)
-      } catch {
-        toast.error('Invalid JSON in body')
+        JSON.parse(trimmedBody)
+      } catch (e) {
+        toast.error(`Invalid JSON. Switch to Text mode to send plain text. Error: ${(e as Error).message}`)
         return
       }
     }
@@ -101,7 +103,7 @@ export function Request({ onServerClick }: RequestProps) {
       useStore.getState().setRequest({
         emitName,
         title: title || emitName,
-        body: body.trim() || undefined,
+        body: trimmedBody || undefined,
       })
       sendRequest()
       toast.success(`Sent: ${emitName}`)
