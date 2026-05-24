@@ -94,7 +94,7 @@ export function Response() {
             className="response-panel__codemirror"
           />
         ) : (
-          <ReactJson src={response} collapsed={1} enableClipboard={true} />
+          <ReactJson src={response} collapsed={false} enableClipboard={true} />
         )}
       </div>
     </div>

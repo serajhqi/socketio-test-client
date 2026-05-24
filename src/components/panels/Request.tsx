@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import CodeMirror, { EditorView } from '@uiw/react-codemirror'
 import { json } from '@codemirror/lang-json'
+import { oneDark } from '@codemirror/theme-one-dark'
 import { useStore } from '../../store'
 import { sendRequest, toggleConnection } from '../../services/socketio'
 import { toast } from 'sonner'
@@ -87,7 +88,7 @@ export function Request({ onServerClick }: RequestProps) {
       return
     }
     try {
-      if (body.trim()) JSON.parse(body)
+      if (jsonMode && body.trim()) JSON.parse(body)
       useStore.getState().setRequest({
         emitName,
         title: title || emitName,
@@ -98,7 +99,7 @@ export function Request({ onServerClick }: RequestProps) {
     } catch {
       toast.error('Invalid JSON in body')
     }
-  }, [emitName, title, body, status])
+  }, [emitName, title, body, status, jsonMode])
 
   const handleFormat = () => {
     if (!body.trim()) return
@@ -149,7 +150,7 @@ export function Request({ onServerClick }: RequestProps) {
     : null
 
   const extensions = jsonMode
-    ? [json(), appTheme, ctrlEnterExtension]
+    ? [json(), oneDark, ctrlEnterExtension]
     : [appTheme, ctrlEnterExtension]
 
   return (
