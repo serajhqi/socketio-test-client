@@ -65,30 +65,56 @@
 
   // Thin separator between in-app and external groups
   &__divider {
-    display: inline-block;
     width: 1px;
-    height: 18px;
+    height: 24px;
     background: rgba($semiburnt, 0.2);
-    margin: 0 0.125rem;
+    margin: 0 0.25rem;
     flex-shrink: 0;
   }
 
-  // Feedback email button
-  &__feedback-btn {
-    display: inline-flex;
+  // Base button styles for consistency
+  &__help-btn,
+  &__feedback-btn,
+  &__donate-btn,
+  &__stars {
+    display: flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.3rem 0.65rem;
+    height: 32px;
+    gap: 0.4rem;
+    padding: 0 0.6rem;
     border: 1px solid rgba($semiburnt, 0.2);
     border-radius: 4px;
-    color: rgba($white, 0.55);
-    background: rgba($semiburnt, 0.06);
+    background: transparent;
     text-decoration: none;
     font-size: 0.72rem;
+    cursor: pointer;
     transition: all 0.15s;
     white-space: nowrap;
 
     svg { flex-shrink: 0; }
+  }
+
+  // Help ? button
+  &__help-btn {
+    padding: 0;
+    width: 32px;
+    justify-content: center;
+    color: rgba($semiburnt, 0.7);
+    font-weight: 700;
+    font-family: serif;
+    font-size: 0.85rem;
+
+    &:hover {
+      color: $white;
+      border-color: rgba($semiburnt, 0.6);
+      background: rgba($semiburnt, 0.1);
+    }
+  }
+
+  // Feedback email button
+  &__feedback-btn {
+    color: rgba($white, 0.55);
+    background: rgba($semiburnt, 0.06);
 
     &:hover {
       color: #7dd3fc;
@@ -99,21 +125,10 @@
 
   // Donate button — warm accent to draw attention
   &__donate-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.3rem 0.65rem;
-    border: 1px solid rgba(251, 191, 36, 0.25);
-    border-radius: 4px;
     color: #fbbf24;
+    border-color: rgba(251, 191, 36, 0.25);
     background: rgba(251, 191, 36, 0.06);
-    text-decoration: none;
-    font-size: 0.72rem;
     font-weight: 500;
-    transition: all 0.15s;
-    white-space: nowrap;
-
-    svg { flex-shrink: 0; }
 
     &:hover {
       color: #fde68a;
@@ -122,43 +137,11 @@
     }
   }
 
-  // Help ? button
-  &__help-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    border: 1px solid rgba($semiburnt, 0.25);
-    border-radius: 50%;
-    color: rgba($semiburnt, 0.7);
-    background: transparent;
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: 700;
-    transition: all 0.15s;
-    font-family: serif;
-
-    &:hover {
-      color: $white;
-      border-color: rgba($semiburnt, 0.6);
-      background: rgba($semiburnt, 0.1);
-    }
-  }
-
   // GitHub stars badge
   &__stars {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.35rem 0.7rem;
-    border: 1px solid rgba($semiburnt, 0.2);
-    border-radius: 4px;
     color: rgba($white, 0.6);
-    text-decoration: none;
-    font-size: 0.75rem;
-    font-weight: 600;
     background: rgba($semiburnt, 0.07);
-    transition: all 0.15s;
+    font-weight: 600;
     letter-spacing: 0.2px;
 
     &:hover {
