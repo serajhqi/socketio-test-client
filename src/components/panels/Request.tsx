@@ -239,7 +239,8 @@ export function Request({ onServerClick }: RequestProps) {
         <button
           className="request-editor-toolbar__btn"
           onClick={handleFormat}
-          title="Pretty-print JSON"
+          disabled={!jsonMode}
+          title={jsonMode ? 'Pretty-print JSON' : 'Format only works in JSON mode'}
           aria-label="Format JSON body"
         >
           Format
@@ -260,7 +261,7 @@ export function Request({ onServerClick }: RequestProps) {
           value={body}
           onChange={setBody}
           extensions={extensions}
-          placeholder="Data to send"
+          placeholder={jsonMode ? 'JSON data (e.g., {"key": "value"})' : 'Plain text (e.g., werwer)'}
           basicSetup={{
             lineNumbers: false,
             foldGutter: false,
