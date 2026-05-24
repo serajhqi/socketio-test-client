@@ -55,13 +55,13 @@ export function Response() {
             <button
               className="response-panel__expand-btn"
               onClick={() => setExpanded(!expanded)}
-              title={expanded ? 'Show collapsed' : 'Show expanded'}
+              title={expanded ? 'Show interactive view' : 'Show plain JSON'}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 {expanded ? (
-                  <path d="M8 15H16M8 9H16M4 7V17C4 18.1046 4.89543 19 6 19H18C19.1046 19 20 18.1046 20 17V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7Z" />
+                  <path d="M3 6h18M3 12h18M3 18h18" />
                 ) : (
-                  <path d="M4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2H6C4.89543 2 4 2.89543 4 4Z" />
+                  <path d="M12 5v14M5 12h14M9 8l3-3 3 3M9 16l3 3 3-3" />
                 )}
               </svg>
             </button>
@@ -82,8 +82,10 @@ export function Response() {
           </div>
         ) : typeof response === 'string' ? (
           <pre className="response-panel__json">{response}</pre>
+        ) : expanded ? (
+          <pre className="response-panel__json">{JSON.stringify(response, null, 2)}</pre>
         ) : (
-          <ReactJson key={`${expanded}`} src={response} collapsed={expanded ? false : 2} enableClipboard={true} />
+          <ReactJson src={response} collapsed={1} enableClipboard={true} />
         )}
       </div>
     </div>
