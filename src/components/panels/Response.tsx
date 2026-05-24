@@ -4,6 +4,7 @@ import { toast } from 'sonner'
 import ReactJson from 'react-json-view'
 import CodeMirror from '@uiw/react-codemirror'
 import { json } from '@codemirror/lang-json'
+import { oneDark } from '@codemirror/theme-one-dark'
 import './Response.scss'
 
 function formatDuration(ms?: number): string {
@@ -88,6 +89,7 @@ export function Response() {
           <CodeMirror
             value={JSON.stringify(response, null, 2)}
             extensions={[json()]}
+            theme={oneDark}
             readOnly
             className="response-panel__codemirror"
           />
