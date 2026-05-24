@@ -14,6 +14,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm chrome` — Build Chrome extension only (output: `./chrome-extension/`)
 - `pnpm test` — Run Vitest unit + integration tests once
 - `pnpm test:watch` — Run tests in watch mode
+- `pnpm test:manual-server` — Start manual Socket.IO test server on port 3000 for interactive testing
 - `pnpm test:e2e` — Run Playwright E2E tests
 - `pnpm test:all` — Run all tests (unit, integration, E2E)
 
@@ -226,3 +227,28 @@ Build process (pnpm build):
 - localStorage keys `'history'` and `'listeners'` preserved from Svelte version
 - Import flow validates schema_version for future-proof migrations
 - Socket.IO options and profiles fully compatible between versions (socketioVersion field optional)
+
+## Git & Commit Practices
+
+**Atomic Commits**: Each commit should represent a single logical change and be independently meaningful. This makes:
+- History easier to bisect (finding bugs)
+- Reverts safe (won't break unrelated features)
+- Code review clearer (one idea per commit)
+- Debugging easier (`git blame`, `git log -p`)
+
+**Commit Message Format**:
+```
+<type>: <short summary (50 chars)>
+
+<detailed explanation (72 char wrap)>
+- Bullet points for clarity
+- Explain WHY, not just WHAT
+
+Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>
+```
+
+**Examples**:
+- ✅ "feat: add manual Socket.IO test server for development" (one feature)
+- ✅ "fix: prevent duplicate listener entries on reconnect" (one bug)
+- ❌ "update all things" (vague, multiple changes)
+- ❌ "add tests, refactor store, fix typo" (three separate concerns)
