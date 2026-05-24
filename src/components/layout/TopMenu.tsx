@@ -1,13 +1,15 @@
 import { useStore } from '../../store'
 import { ProfilePicker } from '../profiles/ProfilePicker'
+import { ConnectionController } from '../ConnectionController'
 import './TopMenu.scss'
 
 interface TopMenuProps {
   onHelpClick?: () => void
   onDonateClick?: () => void
+  onServerClick?: () => void
 }
 
-export function TopMenu({ onHelpClick, onDonateClick }: TopMenuProps) {
+export function TopMenu({ onHelpClick, onDonateClick, onServerClick }: TopMenuProps) {
   const { repoStars, appVersion } = useStore()
 
   return (
@@ -26,6 +28,7 @@ export function TopMenu({ onHelpClick, onDonateClick }: TopMenuProps) {
       </div>
 
       <div className="top-menu__center">
+        <ConnectionController onServerClick={onServerClick} />
         <ProfilePicker />
       </div>
 

@@ -3,13 +3,9 @@ import CodeMirror, { EditorView } from '@uiw/react-codemirror'
 import { json } from '@codemirror/lang-json'
 import { oneDark } from '@codemirror/theme-one-dark'
 import { useStore } from '../../store'
-import { sendRequest, toggleConnection } from '../../services/socketio'
+import { sendRequest } from '../../services/socketio'
 import { toast } from 'sonner'
 import './Request.scss'
-
-interface RequestProps {
-  onServerClick?: () => void
-}
 
 const appTheme = EditorView.theme({
   '&': {
@@ -61,8 +57,8 @@ const appTheme = EditorView.theme({
   '.cm-placeholder':   { color: 'rgba(149, 134, 134, 0.4)' },
 })
 
-export function Request({ onServerClick }: RequestProps) {
-  const { request, status, address } = useStore()
+export function Request() {
+  const { request, status } = useStore()
   const [emitName, setEmitName] = useState('')
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
@@ -144,11 +140,6 @@ export function Request({ onServerClick }: RequestProps) {
   })
 
   const isConnected = status === 'connected'
-  const isTransitioning = status === 'connecting' || status === 'disconnecting'
-
-  const serverLabel = address
-    ? address.replace(/^https?:\/\//, '')
-    : null
 
   const extensions = jsonMode
     ? [json(), oneDark, ctrlEnterExtension]
@@ -158,42 +149,6 @@ export function Request({ onServerClick }: RequestProps) {
     <div className="request-panel">
       <div role="status" aria-live="polite" className="sr-only">{editorStatus}</div>
       <div className="request-bar">
-        <button
-          className={`request-bar__server ${!address ? 'request-bar__server--empty' : ''}`}
-          onClick={onServerClick}
-          title={address ? `Server: ${address} — click to change` : 'Click to set server URL'}
-          aria-label={address ? `Server: ${address}. Click to change.` : 'No server set. Click to configure server URL.'}
-        >
-          {serverLabel ? (
-            <span className="request-bar__server-url">{serverLabel}</span>
-          ) : (
-            <span className="request-bar__server-placeholder">set server url</span>
-          )}
-          <span className="request-bar__server-edit">✎</span>
-        </button>
-
-        <button
-          className={`request-bar__connect request-bar__connect--${status}`}
-          onClick={toggleConnection}
-          disabled={isTransitioning}
-          title={
-            isTransitioning
-              ? status
-              : isConnected
-              ? 'Connected — click to disconnect'
-              : 'Disconnected — click to connect'
-          }
-          aria-label={
-            isTransitioning
-              ? `Connection status: ${status}`
-              : isConnected
-              ? 'Connected. Click to disconnect.'
-              : 'Disconnected. Click to connect.'
-          }
-        >
-          <span className="request-bar__connect-dot" />
-        </button>
-
         <input
           className="request-bar__emit"
           placeholder="Emit Name"

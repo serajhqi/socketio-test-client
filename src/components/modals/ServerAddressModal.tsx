@@ -89,7 +89,7 @@ export function ServerAddressModal({ isOpen, onClose }: ServerAddressModalProps)
 
           <div className="form-group" onClick={(e) => e.stopPropagation()}>
             <label className="form-group__label">Connection Options (JSON)</label>
-            <div className="form-group__editor">
+            <div className="form-group__editor" style={{"overflow":"auto"}}>
               <CodeMirror
                 value={optionsText}
                 onChange={(value) => {

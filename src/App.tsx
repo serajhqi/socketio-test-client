@@ -27,7 +27,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <TopMenu onHelpClick={() => setShowHelpModal(true)} onDonateClick={() => setShowDonateModal(true)} />
+      <TopMenu onHelpClick={() => setShowHelpModal(true)} onDonateClick={() => setShowDonateModal(true)} onServerClick={() => setShowAddressModal(true)} />
 
       <div className="app-body" role="main">
         {historyCollapsed ? (
@@ -49,7 +49,7 @@ export default function App() {
 
         <div className="app-col app-col--center">
           <div className="app-pane app-pane--request">
-            <Request onServerClick={() => setShowAddressModal(true)} />
+            <Request />
           </div>
           <div className="app-pane app-pane--logger">
             <Logger />
