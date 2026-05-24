@@ -1,10 +1,7 @@
 import { useStore } from '../../store'
 import { toast } from 'sonner'
+import ReactJson from 'react-json-view'
 import './Response.scss'
-
-function formatJson(obj: unknown): string {
-  try { return JSON.stringify(obj, null, 2) } catch { return String(obj) }
-}
 
 function formatDuration(ms?: number): string {
   if (ms === undefined || ms === null) return '—'
@@ -18,7 +15,7 @@ export function Response() {
 
   const handleCopy = () => {
     if (!response) return
-    const text = typeof response === 'string' ? response : formatJson(response)
+    const text = typeof response === 'string' ? response : JSON.stringify(response, null, 2)
     navigator.clipboard.writeText(text).then(() => toast.success('Copied to clipboard'))
   }
 
@@ -66,10 +63,10 @@ export function Response() {
             <p>No response yet.</p>
             <p className="response-panel__empty-hint">Send a request to see the response here.</p>
           </div>
+        ) : typeof response === 'string' ? (
+          <pre className="response-panel__json">{response}</pre>
         ) : (
-          <pre className="response-panel__json">
-            {typeof response === 'string' ? response : formatJson(response)}
-          </pre>
+          <ReactJson src={response} collapsed={1} enableClipboard={true} />
         )}
       </div>
     </div>
