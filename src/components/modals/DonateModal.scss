@@ -16,7 +16,7 @@
   border: 1px solid rgba($semiburnt, 0.2);
   border-radius: 10px;
   width: 100%;
-  max-width: 380px;
+  max-width: 440px;
   padding: 1.5rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 
@@ -28,7 +28,7 @@
   }
 
   &__title {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: #fbbf24;
     display: flex;
@@ -55,7 +55,7 @@
   }
 
   &__intro {
-    font-size: 0.78rem;
+    font-size: 0.83rem;
     color: rgba($semiburnt, 0.7);
     margin-bottom: 1.25rem;
     line-height: 1.5;
@@ -78,7 +78,7 @@
     border: 1px solid rgba($semiburnt, 0.2);
     background: transparent;
     color: rgba($semiburnt, 0.7);
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.15s;
@@ -141,7 +141,7 @@
   }
 
   &__token {
-    font-size: 0.68rem;
+    font-size: 0.74rem;
     font-weight: 600;
     font-family: 'Monaco', monospace;
     color: var(--token-color);
@@ -162,17 +162,6 @@
     margin-bottom: 0.75rem;
   }
 
-  &__address {
-    flex: 1;
-    font-family: 'Monaco', 'Courier New', monospace;
-    font-size: 0.68rem;
-    color: $white;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    min-width: 0;
-  }
-
   &__copy {
     flex-shrink: 0;
     width: 26px;
@@ -189,15 +178,28 @@
     &--done { color: #4ade80; }
   }
 
+  &__address {
+    flex: 1;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: $white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
   // Warning note
   &__warning {
     display: flex;
     align-items: flex-start;
     gap: 0.4rem;
-    font-size: 0.7rem;
+    font-size: 0.76rem;
     color: rgba($semiburnt, 0.6);
     line-height: 1.45;
 
     svg { flex-shrink: 0; margin-top: 1px; color: #fbbf24; opacity: 0.7; }
+
+    &--hidden { visibility: hidden; }
   }
 }

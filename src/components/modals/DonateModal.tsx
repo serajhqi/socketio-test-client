@@ -143,8 +143,8 @@ export function DonateModal({ isOpen, onClose }: DonateModalProps) {
             <img
               src={network.qr}
               alt={`QR code for ${network.name} address`}
-              width={160}
-              height={160}
+              width={180}
+              height={180}
             />
           </div>
 
@@ -179,15 +179,13 @@ export function DonateModal({ isOpen, onClose }: DonateModalProps) {
           </button>
         </div>
 
-        {/* Warning */}
-        {network.warning && (
-          <p className="donate-modal__warning">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
-            </svg>
-            {network.warning}
-          </p>
-        )}
+        {/* Warning — always rendered to prevent layout shift */}
+        <p className={`donate-modal__warning${network.warning ? '' : ' donate-modal__warning--hidden'}`} aria-hidden={!network.warning}>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
+          </svg>
+          {network.warning ?? ' '}
+        </p>
       </div>
     </div>
   )
