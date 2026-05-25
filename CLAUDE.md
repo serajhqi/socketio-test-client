@@ -10,8 +10,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `pnpm dev` — Start Vite dev server with hot reload (runs on `http://localhost:5173`)
 - `pnpm build` — Build production bundle and generate Firefox + Chrome extension distributions
-- `pnpm firefox` — Build Firefox extension only (output: `./firefox-extension/`)
-- `pnpm chrome` — Build Chrome extension only (output: `./chrome-extension/`)
+- `pnpm firefox` — Build Firefox extension only (output: `./extensions/dist/firefox/`)
+- `pnpm chrome` — Build Chrome extension only (output: `./extensions/dist/chrome/`)
+- `pnpm release` — Auto-detect version bump via svu and create git tag
+- `pnpm release:[patch|minor|major]` — Manually specify version bump
+- `pnpm aur:update` — Sync AUR PKGBUILD with current version and sha256sum
 - `pnpm test` — Run Vitest unit + integration tests once
 - `pnpm test:watch` — Run tests in watch mode
 - `pnpm test:manual-server` — Start manual Socket.IO test server on port 3000 for interactive testing
@@ -85,14 +88,16 @@ test/
     ├── profiles.spec.ts         — Profile create/edit/delete/switch
     └── export-import.spec.ts    — Session export/import with validation
 
-extension-helper/               — Browser extension metadata (shared across Chrome + Firefox)
-├── *-manifest.json             — Browser-specific manifests (manifest_version: 3 for Chrome, 2 for Firefox)
-├── *-background.js             — Service Workers (Chrome) / Background Pages (Firefox)
-└── images/                      — Extension icons and assets
+extensions/
+├── src/                         — Browser extension metadata (shared across Chrome + Firefox)
+│   ├── *-manifest.json         — Browser-specific manifests (manifest_version: 3 for Chrome, 2 for Firefox)
+│   ├── *-background.js         — Service Workers (Chrome) / Background Pages (Firefox)
+│   └── images/                  — Extension icons and assets
+├── dist/                        — Built extension distributions (gitignored)
+│   ├── chrome/                  — Chrome extension
+│   └── firefox/                 — Firefox extension
 
 dist/                           — Production web app bundle (served by bin/socketio-test-client.js)
-firefox-extension/              — Firefox extension distribution
-chrome-extension/               — Chrome extension distribution
 
 vite.config.ts                  — Vite config: React plugin, dev server 0.0.0.0:5173, Vitest jsdom setup
 tsconfig.json                   — React/Vite standard config: jsx "react-jsx", strict mode, vitest types
@@ -185,10 +190,10 @@ All component styles in `src/components/*.scss` use these variables. No Tailwind
 
 Build process (pnpm build):
 1. Vite builds `dist/` (web app)
-2. Copies `dist/` to `firefox-extension/` and `chrome-extension/`
-3. Copies browser-specific manifests and background scripts
+2. Copies `dist/` to `extensions/dist/firefox/` and `extensions/dist/chrome/`
+3. Copies browser-specific manifests and background scripts from `extensions/src/`
 4. Injects version from `package.json` into manifest files
-5. Both distributions ready for app store submission
+5. Both distributions ready for app store submission (files are gitignored)
 
 ## Component List
 
@@ -245,8 +250,6 @@ Build process (pnpm build):
 <detailed explanation (72 char wrap)>
 - Bullet points for clarity
 - Explain WHY, not just WHAT
-
-Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>
 ```
 
 **Examples**:
@@ -254,3 +257,8 @@ Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>
 - ✅ "fix: prevent duplicate listener entries on reconnect" (one bug)
 - ❌ "update all things" (vague, multiple changes)
 - ❌ "add tests, refactor store, fix typo" (three separate concerns)
+
+**Release & Versioning**:
+- Use `pnpm release` to auto-detect version bump from conventional commits
+- Footers (Co-Authored-By, Signed-off-by, etc.) have been removed from commit history for cleaner logs
+- Future commits should omit trailers unless necessary for specific workflows
