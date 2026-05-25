@@ -30,9 +30,9 @@ export async function startTestServer(): Promise<void> {
         }, 200);
       });
 
-      // Broadcast: server emits to all clients
+      // Broadcast: server emits to all clients using the same event name
       socket.on('broadcast', (data) => {
-        io!.emit('server-push', {
+        io!.emit('broadcast', {
           timestamp: new Date().toISOString(),
           ...data,
         });
@@ -47,8 +47,8 @@ export async function startTestServer(): Promise<void> {
       });
 
       // Ping for latency measurement
-      socket.on('ping', (callback) => {
-        if (callback) {
+      socket.on('ping', (data, callback) => {
+        if (typeof callback === 'function') {
           callback({ timestamp: Date.now() });
         }
       });

@@ -36,14 +36,14 @@ function startServer(): void {
       }, 200);
     });
 
-    // Broadcast: server emits to all clients
+    // Broadcast: server emits to all clients using the same event name
     socket.on('broadcast', (data) => {
       console.log(`[${new Date().toISOString()}] 📤 Received 'broadcast':`, data);
-      io!.emit('server-push', {
+      io!.emit('broadcast', {
         timestamp: new Date().toISOString(),
         ...data,
       });
-      console.log(`[${new Date().toISOString()}] 📡 Broadcasted 'server-push' to all clients`);
+      console.log(`[${new Date().toISOString()}] 📡 Broadcasted 'broadcast' to all clients`);
     });
 
     // Error event: emit malformed payload
@@ -57,9 +57,9 @@ function startServer(): void {
     });
 
     // Ping for latency measurement
-    socket.on('ping', (callback) => {
+    socket.on('ping', (data, callback) => {
       console.log(`[${new Date().toISOString()}] 📤 Received 'ping'`);
-      if (callback) {
+      if (typeof callback === 'function') {
         callback({ timestamp: Date.now() });
         console.log(`[${new Date().toISOString()}] 📥 Sent 'ping' response`);
       }
@@ -82,7 +82,7 @@ function startServer(): void {
     console.log(`\nSupported events:`);
     console.log(`  • echo — ACK with same payload`);
     console.log(`  • slow-echo — ACK after 200ms`);
-    console.log(`  • broadcast — Server broadcasts 'server-push' to all clients`);
+    console.log(`  • broadcast — Server broadcasts 'broadcast' to all clients`);
     console.log(`  • error-event — Server emits an 'error' event`);
     console.log(`  • ping — Server responds with timestamp`);
     console.log(`\nPress Ctrl+C to stop the server`);

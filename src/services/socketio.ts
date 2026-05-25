@@ -75,13 +75,14 @@ export const toggleConnection = (): void => {
         })
       })
 
-      const handleEvent = (eventName: string, ...args: unknown[]) => {
+      socket.onAny((eventName: string, ...args: unknown[]) => {
         useStore.getState().appendMessage(eventName, args)
-        logger(`${eventName} ${JSON.stringify(args)}`)
-      }
+        logger(`← ${eventName} ${JSON.stringify(args)}`)
+      })
 
-      socket.onAny(handleEvent)
-      socket.onAnyOutgoing(handleEvent)
+      socket.onAnyOutgoing((eventName: string, ...args: unknown[]) => {
+        logger(`→ ${eventName} ${JSON.stringify(args)}`)
+      })
     } else if (status === 'connected') {
       useStore.getState().setStatus('disconnecting')
       logger('disconnecting')
