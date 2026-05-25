@@ -162,6 +162,23 @@
   }
 }
 
+.server-guide {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  color: rgba($semiburnt, 0.65);
+  line-height: 1.5;
+
+  svg { color: #fbbf24; opacity: 0.75; margin-top: 1px; }
+
+  a {
+    color: #7dd3fc;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}
+
 .error-message {
   padding: 0.75rem 1rem;
   background-color: rgba(220, 38, 38, 0.1);

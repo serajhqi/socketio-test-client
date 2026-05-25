@@ -120,6 +120,22 @@ export function ServerAddressModal({ isOpen, onClose }: ServerAddressModalProps)
             </p>
           </div>
 
+          <div className="server-guide">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ flexShrink: 0, marginTop: 1 }}>
+              <path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
+            </svg>
+            <span>
+              Getting connection errors? Make sure CORS is enabled on your server.{' '}
+              <a
+                href="https://socket.io/docs/v4/client-options/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Advanced options guide ↗
+              </a>
+            </span>
+          </div>
+
           {error && <div className="error-message">{error}</div>}
         </div>
 
