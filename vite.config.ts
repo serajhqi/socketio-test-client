@@ -1,10 +1,16 @@
 import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
-// https://vitejs.dev/config/
+import react from '@vitejs/plugin-react'
+
 export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
   },
-  plugins: [svelte()],
+  plugins: [react()],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./test/setup.ts'],
+    exclude: ['node_modules', 'dist', 'test/e2e'],
+  },
 })

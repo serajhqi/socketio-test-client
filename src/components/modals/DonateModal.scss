@@ -1,0 +1,206 @@
+@use '../../index.scss' as *;
+
+.donate-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+}
+
+.donate-modal {
+  background: $burnt;
+  border: 1px solid rgba($semiburnt, 0.2);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 440px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+  }
+
+  &__title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fbbf24;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0;
+  }
+
+  &__close {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: $semiburnt;
+    transition: color 0.15s, background 0.15s;
+
+    &:hover {
+      color: $white;
+      background: rgba($semiburnt, 0.12);
+    }
+  }
+
+  &__intro {
+    font-size: 0.83rem;
+    color: rgba($semiburnt, 0.7);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+
+  // Network tabs
+  &__tabs {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  &__tab {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid rgba($semiburnt, 0.2);
+    background: transparent;
+    color: rgba($semiburnt, 0.7);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover {
+      border-color: rgba($semiburnt, 0.4);
+      color: $white;
+      background: rgba($semiburnt, 0.08);
+    }
+
+    &--active {
+      border-color: var(--net-color);
+      color: var(--net-color);
+      background: color-mix(in srgb, var(--net-color) 10%, transparent);
+    }
+  }
+
+  &__tab-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
+  // QR + tokens block
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  &__qr-wrap {
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    display: inline-flex;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  // Accepted tokens
+  &__tokens {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  &__tokens-label {
+    font-size: 0.65rem;
+    color: rgba($semiburnt, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__token-list {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  &__token {
+    font-size: 0.74rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    color: var(--token-color);
+    background: color-mix(in srgb, var(--token-color) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--token-color) 30%, transparent);
+    border-radius: 4px;
+    padding: 0.15rem 0.4rem;
+  }
+
+  // Address row
+  &__address-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: $burning;
+    border-radius: 6px;
+    padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  &__copy {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba($semiburnt, 0.7);
+    transition: color 0.15s, background 0.15s;
+
+    &:hover { color: $white; background: rgba($semiburnt, 0.12); }
+    &--done { color: #4ade80; }
+  }
+
+  &__address {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: $white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  // Warning note — min-height locks two lines so layout never shifts
+  &__warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    font-size: 0.76rem;
+    color: rgba($semiburnt, 0.6);
+    line-height: 1.45;
+    min-height: calc(0.76rem * 1.45 * 2);
+
+    svg { flex-shrink: 0; margin-top: 1px; color: #fbbf24; opacity: 0.7; }
+
+    &--hidden { visibility: hidden; }
+  }
+}

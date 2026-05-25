@@ -1,0 +1,111 @@
+@import '../index.scss';
+
+.connection-controller {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 100%;
+}
+
+.connection-controller__server {
+  height: 26px;
+  padding: 0 0.6rem;
+  background: transparent;
+  border: 1px solid rgba($semiburnt, 0.2);
+  border-radius: 4px;
+  color: $semiburnt;
+  font-size: 0.75rem;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  overflow: hidden;
+  transition: all 0.15s;
+  font-family: var(--font-mono);
+
+  &:hover {
+    background: rgba($semiburnt, 0.08);
+    color: $white;
+    border-color: rgba($semiburnt, 0.4);
+
+    .connection-controller__server-edit { opacity: 1; }
+  }
+
+  &--empty {
+    color: rgba($semiburnt, 0.45);
+
+    &:hover { color: rgba($white, 0.6); }
+  }
+}
+
+.connection-controller__server-url {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  color: #7dd3fc;
+  font-family: var(--font-mono);
+}
+
+.connection-controller__server-placeholder {
+  flex: 1;
+  font-style: italic;
+  font-size: 0.7rem;
+}
+
+.connection-controller__server-edit {
+  font-size: 0.65rem;
+  opacity: 0;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+
+.connection-controller__connect {
+  height: 26px;
+  width: 26px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid rgba($semiburnt, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+
+  &:hover {
+    background: rgba($semiburnt, 0.08);
+    border-color: rgba($semiburnt, 0.4);
+  }
+
+  &--connected .connection-controller__connect-dot {
+    background: #4ade80;
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2), 0 0 10px rgba(74, 222, 128, 0.4);
+  }
+
+  &--disconnected .connection-controller__connect-dot {
+    background: rgba($semiburnt, 0.5);
+    box-shadow: none;
+  }
+
+  &--connecting .connection-controller__connect-dot,
+  &--disconnecting .connection-controller__connect-dot {
+    background: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2), 0 0 10px rgba(96, 165, 250, 0.4);
+    animation: pulse 2s infinite;
+  }
+}
+
+.connection-controller__connect-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: all 0.15s;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

@@ -1,0 +1,181 @@
+@import '../../index.scss';
+
+.request-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: $burnt;
+}
+
+.request-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 42px;
+  border-bottom: 2px solid $burning;
+  flex-shrink: 0;
+
+  &__emit {
+    flex: 1.2;
+    height: 100%;
+    background: transparent !important;
+    border: none !important;
+    border-right: 1px solid rgba($burning, 1.5) !important;
+    border-radius: 0 !important;
+    color: #fbbf24 !important;
+    padding: 0 0.75rem !important;
+    font-size: 0.875rem;
+    box-shadow: none !important;
+
+    &::placeholder { color: rgba($semiburnt, 0.5) !important; }
+    &:focus { box-shadow: none !important; border-color: rgba($semiburnt, 0.4) !important; }
+  }
+
+  &__note {
+    flex: 0.7;
+    height: 100%;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    color: rgba($semiburnt, 0.6) !important;
+    padding: 0 0.6rem !important;
+    font-size: 0.78rem;
+    font-style: italic;
+    box-shadow: none !important;
+    border-left: 1px solid rgba($burning, 1.5) !important;
+
+    &::placeholder { color: rgba($semiburnt, 0.3) !important; }
+    &:focus { box-shadow: none !important; color: rgba($semiburnt, 0.85) !important; }
+  }
+
+  &__new {
+    height: 100%;
+    padding: 0 0.75rem;
+    background: transparent;
+    border: none;
+    border-left: 2px solid $burning;
+    border-right: 2px solid $burning;
+    color: #f97316;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s;
+    font-weight: 600;
+
+    &:hover {
+      background: rgba(249, 115, 22, 0.08);
+      color: #fed7aa;
+    }
+  }
+
+  &__send {
+    height: 100%;
+    padding: 0 0.875rem;
+    background: transparent;
+    border: none;
+    border-left: 2px solid $burning;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+
+    svg { fill: rgba($semiburnt, 0.6); transition: fill 0.2s; }
+
+    &:hover:not(:disabled) {
+      background: rgba($semiburnt, 0.08);
+      svg { fill: #f97316; }
+    }
+
+    &:not(:disabled) svg { fill: #f97316; }
+
+    &:disabled {
+      cursor: not-allowed;
+      svg { fill: rgba($semiburnt, 0.3); }
+    }
+  }
+}
+
+.request-editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 28px;
+  padding: 0 0.5rem;
+  border-top: 1px solid rgba($burning, 0.8);
+  gap: 0.25rem;
+  flex-shrink: 0;
+  background: rgba($burning, 0.35);
+
+  &__btn {
+    padding: 0.15rem 0.5rem;
+    background: transparent;
+    border: 1px solid rgba($semiburnt, 0.25);
+    border-radius: 3px;
+    color: rgba($semiburnt, 0.7);
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1;
+
+    &:hover {
+      color: $white;
+      border-color: rgba($semiburnt, 0.5);
+      background: rgba($semiburnt, 0.1);
+    }
+
+    &--mode {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      min-width: 38px;
+      text-align: center;
+    }
+
+    &--active {
+      color: #fbbf24;
+      border-color: rgba(251, 191, 36, 0.4);
+
+      &:hover {
+        color: #fbbf24;
+        border-color: rgba(251, 191, 36, 0.65);
+        background: rgba(251, 191, 36, 0.06);
+      }
+    }
+  }
+}
+
+.request-editor {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+
+  // The CodeMirror wrapper div
+  > div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cm-editor {
+    height: 100%;
+    background: transparent !important;
+
+    &.cm-focused {
+      outline: none !important;
+    }
+  }
+
+  .cm-scroller {
+    overflow: auto !important;
+  }
+}
+
+@keyframes connect-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}

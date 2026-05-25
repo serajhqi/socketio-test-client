@@ -1,0 +1,188 @@
+@import '../../index.scss';
+
+.history {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: $burnt;
+}
+
+// ── Header ────────────────────────────────────────────────────────
+.history__header {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  padding: 0 0.5rem 0 0.75rem;
+  border-bottom: 1px solid $burning;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.history__search-row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.history__search-icon {
+  color: rgba($semiburnt, 0.5);
+  flex-shrink: 0;
+}
+
+.history__search {
+  flex: 1;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: $white !important;
+  padding: 0 !important;
+  font-size: 0.78rem;
+  box-shadow: none !important;
+  min-width: 0;
+
+  &::placeholder { color: rgba($semiburnt, 0.45) !important; }
+  &:focus { outline: none !important; box-shadow: none !important; }
+}
+
+.history__count {
+  font-size: 0.62rem;
+  color: rgba($semiburnt, 0.5);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+  letter-spacing: 0.3px;
+}
+
+.history__collapse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: rgba($semiburnt, 0.5);
+  flex-shrink: 0;
+  border-radius: 3px;
+  transition: all 0.15s;
+
+  &:hover {
+    color: $white;
+    background: rgba($semiburnt, 0.1);
+  }
+
+  svg { display: block; }
+}
+
+// ── List ──────────────────────────────────────────────────────────
+.history__list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.25rem 0;
+}
+
+// ── Empty state ───────────────────────────────────────────────────
+.history__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 2rem 1rem;
+  color: rgba($semiburnt, 0.4);
+
+  svg { opacity: 0.35; }
+
+  span {
+    font-size: 0.78rem;
+    text-align: center;
+  }
+}
+
+.history__empty-hint {
+  font-size: 0.68rem !important;
+  color: rgba($semiburnt, 0.3) !important;
+}
+
+// ── Item ──────────────────────────────────────────────────────────
+.history__item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.6rem 0.45rem 0.75rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba($burning, 0.6);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s;
+
+  &:hover {
+    background: rgba($burning, 0.9);
+
+    .history__remove { opacity: 1; }
+  }
+
+  &:last-child { border-bottom: none; }
+}
+
+.history__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgba($semiburnt, 0.35);
+  transition: background 0.15s;
+  align-self: flex-start;
+  margin-top: 5px;
+
+  &--response {
+    background: #4ade80;
+    box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.15);
+  }
+}
+
+.history__item-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.history__event {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: #fbbf24;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history__title {
+  font-size: 0.67rem;
+  color: rgba($semiburnt, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+}
+
+.history__remove {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  color: rgba($semiburnt, 0.5);
+  opacity: 0;
+  transition: all 0.15s;
+
+  &:hover {
+    color: #f87171;
+    background: rgba(248, 113, 113, 0.1);
+  }
+}
