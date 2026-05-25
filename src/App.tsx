@@ -25,6 +25,26 @@ export default function App() {
       .catch(() => {})
   }, [])
 
+  useEffect(() => {
+    return useStore.subscribe((state, prev) => {
+      if (!state.activeProfileId) return
+      if (state.activeProfileId !== prev.activeProfileId) return
+      const changed =
+        state.address !== prev.address ||
+        state.options !== prev.options ||
+        state.requestHistory !== prev.requestHistory ||
+        state.listeners !== prev.listeners
+      if (!changed) return
+      useStore.setState({
+        profiles: state.profiles.map(p =>
+          p.id === state.activeProfileId
+            ? { ...p, address: state.address ?? '', options: state.options, requestHistory: state.requestHistory, listenerNames: state.listeners.map(l => l.title) }
+            : p
+        ),
+      })
+    })
+  }, [])
+
   return (
     <div className="app">
       <TopMenu onHelpClick={() => setShowHelpModal(true)} onDonateClick={() => setShowDonateModal(true)} onServerClick={() => setShowAddressModal(true)} />

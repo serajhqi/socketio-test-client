@@ -5,7 +5,7 @@ import { SaveProfileModal } from './SaveProfileModal'
 import './ProfilePicker.scss'
 
 export function ProfilePicker() {
-  const { profiles, activeProfileId, setActiveProfile, setProfiles, address, options, requestHistory, listeners } = useStore()
+  const { profiles, activeProfileId, setActiveProfile, setProfiles, address, options, requestHistory, listeners, status } = useStore()
   const [isOpen, setIsOpen] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editName, setEditName] = useState('')
@@ -35,11 +35,19 @@ export function ProfilePicker() {
   }, [isOpen])
 
   const handleSelect = (id: string) => {
+    if (status !== 'disconnected') {
+      toast.error('Disconnect before switching profiles')
+      return
+    }
     const profile = profiles.find(p => p.id === id)
     if (profile) {
-      useStore.getState().setAddress(profile.address)
-      useStore.getState().setOptions(profile.options)
-      setActiveProfile(id)
+      useStore.setState({
+        address: profile.address,
+        options: profile.options,
+        requestHistory: profile.requestHistory ?? [],
+        listeners: (profile.listenerNames ?? []).map(name => ({ title: name, messages: [] })),
+        activeProfileId: id,
+      })
       toast.success(`Switched to: ${profile.name}`)
     }
     setIsOpen(false)
@@ -54,9 +62,11 @@ export function ProfilePicker() {
     const newProfile = {
       id: Date.now().toString(),
       name,
+      socketioVersion: '4' as const,
       address: address ?? '',
       options,
-      socketioVersion: '4' as const,
+      requestHistory,
+      listenerNames: listeners.map(l => l.title),
     }
     setProfiles([...profiles, newProfile])
     setActiveProfile(newProfile.id)
@@ -225,7 +235,7 @@ export function ProfilePicker() {
 
           <div className="profile-picker__section">
             <button className="profile-picker__save-btn" onClick={handleSaveAs}>
-              + Save current as profile
+              + Save as new profile
             </button>
           </div>
 
