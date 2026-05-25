@@ -52,6 +52,7 @@ const NETWORKS: Network[] = [
     qr: '/qr/sol.svg',
     tokens: [
       { symbol: 'SOL', color: '#9945ff' },
+      { symbol: 'USDT', color: '#26a17b' },
     ],
   },
   {
