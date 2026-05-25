@@ -131,7 +131,7 @@ export function ServerAddressModal({ isOpen, onClose }: ServerAddressModalProps)
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Advanced options guide ↗
+                Advanced options guide
               </a>
             </span>
           </div>

@@ -16,7 +16,7 @@ vi.mock('sonner', () => ({
 describe('Request', () => {
   beforeEach(() => {
     useStore.setState({
-      request: { emitName: '', title: '', body: '', response: undefined },
+      request: { emitName: '', note: undefined, body: '', response: undefined },
       status: 'connected',
     })
     vi.clearAllMocks()
@@ -96,7 +96,7 @@ describe('Request', () => {
     useStore.setState({
       request: {
         emitName: 'test-event',
-        title: 'Test Title',
+        note: 'Test Title',
         body: '{"key": "value"}',
         response: undefined,
       },

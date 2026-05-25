@@ -16,7 +16,7 @@ describe('Response', () => {
     useStore.setState({
       request: {
         emitName: '',
-        title: '',
+        note: undefined,
         body: undefined,
         response: undefined,
         duration: undefined,
@@ -50,7 +50,7 @@ describe('Response', () => {
     useStore.setState({
       request: {
         emitName: 'test',
-        title: 'test',
+        note: 'test',
         body: undefined,
         response: { message: 'hello' },
         duration: 100,
@@ -64,7 +64,7 @@ describe('Response', () => {
     useStore.setState({
       request: {
         emitName: 'test',
-        title: 'test',
+        note: 'test',
         body: undefined,
         response: { message: 'hello', value: 42 },
         duration: 100,
@@ -79,7 +79,7 @@ describe('Response', () => {
     useStore.setState({
       request: {
         emitName: 'test',
-        title: 'test',
+        note: 'test',
         body: undefined,
         response: {},
         duration: 250,
@@ -93,7 +93,7 @@ describe('Response', () => {
     useStore.setState({
       request: {
         emitName: 'test',
-        title: 'test',
+        note: 'test',
         body: undefined,
         response: {},
         duration: 1500,
@@ -144,7 +144,7 @@ describe('Response', () => {
     useStore.setState({
       request: {
         emitName: 'test',
-        title: 'test',
+        note: 'test',
         body: undefined,
         response: { message: 'hello' },
         duration: 100,
@@ -159,7 +159,7 @@ describe('Response', () => {
     useStore.setState({
       request: {
         emitName: 'test',
-        title: 'test',
+        note: 'test',
         body: undefined,
         response: 'Hello, World!',
         duration: 100,

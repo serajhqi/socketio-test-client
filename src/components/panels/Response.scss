@@ -48,13 +48,13 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
-  font-family: 'Monaco', monospace;
+  font-family: var(--font-mono);
 }
 
 .response-statusbar__value {
   font-size: 0.7rem;
   color: #fbbf24;
-  font-family: 'Monaco', monospace;
+  font-family: var(--font-mono);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -67,7 +67,7 @@
 .response-statusbar__duration {
   font-size: 0.72rem;
   color: #4ade80;
-  font-family: 'Monaco', monospace;
+  font-family: var(--font-mono);
   white-space: nowrap;
   min-width: 36px;
   text-align: right;
@@ -81,7 +81,7 @@
   border: 1px solid rgba($semiburnt, 0.2);
   border-radius: 3px;
   font-size: 0.65rem;
-  font-family: 'Monaco', monospace;
+  font-family: var(--font-mono);
   cursor: pointer;
   transition: all 0.15s;
   letter-spacing: 0.3px;
@@ -130,7 +130,7 @@
 .response-panel__json {
   margin: 0;
   color: #e6edf3;
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: var(--font-mono);
   font-size: 0.82rem;
   line-height: 1.6;
   white-space: pre-wrap;
@@ -154,7 +154,7 @@
 .response-panel__content {
   .react-json-view {
     background: transparent !important;
-    font-family: 'Monaco', 'Courier New', monospace !important;
+    font-family: var(--font-mono) !important;
     font-size: 0.82rem !important;
     line-height: 1.6 !important;
 

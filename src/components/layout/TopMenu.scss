@@ -45,7 +45,7 @@
     border-radius: 3px;
     padding: 0.2rem 0.45rem;
     letter-spacing: 0.3px;
-    font-family: 'Monaco', monospace;
+    font-family: var(--font-mono);
   }
 
   &__center {
@@ -71,6 +71,23 @@
     background: rgba($semiburnt, 0.25);
     flex-shrink: 0;
     align-self: center;
+  }
+
+  &__title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  &__byline {
+    font-size: 0.62rem;
+    color: $semiburnt;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    line-height: 1;
+    transition: color 0.15s;
+
+    &:hover { color: $white; }
   }
 
   // Base button styles for consistency

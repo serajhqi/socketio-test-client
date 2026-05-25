@@ -163,7 +163,7 @@
 .profile-picker__item-host {
   font-size: 0.68rem;
   color: rgba($semiburnt, 0.7);
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: var(--font-mono);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -52,10 +52,6 @@ export function Listeners() {
     setSelectedMessageId(null)
   }
 
-  const formatJson = (obj: unknown): string => {
-    try { return JSON.stringify(obj, null, 2) } catch { return String(obj) }
-  }
-
   return (
     <div className="listeners-panel">
       <div className="listeners-header">
@@ -184,7 +180,7 @@ export function Listeners() {
                 {typeof currentMessage.text === 'string' ? (
                   <pre>{currentMessage.text}</pre>
                 ) : (
-                  <ReactJson src={currentMessage.text} collapsed={false} enableClipboard={true} />
+                  <ReactJson src={currentMessage.text as object} collapsed={false} enableClipboard={true} />
                 )}
               </div>
             </>

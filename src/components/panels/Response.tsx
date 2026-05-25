@@ -97,7 +97,29 @@ export function Response() {
             className="response-panel__codemirror"
           />
         ) : (
-          <ReactJson src={response} collapsed={false} enableClipboard={true} />
+          <ReactJson
+            src={response as object}
+            collapsed={false}
+            enableClipboard={true}
+            theme={{
+              base00: 'transparent',
+              base01: 'rgba(176,160,160,0.05)',
+              base02: 'rgba(176,160,160,0.1)',
+              base03: 'rgba(176,160,160,0.45)',
+              base04: 'rgba(176,160,160,0.6)',
+              base05: 'rgba(255,255,255,0.82)',
+              base06: '#ffffff',
+              base07: '#ffffff',
+              base08: '#f97583',
+              base09: '#79b8ff',
+              base0A: '#fbbf24',
+              base0B: '#85e89d',
+              base0C: '#7dd3fc',
+              base0D: '#7dd3fc',
+              base0E: '#f97583',
+              base0F: '#f97316',
+            }}
+          />
         )}
       </div>
     </div>

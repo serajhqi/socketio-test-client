@@ -94,7 +94,7 @@
     color: rgba($white, 0.8) !important;
     padding: 0 !important;
     font-size: 0.78rem;
-    font-family: 'Monaco', 'Courier New', monospace;
+    font-family: var(--font-mono);
     box-shadow: none !important;
     min-width: 0;
 
@@ -296,7 +296,7 @@
   &__time {
     font-size: 0.65rem;
     color: #4a9eff;
-    font-family: 'Monaco', 'Courier New', monospace;
+    font-family: var(--font-mono);
     margin-bottom: 0.15rem;
   }
 
@@ -341,7 +341,7 @@
     overflow: auto;
     padding: 0.875rem;
     margin: 0;
-    font-family: 'Monaco', 'Courier New', monospace;
+    font-family: var(--font-mono);
     font-size: 0.8rem;
     color: #d4d4d4;
     line-height: 1.5;
@@ -353,7 +353,7 @@
     pre {
       margin: 0;
       color: #e6edf3;
-      font-family: 'Monaco', 'Courier New', monospace;
+      font-family: var(--font-mono);
       font-size: 0.82rem;
       line-height: 1.6;
       white-space: pre-wrap;
@@ -362,7 +362,7 @@
 
     .react-json-view {
       background: transparent !important;
-      font-family: 'Monaco', 'Courier New', monospace !important;
+      font-family: var(--font-mono) !important;
       font-size: 0.82rem !important;
       line-height: 1.6 !important;
 

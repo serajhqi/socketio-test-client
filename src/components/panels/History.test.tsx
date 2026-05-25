@@ -27,8 +27,8 @@ describe('History', () => {
   it('displays request count badge', () => {
     useStore.setState({
       requestHistory: [
-        { title: 'test1', emitName: 'event1', body: '', response: undefined },
-        { title: 'test2', emitName: 'event2', body: '', response: undefined },
+        { note: 'test', emitName: 'event1', body: '', response: undefined },
+        { note: 'test', emitName: 'event2', body: '', response: undefined },
       ],
     })
     render(<History />)
@@ -38,8 +38,8 @@ describe('History', () => {
   it('displays request history items', () => {
     useStore.setState({
       requestHistory: [
-        { title: 'Get User', emitName: 'user:fetch', body: '', response: undefined },
-        { title: 'Post Message', emitName: 'message:send', body: '', response: undefined },
+        { note: 'Get User', emitName: 'user:fetch', body: '', response: undefined },
+        { note: 'Post Message', emitName: 'message:send', body: '', response: undefined },
       ],
     })
     render(<History />)
@@ -50,7 +50,7 @@ describe('History', () => {
   it('displays event names for each item', () => {
     useStore.setState({
       requestHistory: [
-        { title: 'test', emitName: 'custom:event', body: '', response: undefined },
+        { note: 'test', emitName: 'custom:event', body: '', response: undefined },
       ],
     })
     render(<History />)
@@ -60,7 +60,7 @@ describe('History', () => {
   it('can collapse history', async () => {
     useStore.setState({
       requestHistory: [
-        { title: 'test', emitName: 'event', body: '', response: undefined },
+        { note: 'test', emitName: 'event', body: '', response: undefined },
       ],
       historyCollapsed: false,
     })
@@ -75,7 +75,7 @@ describe('History', () => {
   it('can expand collapsed history', async () => {
     useStore.setState({
       requestHistory: [
-        { title: 'test', emitName: 'event', body: '', response: undefined },
+        { note: 'test', emitName: 'event', body: '', response: undefined },
       ],
       historyCollapsed: true,
     })
@@ -90,8 +90,8 @@ describe('History', () => {
   it('filters history by search term', async () => {
     useStore.setState({
       requestHistory: [
-        { title: 'Get User', emitName: 'user:fetch', body: '', response: undefined },
-        { title: 'Post Message', emitName: 'message:send', body: '', response: undefined },
+        { note: 'Get User', emitName: 'user:fetch', body: '', response: undefined },
+        { note: 'Post Message', emitName: 'message:send', body: '', response: undefined },
       ],
     })
     render(<History />)
@@ -106,7 +106,7 @@ describe('History', () => {
   it('shows no matching message when search has no results', async () => {
     useStore.setState({
       requestHistory: [
-        { title: 'test', emitName: 'event', body: '', response: undefined },
+        { note: 'test', emitName: 'event', body: '', response: undefined },
       ],
     })
     render(<History />)
@@ -121,7 +121,7 @@ describe('History', () => {
     const spy = vi.spyOn(useStore.getState(), 'setRequest')
     useStore.setState({
       requestHistory: [
-        { title: 'test', emitName: 'event', body: '{"key": "value"}', response: undefined },
+        { note: 'test', emitName: 'event', body: '{"key": "value"}', response: undefined },
       ],
     })
     render(<History />)
@@ -136,7 +136,7 @@ describe('History', () => {
     const spy = vi.spyOn(useStore.getState(), 'removeFromHistory')
     useStore.setState({
       requestHistory: [
-        { title: 'test', emitName: 'event', body: '', response: undefined },
+        { note: 'test', emitName: 'event', body: '', response: undefined },
       ],
     })
     render(<History />)
@@ -150,7 +150,7 @@ describe('History', () => {
   it('respects historyCollapsed state', () => {
     useStore.setState({
       requestHistory: [
-        { title: 'test', emitName: 'event', body: '', response: undefined },
+        { note: 'test', emitName: 'event', body: '', response: undefined },
       ],
       historyCollapsed: true,
     })
@@ -167,7 +167,7 @@ describe('History', () => {
   it('search is case-insensitive', async () => {
     useStore.setState({
       requestHistory: [
-        { title: 'Get User', emitName: 'user:fetch', body: '', response: undefined },
+        { note: 'Get User', emitName: 'user:fetch', body: '', response: undefined },
       ],
     })
     render(<History />)

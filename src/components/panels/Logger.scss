@@ -6,7 +6,7 @@
   height: 100%;
   width: 100%;
   background: #0d1117;
-  font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+  font-family: var(--font-mono);
 }
 
 .logger-panel__header {

@@ -89,7 +89,7 @@
   }
 
   &__address {
-    font-family: 'Monaco', 'Courier New', monospace;
+    font-family: var(--font-mono);
     font-size: 0.8rem;
     color: rgba($white, 0.7);
     background: rgba($burnt, 0.6);

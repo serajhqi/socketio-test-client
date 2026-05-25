@@ -50,7 +50,7 @@
 .history__count {
   font-size: 0.62rem;
   color: rgba($semiburnt, 0.5);
-  font-family: 'Monaco', monospace;
+  font-family: var(--font-mono);
   flex-shrink: 0;
   letter-spacing: 0.3px;
 }
@@ -153,7 +153,7 @@
 
 .history__event {
   font-size: 0.75rem;
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: var(--font-mono);
   color: #fbbf24;
   white-space: nowrap;
   overflow: hidden;

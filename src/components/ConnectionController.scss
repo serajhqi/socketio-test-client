@@ -22,7 +22,7 @@
   gap: 0.4rem;
   overflow: hidden;
   transition: all 0.15s;
-  font-family: 'Monaco', monospace;
+  font-family: var(--font-mono);
 
   &:hover {
     background: rgba($semiburnt, 0.08);
@@ -46,7 +46,7 @@
   white-space: nowrap;
   font-size: 0.7rem;
   color: #7dd3fc;
-  font-family: 'Monaco', monospace;
+  font-family: var(--font-mono);
 }
 
 .connection-controller__server-placeholder {

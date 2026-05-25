@@ -12,7 +12,6 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 var serve = serveStatic(__dirname + "/../dist");
-console.log(__dirname + "/../dist")
 
 var server = createServer(function(req, res) {
   var done = finalhandler(req, res);

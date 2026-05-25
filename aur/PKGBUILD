@@ -1,0 +1,23 @@
+# Maintainer: Seraj Haqiqi <haqiqi.seraj@gmail.com>
+pkgname=nodejs-socketio-test-client
+pkgver=0.8.1
+pkgrel=1
+pkgdesc="Browser-based Socket.IO API test client (web app + browser extensions)"
+arch=('any')
+url="https://github.com/serajhqi/socketio-test-client"
+license=('MIT')
+depends=('nodejs' 'npm')
+source=("https://registry.npmjs.org/socketio-test-client/-/socketio-test-client-${pkgver}.tgz")
+sha256sums=('c8d3eae160a892e32837db3dcae515e843e5383fef52b8141940c8bcf8b6d59f')
+noextract=()
+
+package() {
+  cd "$srcdir/package"
+  install -dm755 "$pkgdir/usr/lib/node_modules/$pkgname"
+  cp -r . "$pkgdir/usr/lib/node_modules/$pkgname"
+  npm install --production --no-save --prefix "$pkgdir/usr/lib/node_modules/$pkgname"
+
+  install -dm755 "$pkgdir/usr/bin"
+  ln -sf "/usr/lib/node_modules/$pkgname/bin/socketio-test-client.js" \
+    "$pkgdir/usr/bin/socketio-test-client"
+}

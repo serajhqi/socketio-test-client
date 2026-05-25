@@ -143,7 +143,7 @@
   &__token {
     font-size: 0.74rem;
     font-weight: 600;
-    font-family: 'Monaco', monospace;
+    font-family: var(--font-mono);
     color: var(--token-color);
     background: color-mix(in srgb, var(--token-color) 12%, transparent);
     border: 1px solid color-mix(in srgb, var(--token-color) 30%, transparent);
@@ -180,7 +180,7 @@
 
   &__address {
     flex: 1;
-    font-family: 'Monaco', 'Courier New', monospace;
+    font-family: var(--font-mono);
     font-size: 0.75rem;
     color: $white;
     overflow: hidden;
@@ -189,7 +189,7 @@
     min-width: 0;
   }
 
-  // Warning note
+  // Warning note — min-height locks two lines so layout never shifts
   &__warning {
     display: flex;
     align-items: flex-start;
@@ -197,6 +197,7 @@
     font-size: 0.76rem;
     color: rgba($semiburnt, 0.6);
     line-height: 1.45;
+    min-height: calc(0.76rem * 1.45 * 2);
 
     svg { flex-shrink: 0; margin-top: 1px; color: #fbbf24; opacity: 0.7; }
 

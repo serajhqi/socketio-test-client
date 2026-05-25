@@ -12,11 +12,11 @@ const appTheme = EditorView.theme({
     background: 'transparent !important',
     height: '100%',
     fontSize: '0.875rem',
-    fontFamily: "'Monaco', 'Courier New', monospace",
+    fontFamily: "var(--font-mono)",
   },
   '.cm-scroller': {
     overflow: 'auto',
-    fontFamily: "'Monaco', 'Courier New', monospace",
+    fontFamily: "var(--font-mono)",
   },
   '.cm-content': {
     color: '#fbbf24',

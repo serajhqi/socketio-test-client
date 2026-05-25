@@ -130,7 +130,7 @@
   }
 
   &__textarea {
-    font-family: 'Monaco', 'Courier New', monospace;
+    font-family: var(--font-mono);
     min-height: 120px;
     resize: vertical;
   }

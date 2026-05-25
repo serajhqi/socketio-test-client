@@ -128,7 +128,7 @@
     }
 
     &--mode {
-      font-family: 'Monaco', 'Courier New', monospace;
+      font-family: var(--font-mono);
       font-size: 0.68rem;
       min-width: 38px;
       text-align: center;

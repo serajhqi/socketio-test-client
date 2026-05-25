@@ -240,6 +240,30 @@ export const useStore = create<Store>()(
     {
       name: 'socketio-client',
       version: SCHEMA_VERSION,
+      migrate: (persisted: unknown, fromVersion: number) => {
+        const s = persisted as Record<string, unknown>
+        if (fromVersion < 2) {
+          // title → note rename in requestHistory
+          const migrateHistory = (history: unknown) => {
+            if (!Array.isArray(history)) return history
+            return history.map((r: Record<string, unknown>) => {
+              if (r.title !== undefined && r.note === undefined) {
+                const { title, ...rest } = r
+                return { ...rest, note: title }
+              }
+              return r
+            })
+          }
+          if (s.requestHistory) s.requestHistory = migrateHistory(s.requestHistory)
+          if (Array.isArray(s.profiles)) {
+            s.profiles = (s.profiles as Record<string, unknown>[]).map(p => ({
+              ...p,
+              requestHistory: migrateHistory(p.requestHistory),
+            }))
+          }
+        }
+        return s
+      },
       partialize: (state) => ({
         address: state.address,
         options: state.options,
