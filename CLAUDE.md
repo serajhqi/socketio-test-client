@@ -230,6 +230,8 @@ Build process (pnpm build):
 
 ## Git & Commit Practices
 
+**Confirmation required**: Always ask for explicit confirmation before creating any commit. Do not commit autonomously even when asked to "save" or "apply" changes.
+
 **Atomic Commits**: Each commit should represent a single logical change and be independently meaningful. This makes:
 - History easier to bisect (finding bugs)
 - Reverts safe (won't break unrelated features)
