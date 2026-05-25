@@ -131,7 +131,7 @@ export const useStore = create<Store>()(
       // Request
       request: {
         emitName: '',
-        title: '',
+        note: undefined,
         body: undefined,
         response: undefined,
         duration: undefined,
@@ -144,7 +144,7 @@ export const useStore = create<Store>()(
       setRequestHistory: (history) => set({ requestHistory: history }),
       upsertHistory: (req) =>
         set((state) => {
-          const index = state.requestHistory.findIndex((r) => r.title === req.title)
+          const index = state.requestHistory.findIndex((r) => r.emitName === req.emitName)
           if (index >= 0) {
             const updated = [...state.requestHistory]
             updated[index] = req
@@ -152,15 +152,15 @@ export const useStore = create<Store>()(
           }
           return { requestHistory: [...state.requestHistory, req] }
         }),
-      removeFromHistory: (title) =>
+      removeFromHistory: (emitName) =>
         set((state) => ({
-          requestHistory: state.requestHistory.filter((r) => r.title !== title),
+          requestHistory: state.requestHistory.filter((r) => r.emitName !== emitName),
         })),
       clearRequest: () =>
         set({
           request: {
             emitName: '',
-            title: '',
+            note: undefined,
             body: undefined,
             response: undefined,
             duration: undefined,

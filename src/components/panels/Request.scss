@@ -32,20 +32,21 @@
     &:focus { box-shadow: none !important; border-color: rgba($semiburnt, 0.4) !important; }
   }
 
-  &__title-input {
-    flex: 1;
+  &__note {
+    flex: 0.7;
     height: 100%;
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
-    color: rgba($white, 0.55) !important;
-    padding: 0 0.75rem !important;
-    font-size: 0.875rem;
+    color: rgba($semiburnt, 0.6) !important;
+    padding: 0 0.6rem !important;
+    font-size: 0.78rem;
     font-style: italic;
     box-shadow: none !important;
+    border-left: 1px solid rgba($burning, 1.5) !important;
 
-    &::placeholder { color: rgba($semiburnt, 0.4) !important; }
-    &:focus { box-shadow: none !important; color: rgba($white, 0.8) !important; }
+    &::placeholder { color: rgba($semiburnt, 0.3) !important; }
+    &:focus { box-shadow: none !important; color: rgba($semiburnt, 0.85) !important; }
   }
 
   &__new {

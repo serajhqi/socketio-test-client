@@ -13,18 +13,18 @@ export function History({ onCollapse }: HistoryProps) {
   const filtered = [...requestHistory]
     .reverse()
     .filter(item =>
-      (item.title || item.emitName).toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.emitName.toLowerCase().includes(searchTerm.toLowerCase())
+      item.emitName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (item.note && item.note.toLowerCase().includes(searchTerm.toLowerCase()))
     )
 
-  const handleOpen = (title: string) => {
-    const item = requestHistory.find(h => h.title === title || h.emitName === title)
+  const handleOpen = (emitName: string) => {
+    const item = requestHistory.find(h => h.emitName === emitName)
     if (item) useStore.getState().setRequest(item)
   }
 
-  const handleRemove = (e: React.MouseEvent, title: string) => {
+  const handleRemove = (e: React.MouseEvent, emitName: string) => {
     e.stopPropagation()
-    useStore.getState().removeFromHistory(title)
+    useStore.getState().removeFromHistory(emitName)
   }
 
   return (
@@ -69,31 +69,29 @@ export function History({ onCollapse }: HistoryProps) {
           </div>
         ) : (
           filtered.map(item => {
-            const key = item.title || item.emitName
-            const showTitle = item.title && item.title !== item.emitName
             const hasResponse = item.response !== undefined
 
             return (
               <button
-                key={key}
+                key={item.emitName}
                 className="history__item"
-                onClick={() => handleOpen(key)}
-                title={`Open: ${key}`}
-                aria-label={`Load request: ${key}`}
+                onClick={() => handleOpen(item.emitName)}
+                title={`Open: ${item.emitName}`}
+                aria-label={`Load request: ${item.emitName}`}
               >
                 <span className={`history__dot ${hasResponse ? 'history__dot--response' : ''}`} aria-hidden="true" />
                 <span className="history__item-body">
                   <span className="history__event">{item.emitName}</span>
-                  {showTitle && <span className="history__title">{item.title}</span>}
+                  {item.note && <span className="history__title">{item.note}</span>}
                 </span>
                 <span
                   className="history__remove"
                   role="button"
                   tabIndex={0}
                   title="Remove from history"
-                  aria-label={`Remove ${key} from history`}
-                  onClick={e => handleRemove(e as unknown as React.MouseEvent, key)}
-                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleRemove(e as unknown as React.MouseEvent, key) }}
+                  aria-label={`Remove ${item.emitName} from history`}
+                  onClick={e => handleRemove(e as unknown as React.MouseEvent, item.emitName)}
+                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleRemove(e as unknown as React.MouseEvent, item.emitName) }}
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                     <path d="M18 6L6 18M6 6l12 12"/>

@@ -60,7 +60,7 @@ const appTheme = EditorView.theme({
 export function Request() {
   const { request, status } = useStore()
   const [emitName, setEmitName] = useState('')
-  const [title, setTitle] = useState('')
+  const [note, setNote] = useState('')
   const [body, setBody] = useState('')
   const [jsonMode, setJsonMode] = useState(true)
   const [editorStatus, setEditorStatus] = useState('')
@@ -69,7 +69,7 @@ export function Request() {
   useEffect(() => {
     if (request) {
       setEmitName(request.emitName || '')
-      setTitle(request.title || '')
+      setNote(request.note || '')
       setBody(request.body || '')
     }
   }, [request])
@@ -87,7 +87,7 @@ export function Request() {
     try {
       useStore.getState().setRequest({
         emitName,
-        title: title || emitName,
+        note: note.trim() || undefined,
         body: body.trim() || undefined,
       })
       sendRequest()
@@ -96,7 +96,7 @@ export function Request() {
       console.error('Send error:', error)
       toast.error('Failed to send request')
     }
-  }, [emitName, title, body, status])
+  }, [emitName, note, body, status])
 
   const handleFormat = () => {
     if (!body.trim()) return
@@ -159,10 +159,10 @@ export function Request() {
           autoComplete="off"
         />
         <input
-          className="request-bar__title-input"
-          placeholder="Optional Title"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
+          className="request-bar__note"
+          placeholder="# note…"
+          value={note}
+          onChange={e => setNote(e.target.value)}
           onKeyDown={handleBarKeyDown}
           spellCheck={false}
           autoComplete="off"

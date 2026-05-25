@@ -2,7 +2,7 @@ export type ConnectionStatus = 'connected' | 'connecting' | 'disconnecting' | 'd
 
 export type RequestType = {
   emitName: string
-  title: string
+  note?: string
   body?: string
   response?: unknown
   duration?: number
@@ -29,6 +29,8 @@ export type ServerProfile = {
   address: string
   options: Record<string, unknown>
   socketioVersion?: '3' | '4'
+  requestHistory?: RequestType[]
+  listenerNames?: string[]
 }
 
 export type ConnectionDetails = {
