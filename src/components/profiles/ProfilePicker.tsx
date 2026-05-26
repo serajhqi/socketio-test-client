@@ -63,14 +63,13 @@ export function ProfilePicker() {
       id: Date.now().toString(),
       name,
       socketioVersion: '4' as const,
-      address: address ?? '',
-      options,
-      requestHistory,
-      listenerNames: listeners.map(l => l.title),
+      address: '',
+      options: {},
+      requestHistory: [],
+      listenerNames: [],
     }
     setProfiles([...profiles, newProfile])
-    setActiveProfile(newProfile.id)
-    toast.success(`Profile saved: ${name}`)
+    toast.success(`Profile saved: ${name}. Switch to it by disconnecting and selecting from the profile menu.`)
     setShowSaveModal(false)
   }
 
