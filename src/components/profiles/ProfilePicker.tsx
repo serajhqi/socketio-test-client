@@ -39,13 +39,14 @@ export function ProfilePicker() {
       toast.error('Disconnect before switching profiles')
       return
     }
-    const profile = profiles.find(p => p.id === id)
+    const { profiles: currentProfiles, listeners: currentListeners } = useStore.getState()
+    const profile = currentProfiles.find(p => p.id === id)
     if (profile) {
       useStore.setState({
         address: profile.address,
         options: profile.options,
         requestHistory: profile.requestHistory ?? [],
-        listeners: (profile.listenerNames ?? []).map(name => listeners.find(l => l.title === name) ?? { title: name, messages: [] }),
+        listeners: (profile.listenerNames ?? []).map(name => currentListeners.find(l => l.title === name) ?? { title: name, messages: [] }),
         activeProfileId: id,
       })
       toast.success(`Switched to: ${profile.name}`)
