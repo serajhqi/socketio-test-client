@@ -1,5 +1,5 @@
 # Maintainer: Seraj Haqiqi <haqiqi.seraj@gmail.com>
-pkgname=nodejs-socketio-test-client
+pkgname=socketio-test-client
 pkgver=0.8.1
 pkgrel=1
 pkgdesc="Browser-based Socket.IO API test client (web app + browser extensions)"
