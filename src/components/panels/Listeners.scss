@@ -1,4 +1,4 @@
-@import '../../index.scss';
+@use '../../index.scss' as *;
 
 .listeners-panel {
   display: flex;
