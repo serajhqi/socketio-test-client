@@ -19,7 +19,7 @@ export function History({ onCollapse }: HistoryProps) {
 
   const handleOpen = (emitName: string) => {
     const item = requestHistory.find(h => h.emitName === emitName)
-    if (item) useStore.getState().setRequest(item)
+    if (item) useStore.getState().setRequest({ response: undefined, duration: undefined, ...item })
   }
 
   const handleRemove = (e: React.MouseEvent, emitName: string) => {

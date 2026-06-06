@@ -38,7 +38,7 @@
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
-    color: rgba($semiburnt, 0.6) !important;
+    color: $white !important;
     padding: 0 0.6rem !important;
     font-size: 0.78rem;
     font-style: italic;
@@ -46,7 +46,7 @@
     border-left: 1px solid rgba($burning, 1.5) !important;
 
     &::placeholder { color: rgba($semiburnt, 0.3) !important; }
-    &:focus { box-shadow: none !important; color: rgba($semiburnt, 0.85) !important; }
+    &:focus { box-shadow: none !important; }
   }
 
   &__new {
