@@ -6,8 +6,8 @@
   justify-content: space-between;
   padding: 0 1.25rem;
   height: 48px;
-  border-bottom: 1px solid rgba($semiburnt, 0.15);
-  background: linear-gradient(180deg, #2f2f2f 0%, $burnt 100%);
+  border-bottom: 1px solid rgba(var(--semiburnt-rgb), 0.15);
+  background: linear-gradient(180deg, var(--c-top-menu-top) 0%, var(--c-bg) 100%);
   flex-shrink: 0;
 
   &__left {
@@ -30,18 +30,18 @@
     white-space: nowrap;
   }
 
-  &__title-brand { color: #7dd3fc; }
+  &__title-brand { color: var(--c-blue-light); }
 
   &__title-sub {
-    color: $semiburnt;
+    color: var(--c-muted);
     font-weight: 400;
   }
 
   &__version {
     font-size: 0.65rem;
-    color: #fbbf24;
-    background: rgba(251, 191, 36, 0.08);
-    border: 1px solid rgba(251, 191, 36, 0.18);
+    color: var(--c-primary);
+    background: rgba(var(--primary-rgb), 0.08);
+    border: 1px solid rgba(var(--primary-rgb), 0.18);
     border-radius: 3px;
     padding: 0.2rem 0.45rem;
     letter-spacing: 0.3px;
@@ -68,7 +68,7 @@
     display: block;
     width: 1px;
     height: 20px;
-    background: rgba($semiburnt, 0.25);
+    background: rgba(var(--semiburnt-rgb), 0.25);
     flex-shrink: 0;
     align-self: center;
   }
@@ -81,17 +81,18 @@
 
   &__byline {
     font-size: 0.62rem;
-    color: $semiburnt;
+    color: var(--c-muted);
     text-decoration: none;
     letter-spacing: 0.2px;
     line-height: 1;
     transition: color 0.15s;
 
-    &:hover { color: $white; }
+    &:hover { color: var(--c-text); }
   }
 
   // Base button styles for consistency
   &__help-btn,
+  &__theme-btn,
   &__feedback-btn,
   &__donate-btn,
   &__stars {
@@ -100,7 +101,7 @@
     height: 26px;
     gap: 0.35rem;
     padding: 0 0.55rem;
-    border: 1px solid rgba($semiburnt, 0.2);
+    border: 1px solid rgba(var(--semiburnt-rgb), 0.2);
     border-radius: 4px;
     background: transparent;
     text-decoration: none;
@@ -117,55 +118,69 @@
     padding: 0;
     width: 26px;
     justify-content: center;
-    color: rgba($semiburnt, 0.7);
+    color: rgba(var(--semiburnt-rgb), 0.7);
     font-weight: 700;
     font-family: serif;
     font-size: 0.85rem;
 
     &:hover {
-      color: $white;
-      border-color: rgba($semiburnt, 0.6);
-      background: rgba($semiburnt, 0.1);
+      color: var(--c-text);
+      border-color: rgba(var(--semiburnt-rgb), 0.6);
+      background: rgba(var(--semiburnt-rgb), 0.1);
+    }
+  }
+
+  // Theme toggle button
+  &__theme-btn {
+    padding: 0;
+    width: 26px;
+    justify-content: center;
+    color: rgba(var(--semiburnt-rgb), 0.7);
+
+    &:hover {
+      color: var(--c-text);
+      border-color: rgba(var(--semiburnt-rgb), 0.6);
+      background: rgba(var(--semiburnt-rgb), 0.1);
     }
   }
 
   // Feedback email button
   &__feedback-btn {
-    color: rgba($white, 0.55);
-    background: rgba($semiburnt, 0.06);
+    color: rgba(var(--white-rgb), 0.55);
+    background: rgba(var(--semiburnt-rgb), 0.06);
 
     &:hover {
-      color: #7dd3fc;
-      border-color: rgba(125, 211, 252, 0.3);
-      background: rgba(125, 211, 252, 0.05);
+      color: var(--c-blue-light);
+      border-color: rgba(var(--blue-light-rgb), 0.3);
+      background: rgba(var(--blue-light-rgb), 0.05);
     }
   }
 
-  // Donate button — warm accent to draw attention
+  // Donate button
   &__donate-btn {
-    color: #fbbf24;
-    border-color: rgba(251, 191, 36, 0.25);
-    background: rgba(251, 191, 36, 0.06);
+    color: var(--c-primary);
+    border-color: rgba(var(--primary-rgb), 0.25);
+    background: rgba(var(--primary-rgb), 0.06);
     font-weight: 500;
 
     &:hover {
-      color: #fde68a;
-      border-color: rgba(251, 191, 36, 0.5);
-      background: rgba(251, 191, 36, 0.12);
+      color: var(--c-primary);
+      border-color: rgba(var(--primary-rgb), 0.5);
+      background: rgba(var(--primary-rgb), 0.12);
     }
   }
 
   // GitHub stars badge
   &__stars {
-    color: rgba($white, 0.6);
-    background: rgba($semiburnt, 0.07);
+    color: rgba(var(--white-rgb), 0.6);
+    background: rgba(var(--semiburnt-rgb), 0.07);
     font-weight: 600;
     letter-spacing: 0.2px;
 
     &:hover {
-      color: $white;
-      border-color: rgba($semiburnt, 0.45);
-      background: rgba($semiburnt, 0.14);
+      color: var(--c-text);
+      border-color: rgba(var(--semiburnt-rgb), 0.45);
+      background: rgba(var(--semiburnt-rgb), 0.14);
     }
   }
 }

@@ -5,7 +5,7 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  background-color: $burnt;
+  background-color: var(--c-bg);
 }
 
 .response-panel__statusbar {
@@ -14,8 +14,8 @@
   justify-content: space-between;
   padding: 0 0.875rem;
   height: 42px;
-  border-bottom: 1px solid $burning;
-  background: rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid var(--c-surface);
+  background: rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
   gap: 0.5rem;
 }
@@ -44,7 +44,7 @@
 
 .response-statusbar__label {
   font-size: 0.62rem;
-  color: rgba($semiburnt, 0.5);
+  color: rgba(var(--semiburnt-rgb), 0.5);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
@@ -53,20 +53,21 @@
 
 .response-statusbar__value {
   font-size: 0.7rem;
-  color: #fbbf24;
+  color: var(--c-status-value);
   font-family: var(--font-mono);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   flex-shrink: 1;
   min-width: 0;
+  font-weight: 500;
 
-  &--muted { color: rgba($semiburnt, 0.6); }
+  &--muted { color: var(--c-muted); }
 }
 
 .response-statusbar__duration {
   font-size: 0.72rem;
-  color: #4ade80;
+  color: var(--c-green-light);
   font-family: var(--font-mono);
   white-space: nowrap;
   min-width: 36px;
@@ -77,8 +78,8 @@
 .response-panel__expand-btn {
   padding: 0.2rem 0.5rem;
   background: transparent;
-  color: rgba($semiburnt, 0.6);
-  border: 1px solid rgba($semiburnt, 0.2);
+  color: rgba(var(--semiburnt-rgb), 0.6);
+  border: 1px solid rgba(var(--semiburnt-rgb), 0.2);
   border-radius: 3px;
   font-size: 0.65rem;
   font-family: var(--font-mono);
@@ -90,9 +91,9 @@
   justify-content: center;
 
   &:hover {
-    color: $white;
-    border-color: rgba($semiburnt, 0.5);
-    background: rgba($semiburnt, 0.08);
+    color: var(--c-text);
+    border-color: rgba(var(--semiburnt-rgb), 0.5);
+    background: rgba(var(--semiburnt-rgb), 0.08);
   }
 }
 
@@ -118,18 +119,18 @@
   p {
     margin: 0;
     font-size: 0.9rem;
-    color: rgba($semiburnt, 0.6);
+    color: rgba(var(--semiburnt-rgb), 0.6);
   }
 }
 
 .response-panel__empty-hint {
   font-size: 0.75rem !important;
-  color: rgba($semiburnt, 0.35) !important;
+  color: rgba(var(--semiburnt-rgb), 0.35) !important;
 }
 
 .response-panel__json {
   margin: 0;
-  color: #e6edf3;
+  color: var(--c-text);
   font-family: var(--font-mono);
   font-size: 0.82rem;
   line-height: 1.6;
@@ -147,7 +148,7 @@
 
   .cm-gutters {
     background: transparent !important;
-    border-right: 1px solid rgba($semiburnt, 0.2) !important;
+    border-right: 1px solid rgba(var(--semiburnt-rgb), 0.2) !important;
   }
 }
 
@@ -158,36 +159,13 @@
     font-size: 0.82rem !important;
     line-height: 1.6 !important;
 
-    .string-value {
-      color: #85e89d !important;
-    }
-
-    .number-value {
-      color: #79b8ff !important;
-    }
-
-    .boolean-value {
-      color: #f97583 !important;
-    }
-
-    .null-value {
-      color: #6f42c1 !important;
-    }
-
-    .key-string {
-      color: #79b8ff !important;
-    }
-
-    .object-key {
-      color: #79b8ff !important;
-    }
-
-    .name-key {
-      color: #79b8ff !important;
-    }
-
-    .object-size {
-      color: #a78bfa !important;
-    }
+    .string-value { color: var(--c-syntax-string) !important; }
+    .number-value { color: var(--c-syntax-number) !important; }
+    .boolean-value { color: var(--c-syntax-bool) !important; }
+    .null-value { color: var(--c-syntax-null) !important; }
+    .key-string { color: var(--c-syntax-key) !important; }
+    .object-key { color: var(--c-syntax-key) !important; }
+    .name-key { color: var(--c-syntax-key) !important; }
+    .object-size { color: var(--c-syntax-size) !important; }
   }
 }

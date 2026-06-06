@@ -5,7 +5,7 @@ import { SaveProfileModal } from './SaveProfileModal'
 import './ProfilePicker.scss'
 
 export function ProfilePicker() {
-  const { profiles, activeProfileId, setActiveProfile, setProfiles, address, options, requestHistory, listeners, status } = useStore()
+  const { profiles, activeProfileId, setActiveProfile, setProfiles, address, requestHistory, listeners, status } = useStore()
   const [isOpen, setIsOpen] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editName, setEditName] = useState('')
@@ -39,13 +39,14 @@ export function ProfilePicker() {
       toast.error('Disconnect before switching profiles')
       return
     }
-    const profile = profiles.find(p => p.id === id)
+    const { profiles: currentProfiles } = useStore.getState()
+    const profile = currentProfiles.find(p => p.id === id)
     if (profile) {
       useStore.setState({
         address: profile.address,
         options: profile.options,
         requestHistory: profile.requestHistory ?? [],
-        listeners: (profile.listenerNames ?? []).map(name => ({ title: name, messages: [] })),
+        listeners: profile.listeners ?? [],
         activeProfileId: id,
       })
       toast.success(`Switched to: ${profile.name}`)
@@ -66,7 +67,7 @@ export function ProfilePicker() {
       address: '',
       options: {},
       requestHistory: [],
-      listenerNames: [],
+      listeners: [],
     }
     setProfiles([...profiles, newProfile])
     toast.success(`Profile saved: ${name}. Switch to it by disconnecting and selecting from the profile menu.`)

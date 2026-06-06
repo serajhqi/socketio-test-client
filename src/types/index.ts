@@ -30,7 +30,7 @@ export type ServerProfile = {
   options: Record<string, unknown>
   socketioVersion?: '3' | '4'
   requestHistory?: RequestType[]
-  listenerNames?: string[]
+  listeners?: ListenerType[]
 }
 
 export type ConnectionDetails = {
@@ -40,4 +40,4 @@ export type ConnectionDetails = {
   reconnectionCount: number
 }
 
-export const SCHEMA_VERSION = 2
+export const SCHEMA_VERSION = 3

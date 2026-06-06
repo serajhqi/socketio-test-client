@@ -4,6 +4,7 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,8 +13,8 @@
 }
 
 .donate-modal {
-  background: $burnt;
-  border: 1px solid rgba($semiburnt, 0.2);
+  background: var(--c-bg);
+  border: 1px solid rgba(var(--semiburnt-rgb), 0.2);
   border-radius: 10px;
   width: 100%;
   max-width: 440px;
@@ -30,7 +31,7 @@
   &__title {
     font-size: 1.05rem;
     font-weight: 600;
-    color: #fbbf24;
+    color: var(--c-primary);
     display: flex;
     align-items: center;
     gap: 0.45rem;
@@ -45,23 +46,22 @@
     align-items: center;
     justify-content: center;
     font-size: 0.75rem;
-    color: $semiburnt;
+    color: var(--c-muted);
     transition: color 0.15s, background 0.15s;
 
     &:hover {
-      color: $white;
-      background: rgba($semiburnt, 0.12);
+      color: var(--c-text);
+      background: rgba(var(--semiburnt-rgb), 0.12);
     }
   }
 
   &__intro {
     font-size: 0.83rem;
-    color: rgba($semiburnt, 0.7);
+    color: rgba(var(--semiburnt-rgb), 0.7);
     margin-bottom: 1.25rem;
     line-height: 1.5;
   }
 
-  // Network tabs
   &__tabs {
     display: flex;
     gap: 0.4rem;
@@ -75,18 +75,18 @@
     gap: 0.35rem;
     padding: 0.3rem 0.65rem;
     border-radius: 20px;
-    border: 1px solid rgba($semiburnt, 0.2);
+    border: 1px solid rgba(var(--semiburnt-rgb), 0.2);
     background: transparent;
-    color: rgba($semiburnt, 0.7);
+    color: rgba(var(--semiburnt-rgb), 0.7);
     font-size: 0.78rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.15s;
 
     &:hover {
-      border-color: rgba($semiburnt, 0.4);
-      color: $white;
-      background: rgba($semiburnt, 0.08);
+      border-color: rgba(var(--semiburnt-rgb), 0.4);
+      color: var(--c-text);
+      background: rgba(var(--semiburnt-rgb), 0.08);
     }
 
     &--active {
@@ -104,7 +104,6 @@
     flex-shrink: 0;
   }
 
-  // QR + tokens block
   &__body {
     display: flex;
     flex-direction: column;
@@ -121,7 +120,6 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
   }
 
-  // Accepted tokens
   &__tokens {
     display: flex;
     align-items: center;
@@ -130,7 +128,7 @@
 
   &__tokens-label {
     font-size: 0.65rem;
-    color: rgba($semiburnt, 0.5);
+    color: rgba(var(--semiburnt-rgb), 0.5);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
@@ -151,12 +149,11 @@
     padding: 0.15rem 0.4rem;
   }
 
-  // Address row
   &__address-row {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: $burning;
+    background: var(--c-surface);
     border-radius: 6px;
     padding: 0.5rem 0.5rem 0.5rem 0.75rem;
     margin-bottom: 0.75rem;
@@ -171,35 +168,34 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba($semiburnt, 0.7);
+    color: rgba(var(--semiburnt-rgb), 0.7);
     transition: color 0.15s, background 0.15s;
 
-    &:hover { color: $white; background: rgba($semiburnt, 0.12); }
-    &--done { color: #4ade80; }
+    &:hover { color: var(--c-text); background: rgba(var(--semiburnt-rgb), 0.12); }
+    &--done { color: var(--c-green-light); }
   }
 
   &__address {
     flex: 1;
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: $white;
+    color: var(--c-text);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     min-width: 0;
   }
 
-  // Warning note — min-height locks two lines so layout never shifts
   &__warning {
     display: flex;
     align-items: flex-start;
     gap: 0.4rem;
     font-size: 0.76rem;
-    color: rgba($semiburnt, 0.6);
+    color: rgba(var(--semiburnt-rgb), 0.6);
     line-height: 1.45;
     min-height: calc(0.76rem * 1.45 * 2);
 
-    svg { flex-shrink: 0; margin-top: 1px; color: #fbbf24; opacity: 0.7; }
+    svg { flex-shrink: 0; margin-top: 1px; color: var(--c-primary); opacity: 0.7; }
 
     &--hidden { visibility: hidden; }
   }

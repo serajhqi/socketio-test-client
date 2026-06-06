@@ -4,6 +4,7 @@
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,17 +13,13 @@
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .modal {
-  background-color: $burnt;
-  border: 1px solid $burning;
+  background-color: var(--c-bg);
+  border: 1px solid var(--c-surface);
   border-radius: 8px;
   box-shadow: 0 20px 25px rgba(0, 0, 0, 0.5);
   max-width: 600px;
@@ -32,20 +29,12 @@
   flex-direction: column;
   animation: slideUp 0.2s;
 
-  @media (max-width: 640px) {
-    max-width: 95vw;
-  }
+  @media (max-width: 640px) { max-width: 95vw; }
 }
 
 @keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
 }
 
 .modal__header {
@@ -53,20 +42,20 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  border-bottom: 1px solid $burning;
+  border-bottom: 1px solid var(--c-surface);
 }
 
 .modal__title {
   font-size: 1.25rem;
   font-weight: bold;
-  color: $white;
+  color: var(--c-text);
   margin: 0;
 }
 
 .modal__close {
   background: none;
   border: none;
-  color: $semiburnt;
+  color: var(--c-muted);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0;
@@ -79,8 +68,8 @@
   transition: all 0.2s;
 
   &:hover {
-    color: $white;
-    background-color: rgba($semiburnt, 0.1);
+    color: var(--c-text);
+    background-color: rgba(var(--semiburnt-rgb), 0.1);
   }
 }
 
@@ -99,34 +88,31 @@
   gap: 0.5rem;
 
   &__label {
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    color: $white;
+    color: var(--c-text);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    font-size: 0.8rem;
   }
 
   &__input,
   &__textarea {
     font-family: inherit;
     font-size: 0.9rem;
-    color: $white;
-    background-color: darken($burnt, 5%);
-    border: 1px solid $burning;
+    color: var(--c-text);
+    background-color: var(--c-bg-input);
+    border: 1px solid var(--c-surface);
     padding: 0.75rem;
     border-radius: 4px;
     transition: all 0.2s;
 
     &:focus {
       outline: none;
-      border-color: #4a9eff;
-      box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.1);
+      border-color: var(--c-blue);
+      box-shadow: 0 0 0 2px rgba(var(--blue-rgb), 0.1);
     }
 
-    &::placeholder {
-      color: rgba($semiburnt, 0.6);
-    }
+    &::placeholder { color: rgba(var(--semiburnt-rgb), 0.6); }
   }
 
   &__textarea {
@@ -137,27 +123,21 @@
 
   &__editor {
     height: 200px;
-    border: 1px solid $burning;
+    border: 1px solid var(--c-surface);
     border-radius: 4px;
     overflow: hidden;
 
-    .cm-editor {
-      height: 100% !important;
-    }
-
-    .cm-scroller {
-      overflow: auto !important;
-    }
-
+    .cm-editor { height: 100% !important; }
+    .cm-scroller { overflow: auto !important; }
     .cm-gutters {
       background-color: transparent !important;
-      border-right: 1px solid rgba($semiburnt, 0.2) !important;
+      border-right: 1px solid rgba(var(--semiburnt-rgb), 0.2) !important;
     }
   }
 
   &__hint {
     font-size: 0.8rem;
-    color: $semiburnt;
+    color: var(--c-muted);
     margin: 0;
   }
 }
@@ -167,13 +147,13 @@
   align-items: flex-start;
   gap: 0.45rem;
   font-size: 0.78rem;
-  color: rgba($semiburnt, 0.65);
+  color: rgba(var(--semiburnt-rgb), 0.65);
   line-height: 1.5;
 
-  svg { color: #fbbf24; opacity: 0.75; margin-top: 1px; }
+  svg { color: var(--c-primary); opacity: 0.75; margin-top: 1px; }
 
   a {
-    color: #7dd3fc;
+    color: var(--c-blue-light);
     text-decoration: none;
     &:hover { text-decoration: underline; }
   }
@@ -181,10 +161,10 @@
 
 .error-message {
   padding: 0.75rem 1rem;
-  background-color: rgba(220, 38, 38, 0.1);
-  border: 1px solid #dc2626;
+  background-color: rgba(var(--red-rgb), 0.1);
+  border: 1px solid var(--c-red);
   border-radius: 4px;
-  color: #fca5a5;
+  color: var(--c-red);
   font-size: 0.9rem;
 }
 
@@ -193,7 +173,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-top: 1px solid $burning;
+  border-top: 1px solid var(--c-surface);
   gap: 0.5rem;
 }
 
@@ -212,33 +192,25 @@
   transition: all 0.2s;
 
   &--primary {
-    background-color: #3b82f6;
-    color: $white;
-    border: 1px solid #3b82f6;
+    background-color: var(--c-blue-medium);
+    color: #ffffff;
+    border: 1px solid var(--c-blue-medium);
 
-    &:hover {
-      background-color: #2563eb;
-      border-color: #2563eb;
-    }
-
-    &:active {
-      transform: scale(0.98);
-    }
+    &:hover { background-color: var(--c-blue); border-color: var(--c-blue); }
+    &:active { transform: scale(0.98); }
   }
 
   &--secondary {
     background-color: transparent;
-    color: $semiburnt;
-    border: 1px solid $burning;
+    color: var(--c-muted);
+    border: 1px solid var(--c-surface);
 
     &:hover {
-      background-color: rgba($semiburnt, 0.1);
-      color: $white;
-      border-color: $semiburnt;
+      background-color: rgba(var(--semiburnt-rgb), 0.1);
+      color: var(--c-text);
+      border-color: var(--c-muted);
     }
 
-    &:active {
-      transform: scale(0.98);
-    }
+    &:active { transform: scale(0.98); }
   }
 }

@@ -11,9 +11,9 @@
   height: 26px;
   padding: 0 0.6rem;
   background: transparent;
-  border: 1px solid rgba($semiburnt, 0.2);
+  border: 1px solid rgba(var(--semiburnt-rgb), 0.2);
   border-radius: 4px;
-  color: $semiburnt;
+  color: var(--c-muted);
   font-size: 0.75rem;
   cursor: pointer;
   white-space: nowrap;
@@ -25,17 +25,17 @@
   font-family: var(--font-mono);
 
   &:hover {
-    background: rgba($semiburnt, 0.08);
-    color: $white;
-    border-color: rgba($semiburnt, 0.4);
+    background: rgba(var(--semiburnt-rgb), 0.08);
+    color: var(--c-text);
+    border-color: rgba(var(--semiburnt-rgb), 0.4);
 
     .connection-controller__server-edit { opacity: 1; }
   }
 
   &--empty {
-    color: rgba($semiburnt, 0.45);
+    color: rgba(var(--semiburnt-rgb), 0.45);
 
-    &:hover { color: rgba($white, 0.6); }
+    &:hover { color: rgba(var(--white-rgb), 0.6); }
   }
 }
 
@@ -45,7 +45,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 0.7rem;
-  color: #7dd3fc;
+  color: var(--c-blue-light);
   font-family: var(--font-mono);
 }
 
@@ -67,7 +67,7 @@
   width: 26px;
   padding: 0;
   background: transparent;
-  border: 1px solid rgba($semiburnt, 0.2);
+  border: 1px solid rgba(var(--semiburnt-rgb), 0.2);
   border-radius: 4px;
   cursor: pointer;
   display: flex;
@@ -76,24 +76,24 @@
   transition: all 0.15s;
 
   &:hover {
-    background: rgba($semiburnt, 0.08);
-    border-color: rgba($semiburnt, 0.4);
+    background: rgba(var(--semiburnt-rgb), 0.08);
+    border-color: rgba(var(--semiburnt-rgb), 0.4);
   }
 
   &--connected .connection-controller__connect-dot {
-    background: #4ade80;
-    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2), 0 0 10px rgba(74, 222, 128, 0.4);
+    background: var(--c-green-light);
+    box-shadow: 0 0 0 3px rgba(var(--green-light-rgb), 0.2), 0 0 10px rgba(var(--green-light-rgb), 0.4);
   }
 
   &--disconnected .connection-controller__connect-dot {
-    background: rgba($semiburnt, 0.5);
+    background: rgba(var(--semiburnt-rgb), 0.5);
     box-shadow: none;
   }
 
   &--connecting .connection-controller__connect-dot,
   &--disconnecting .connection-controller__connect-dot {
-    background: #60a5fa;
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2), 0 0 10px rgba(96, 165, 250, 0.4);
+    background: var(--c-blue-light);
+    box-shadow: 0 0 0 3px rgba(var(--blue-light-rgb), 0.2), 0 0 10px rgba(var(--blue-light-rgb), 0.4);
     animation: pulse 2s infinite;
   }
 }

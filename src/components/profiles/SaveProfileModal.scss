@@ -18,8 +18,8 @@
 }
 
 .save-profile-card {
-  background: linear-gradient(135deg, rgba(43, 43, 43, 0.98) 0%, rgba(52, 52, 52, 1) 100%);
-  border: 1px solid rgba($semiburnt, 0.2);
+  background: linear-gradient(135deg, var(--c-modal-bg) 0%, var(--c-modal-bg2) 100%);
+  border: 1px solid rgba(var(--semiburnt-rgb), 0.2);
   border-radius: 10px;
   box-shadow:
     0 4px 6px rgba(0, 0, 0, 0.3),
@@ -34,13 +34,13 @@
     align-items: center;
     justify-content: space-between;
     padding: 1.1rem 1.25rem 0.9rem;
-    border-bottom: 1px solid rgba($semiburnt, 0.12);
+    border-bottom: 1px solid rgba(var(--semiburnt-rgb), 0.12);
   }
 
   &__title {
     font-size: 1rem;
     font-weight: 600;
-    color: $white;
+    color: var(--c-text);
     margin: 0;
     letter-spacing: -0.2px;
   }
@@ -48,7 +48,7 @@
   &__close {
     background: none;
     border: none;
-    color: $semiburnt;
+    color: var(--c-muted);
     font-size: 1rem;
     cursor: pointer;
     padding: 0;
@@ -62,8 +62,8 @@
     line-height: 1;
 
     &:hover {
-      color: $white;
-      background-color: rgba($semiburnt, 0.12);
+      color: var(--c-text);
+      background-color: rgba(var(--semiburnt-rgb), 0.12);
     }
   }
 
@@ -83,7 +83,7 @@
   &__label {
     font-size: 0.7rem;
     font-weight: 600;
-    color: rgba($semiburnt, 0.85);
+    color: rgba(var(--semiburnt-rgb), 0.85);
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
@@ -91,9 +91,9 @@
   &__address {
     font-family: var(--font-mono);
     font-size: 0.8rem;
-    color: rgba($white, 0.7);
-    background: rgba($burnt, 0.6);
-    border: 1px solid rgba($semiburnt, 0.15);
+    color: rgba(var(--white-rgb), 0.7);
+    background: rgba(var(--burnt-rgb), 0.6);
+    border: 1px solid rgba(var(--semiburnt-rgb), 0.15);
     border-radius: 5px;
     padding: 0.55rem 0.75rem;
     word-break: break-all;
@@ -103,22 +103,20 @@
   &__input {
     width: 100%;
     padding: 0.6rem 0.75rem;
-    background: rgba($burnt, 0.8);
-    border: 1px solid rgba($semiburnt, 0.2);
+    background: rgba(var(--burnt-rgb), 0.8);
+    border: 1px solid rgba(var(--semiburnt-rgb), 0.2);
     border-radius: 5px;
-    color: $white;
+    color: var(--c-text);
     font-size: 0.9rem;
     font-family: inherit;
     transition: border-color 0.15s, box-shadow 0.15s;
 
-    &::placeholder {
-      color: rgba($semiburnt, 0.55);
-    }
+    &::placeholder { color: rgba(var(--semiburnt-rgb), 0.55); }
 
     &:focus {
       outline: none;
-      border-color: #4a9eff;
-      box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.12);
+      border-color: var(--c-blue);
+      box-shadow: 0 0 0 3px rgba(var(--blue-rgb), 0.12);
     }
   }
 
@@ -127,7 +125,7 @@
     justify-content: flex-end;
     gap: 0.6rem;
     padding: 0.9rem 1.25rem 1.1rem;
-    border-top: 1px solid rgba($semiburnt, 0.12);
+    border-top: 1px solid rgba(var(--semiburnt-rgb), 0.12);
   }
 
   &__btn {
@@ -141,45 +139,29 @@
 
     &--cancel {
       background: transparent;
-      color: $semiburnt;
-      border-color: rgba($semiburnt, 0.2);
+      color: var(--c-muted);
+      border-color: rgba(var(--semiburnt-rgb), 0.2);
 
       &:hover {
-        color: $white;
-        border-color: rgba($semiburnt, 0.45);
-        background: rgba($semiburnt, 0.08);
+        color: var(--c-text);
+        border-color: rgba(var(--semiburnt-rgb), 0.45);
+        background: rgba(var(--semiburnt-rgb), 0.08);
       }
     }
 
     &--save {
-      background: #3b82f6;
-      color: $white;
-      border-color: #3b82f6;
+      background: var(--c-blue-medium);
+      color: #ffffff;
+      border-color: var(--c-blue-medium);
 
-      &:hover:not(:disabled) {
-        background: #2563eb;
-        border-color: #2563eb;
-      }
-
-      &:active:not(:disabled) {
-        transform: scale(0.98);
-      }
-
-      &:disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-      }
+      &:hover:not(:disabled) { background: #2563eb; border-color: #2563eb; }
+      &:active:not(:disabled) { transform: scale(0.98); }
+      &:disabled { opacity: 0.4; cursor: not-allowed; }
     }
   }
 }
 
 @keyframes spSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }

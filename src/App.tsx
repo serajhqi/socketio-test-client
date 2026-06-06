@@ -16,7 +16,11 @@ export default function App() {
   const [showAddressModal, setShowAddressModal] = useState(false)
   const [showHelpModal, setShowHelpModal] = useState(false)
   const [showDonateModal, setShowDonateModal] = useState(false)
-  const { historyCollapsed, setHistoryCollapsed } = useStore()
+  const { historyCollapsed, setHistoryCollapsed, theme } = useStore()
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
 
   useEffect(() => {
     fetch('https://api.github.com/repos/serajhqi/socketio-test-client')
@@ -38,7 +42,7 @@ export default function App() {
       useStore.setState({
         profiles: state.profiles.map(p =>
           p.id === state.activeProfileId
-            ? { ...p, address: state.address ?? '', options: state.options, requestHistory: state.requestHistory, listenerNames: state.listeners.map(l => l.title) }
+            ? { ...p, address: state.address ?? '', options: state.options, requestHistory: state.requestHistory, listeners: state.listeners }
             : p
         ),
       })

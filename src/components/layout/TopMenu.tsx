@@ -10,7 +10,7 @@ interface TopMenuProps {
 }
 
 export function TopMenu({ onHelpClick, onDonateClick, onServerClick }: TopMenuProps) {
-  const { repoStars, appVersion } = useStore()
+  const { repoStars, appVersion, theme, setTheme } = useStore()
 
   return (
     <header className="top-menu">
@@ -48,6 +48,24 @@ export function TopMenu({ onHelpClick, onDonateClick, onServerClick }: TopMenuPr
       </div>
 
       <div className="top-menu__right">
+
+        {/* Theme toggle */}
+        <button
+          className="top-menu__theme-btn"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          {theme === 'dark' ? (
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-2c1.65 0 3-1.35 3-3s-1.35-3-3-3-3 1.35-3 3 1.35 3 3 3zm-1-8V3h2v4h-2zm0 14v-4h2v4h-2zM4 11H1v2h3v-2zm17 0h-3v2h3v-2zM5.64 6.36 4.22 4.94 2.81 6.35l1.41 1.42 1.42-1.41zm12.73 11.31-1.41-1.41-1.42 1.41 1.42 1.42 1.41-1.42zM5.64 17.64l-1.42-1.41-1.41 1.41 1.41 1.42 1.42-1.42zm12.72-11.3-1.42-1.42-1.41 1.42 1.41 1.41 1.42-1.41z"/>
+            </svg>
+          ) : (
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+            </svg>
+          )}
+        </button>
 
         {/* Help */}
         {onHelpClick && (

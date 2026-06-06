@@ -5,8 +5,8 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  background-color: $burnt;
-  color: $white;
+  background-color: var(--c-bg);
+  color: var(--c-text);
   overflow: hidden;
 }
 
@@ -26,14 +26,14 @@
     width: 16.67%;
     min-width: 180px;
     max-width: 240px;
-    border-right: 2px solid $burning;
+    border-right: 2px solid var(--c-surface);
     flex-shrink: 0;
   }
 
   &--history-collapsed {
     width: 28px;
     min-width: 28px;
-    border-right: 2px solid $burning;
+    border-right: 2px solid var(--c-surface);
     flex-shrink: 0;
     align-items: center;
     padding-top: 0.5rem;
@@ -42,7 +42,7 @@
   &--center {
     flex: 1;
     min-width: 0;
-    border-right: 2px solid $burning;
+    border-right: 2px solid var(--c-surface);
   }
 
   &--right {
@@ -54,7 +54,7 @@
 .app-col__expand-btn {
   background: none;
   border: none;
-  color: $semiburnt;
+  color: var(--c-muted);
   cursor: pointer;
   padding: 0.5rem 0;
   font-size: 0.7rem;
@@ -62,7 +62,7 @@
   text-align: center;
 
   &:hover {
-    color: $white;
+    color: var(--c-text);
   }
 }
 
@@ -73,7 +73,7 @@
 
   &--request {
     flex: 3;
-    border-bottom: 2px solid $burning;
+    border-bottom: 2px solid var(--c-surface);
   }
 
   &--logger {
@@ -82,7 +82,7 @@
 
   &--response {
     flex: 3;
-    border-bottom: 2px solid $burning;
+    border-bottom: 2px solid var(--c-surface);
   }
 
   &--listeners {

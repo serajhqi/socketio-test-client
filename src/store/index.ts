@@ -78,9 +78,11 @@ interface UiSlice {
   repoStars: number
   appVersion: string
   historyCollapsed: boolean
+  theme: 'dark' | 'light'
   setRepoStars: (count: number) => void
   setAppVersion: (version: string) => void
   setHistoryCollapsed: (collapsed: boolean) => void
+  setTheme: (theme: 'dark' | 'light') => void
 }
 
 // ============================================================================
@@ -233,33 +235,43 @@ export const useStore = create<Store>()(
       repoStars: 0,
       appVersion: '0.9.0',
       historyCollapsed: false,
+      theme: 'dark',
       setRepoStars: (count) => set({ repoStars: count }),
       setAppVersion: (version) => set({ appVersion: version }),
       setHistoryCollapsed: (collapsed) => set({ historyCollapsed: collapsed }),
+      setTheme: (theme) => set({ theme }),
     }),
     {
       name: 'socketio-client',
       version: SCHEMA_VERSION,
       migrate: (persisted: unknown, fromVersion: number) => {
         const s = persisted as Record<string, unknown>
+        const migrateHistory = (history: unknown) => {
+          if (!Array.isArray(history)) return history
+          return history.map((r: Record<string, unknown>) => {
+            if (r.title !== undefined && r.note === undefined) {
+              const { title, ...rest } = r
+              return { ...rest, note: title }
+            }
+            return r
+          })
+        }
         if (fromVersion < 2) {
-          // title → note rename in requestHistory
-          const migrateHistory = (history: unknown) => {
-            if (!Array.isArray(history)) return history
-            return history.map((r: Record<string, unknown>) => {
-              if (r.title !== undefined && r.note === undefined) {
-                const { title, ...rest } = r
-                return { ...rest, note: title }
-              }
-              return r
-            })
-          }
           if (s.requestHistory) s.requestHistory = migrateHistory(s.requestHistory)
           if (Array.isArray(s.profiles)) {
             s.profiles = (s.profiles as Record<string, unknown>[]).map(p => ({
               ...p,
               requestHistory: migrateHistory(p.requestHistory),
             }))
+          }
+        }
+        if (fromVersion < 3) {
+          if (Array.isArray(s.profiles)) {
+            s.profiles = (s.profiles as Record<string, unknown>[]).map(p => {
+              const names = Array.isArray(p.listenerNames) ? p.listenerNames as string[] : []
+              const { listenerNames: _, ...rest } = p
+              return { ...rest, listeners: names.map(name => ({ title: name, messages: [] })) }
+            })
           }
         }
         return s
@@ -272,6 +284,7 @@ export const useStore = create<Store>()(
         requestHistory: state.requestHistory,
         listeners: state.listeners,
         historyCollapsed: state.historyCollapsed,
+        theme: state.theme,
       }),
     },
   ),

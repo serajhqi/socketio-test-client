@@ -1,4 +1,119 @@
-// Color variables
+// ─── CSS Custom Properties ────────────────────────────────────────────────────
+:root {
+    --font-mono: "Monaco", "Menlo", "Consolas", "Courier New", monospace;
+    --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    // Core theme colors — dark (default)
+    --c-bg: #1e1e1e;
+    --c-surface: #404040;
+    --c-muted: #ccbcbc;
+    --c-text: #ffffff;
+    --c-bg-input: #161616;
+
+    // RGB channels for rgba() inside SCSS
+    --burnt-rgb: 30, 30, 30;
+    --burning-rgb: 64, 64, 64;
+    --semiburnt-rgb: 204, 188, 188;
+    --white-rgb: 255, 255, 255;
+    --primary-rgb: 251, 191, 36;
+    --blue-rgb: 74, 158, 255;
+    --blue-light-rgb: 125, 211, 252;
+    --blue-medium-rgb: 59, 130, 246;
+    --green-rgb: 63, 185, 80;
+    --green-light-rgb: 74, 222, 128;
+    --red-rgb: 248, 81, 73;
+    --orange-rgb: 249, 115, 22;
+
+    // Component-specific
+    --c-top-menu-top: #2f2f2f;
+    --c-dropdown-bg: #1e1e1e;
+    --c-modal-bg: rgba(43, 43, 43, 0.98);
+    --c-modal-bg2: rgba(52, 52, 52, 1);
+
+    // Logger panel (GitHub-dark palette)
+    --c-logger-bg: #0d1117;
+    --c-logger-surface: #161b22;
+    --c-logger-border: #21262d;
+    --c-logger-muted: #484f58;
+    --c-logger-text: #adbac7;
+    --c-logger-time: #3d444d;
+    --c-logger-prompt: #3fb950;
+    --c-logger-hover-text: #8b949e;
+
+    // Accent colors (dark mode)
+    --c-primary: #fbbf24;
+    --c-blue: #4a9eff;
+    --c-blue-light: #7dd3fc;
+    --c-blue-medium: #3b82f6;
+    --c-green: #3fb950;
+    --c-green-light: #4ade80;
+    --c-red: #f85149;
+    --c-orange: #f97316;
+    --c-syntax-string: #90ee90;
+    --c-syntax-number: #87ceeb;
+    --c-syntax-bool: #ff6b9d;
+    --c-syntax-null: #dda0dd;
+    --c-syntax-key: #87ceeb;
+    --c-syntax-size: #dda0dd;
+    --c-selection: rgba(79, 158, 255, 0.25);
+    --c-status-value: #fbbf24;
+}
+
+[data-theme="light"] {
+    --c-bg: #f5f5f5;
+    --c-surface: #d9d5d5;
+    --c-muted: #5c4a48;
+    --c-text: #1c1c1c;
+    --c-bg-input: #ffffff;
+
+    --burnt-rgb: 245, 245, 245;
+    --burning-rgb: 217, 213, 213;
+    --semiburnt-rgb: 92, 74, 72;
+    --white-rgb: 28, 28, 28;
+    --primary-rgb: 124, 76, 31;
+    --blue-rgb: 9, 105, 218;
+    --blue-light-rgb: 9, 105, 218;
+    --blue-medium-rgb: 9, 105, 218;
+    --green-rgb: 26, 127, 55;
+    --green-light-rgb: 26, 127, 55;
+    --red-rgb: 209, 36, 47;
+    --orange-rgb: 184, 92, 0;
+
+    --c-top-menu-top: #eeecec;
+    --c-dropdown-bg: #ffffff;
+    --c-modal-bg: rgba(248, 246, 246, 0.98);
+    --c-modal-bg2: rgba(240, 238, 238, 1);
+
+    --c-logger-bg: #ffffff;
+    --c-logger-surface: #f0f0f0;
+    --c-logger-border: #e0e0e0;
+    --c-logger-muted: #9da5ae;
+    --c-logger-text: #2d3748;
+    --c-logger-time: #a0aec0;
+    --c-logger-prompt: #22863a;
+    --c-logger-hover-text: #6a737d;
+
+    // Accent colors (light mode) — darker for contrast on light bg
+    --c-primary: #7c4c1f;
+    --c-blue: #0969da;
+    --c-blue-light: #0969da;
+    --c-blue-medium: #0969da;
+    --c-green: #1a7f37;
+    --c-green-light: #1a7f37;
+    --c-red: #d1242f;
+    --c-orange: #b85c00;
+    --c-syntax-string: #0d5c2a;
+    --c-syntax-number: #003fb5;
+    --c-syntax-bool: #b7173e;
+    --c-syntax-null: #5a3ba5;
+    --c-syntax-key: #003fb5;
+    --c-syntax-size: #5a3ba5;
+    --c-selection: rgba(9, 105, 218, 0.25);
+    --c-status-value: #7c4c1f;
+}
+
+// SCSS vars — kept for compile-time SCSS functions (darken, mix, etc.)
+// Values reflect dark mode; runtime theming is handled by CSS vars above.
 $burnt: #1e1e1e;
 $semiburnt: #ccbcbc;
 $burning: #404040;
@@ -11,18 +126,13 @@ $white: #ffffff;
     box-sizing: border-box;
 }
 
-:root {
-    --font-mono: "Monaco", "Menlo", "Consolas", "Courier New", monospace;
-    --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
 html,
 body {
     height: 100%;
     width: 100%;
     font-family: var(--font-ui);
-    background-color: $burnt;
-    color: $white;
+    background-color: var(--c-bg);
+    color: var(--c-text);
     font-size: 14px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -45,17 +155,9 @@ h6 {
     line-height: 1.2;
 }
 
-h1 {
-    font-size: 2rem;
-}
-
-h2 {
-    font-size: 1.5rem;
-}
-
-h3 {
-    font-size: 1.25rem;
-}
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
 
 // Buttons
 button {
@@ -78,17 +180,16 @@ textarea,
 select {
     font-family: inherit;
     font-size: inherit;
-    color: inherit;
-    background: darken($burnt, 5%);
-    border: 1px solid $burning;
+    color: var(--c-text);
+    background: var(--c-bg-input);
+    border: 1px solid var(--c-surface);
     padding: 8px 12px;
     border-radius: 4px;
-    color: $white;
 
     &:focus {
         outline: none;
-        border-color: #4a9eff;
-        box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.1);
+        border-color: var(--c-blue);
+        box-shadow: 0 0 0 2px rgba(var(--blue-rgb), 0.1);
     }
 }
 
@@ -108,15 +209,15 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba($semiburnt, 0.25);
+    background: rgba(var(--semiburnt-rgb), 0.25);
     border-radius: 3px;
 
     &:hover {
-        background: rgba($semiburnt, 0.45);
+        background: rgba(var(--semiburnt-rgb), 0.45);
     }
 }
 
-// Screen-reader only — visually hidden but announced by assistive tech
+// Screen-reader only
 .sr-only {
     position: absolute;
     width: 1px;
@@ -130,58 +231,17 @@ textarea {
 }
 
 // Utilities
-.flex {
-    display: flex;
-}
-
-.flex-col {
-    flex-direction: column;
-}
-
-.items-center {
-    align-items: center;
-}
-
-.justify-center {
-    justify-content: center;
-}
-
-.justify-between {
-    justify-content: space-between;
-}
-
-.h-screen {
-    height: 100vh;
-}
-
-.w-screen {
-    width: 100vw;
-}
-
-.flex-1 {
-    flex: 1;
-}
-
-.border-b {
-    border-bottom: 1px solid $burning;
-}
-
-.p-4 {
-    padding: 1rem;
-}
-
-.text-2xl {
-    font-size: 1.5rem;
-}
-
-.font-bold {
-    font-weight: 700;
-}
-
-.text-sm {
-    font-size: 0.875rem;
-}
-
-.text-lg {
-    font-size: 1.125rem;
-}
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.h-screen { height: 100vh; }
+.w-screen { width: 100vw; }
+.flex-1 { flex: 1; }
+.border-b { border-bottom: 1px solid var(--c-surface); }
+.p-4 { padding: 1rem; }
+.text-2xl { font-size: 1.5rem; }
+.font-bold { font-weight: 700; }
+.text-sm { font-size: 0.875rem; }
+.text-lg { font-size: 1.125rem; }
