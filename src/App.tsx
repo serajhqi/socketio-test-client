@@ -38,7 +38,7 @@ export default function App() {
       useStore.setState({
         profiles: state.profiles.map(p =>
           p.id === state.activeProfileId
-            ? { ...p, address: state.address ?? '', options: state.options, requestHistory: state.requestHistory, listenerNames: state.listeners.map(l => l.title) }
+            ? { ...p, address: state.address ?? '', options: state.options, requestHistory: state.requestHistory, listeners: state.listeners }
             : p
         ),
       })
