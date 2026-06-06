@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import CodeMirror from '@uiw/react-codemirror'
 import { json } from '@codemirror/lang-json'
 import { oneDark } from '@codemirror/theme-one-dark'
@@ -16,6 +16,7 @@ export function ServerAddressModal({ isOpen, onClose }: ServerAddressModalProps)
   const [url, setUrl] = useState('')
   const [optionsText, setOptionsText] = useState('')
   const [error, setError] = useState('')
+  const isMouseDownInsideModal = useRef(false)
 
   useEffect(() => {
     if (isOpen) {
@@ -49,10 +50,21 @@ export function ServerAddressModal({ isOpen, onClose }: ServerAddressModalProps)
     onClose()
   }
 
+  const handleOverlayMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    isMouseDownInsideModal.current = e.target === e.currentTarget ? false : true
+  }
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget && !isMouseDownInsideModal.current) {
+      onClose()
+    }
+    isMouseDownInsideModal.current = false
+  }
+
   if (!isOpen) return null
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onMouseDown={handleOverlayMouseDown} onClick={handleOverlayClick}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal__header">
           <h2 className="modal__title">Server Settings</h2>
