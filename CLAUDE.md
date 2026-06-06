@@ -89,7 +89,7 @@ test/
     └── export-import.spec.ts    — Session export/import with validation
 
 extensions/
-├── src/                         — Browser extension metadata (shared across Chrome + Firefox)
+├── src/                         — Browser extension source (shared across Chrome + Firefox)
 │   ├── *-manifest.json         — Browser-specific manifests (manifest_version: 3 for Chrome, 2 for Firefox)
 │   ├── *-background.js         — Service Workers (Chrome) / Background Pages (Firefox)
 │   └── images/                  — Extension icons and assets
@@ -190,10 +190,11 @@ All component styles in `src/components/*.scss` use these variables. No Tailwind
 
 Build process (pnpm build):
 1. Vite builds `dist/` (web app)
-2. Copies `dist/` to `extensions/dist/firefox/` and `extensions/dist/chrome/`
-3. Copies browser-specific manifests and background scripts from `extensions/src/`
-4. Injects version from `package.json` into manifest files
-5. Both distributions ready for app store submission (files are gitignored)
+2. Runs `scripts/build-extension.sh` for Firefox and Chrome
+3. Copies `dist/` to `extensions/dist/firefox/` and `extensions/dist/chrome/`
+4. Copies browser-specific manifests and background scripts from `extensions/src/`
+5. Injects version from `package.json` into manifest files
+6. Both distributions ready for app store submission (files are gitignored)
 
 ## Component List
 
