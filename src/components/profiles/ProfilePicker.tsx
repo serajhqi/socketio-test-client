@@ -45,7 +45,7 @@ export function ProfilePicker() {
         address: profile.address,
         options: profile.options,
         requestHistory: profile.requestHistory ?? [],
-        listeners: (profile.listenerNames ?? []).map(name => ({ title: name, messages: [] })),
+        listeners: (profile.listenerNames ?? []).map(name => listeners.find(l => l.title === name) ?? { title: name, messages: [] }),
         activeProfileId: id,
       })
       toast.success(`Switched to: ${profile.name}`)
