@@ -1,17 +1,21 @@
 import { useState, useRef } from 'react'
 import ReactJson from 'react-json-view'
+import CodeMirror from '@uiw/react-codemirror'
+import { json } from '@codemirror/lang-json'
+import { oneDark } from '@codemirror/theme-one-dark'
 import { useStore } from '../../store'
 import { toast } from 'sonner'
 import './Listeners.scss'
 
 export function Listeners() {
-  const { listeners } = useStore()
+  const { listeners, theme } = useStore()
   const [composeValue, setComposeValue] = useState('')
   const [composeFocused, setComposeFocused] = useState(false)
   const [selectedListener, setSelectedListener] = useState<string | null>(
     listeners.length > 0 ? listeners[0].title : null
   )
   const [selectedMessageId, setSelectedMessageId] = useState<string | null>(null)
+  const [expandedPayload, setExpandedPayload] = useState(false)
   const composeInputRef = useRef<HTMLInputElement>(null)
 
   const currentListener = listeners.find((l) => l.title === selectedListener)
@@ -175,22 +179,47 @@ export function Listeners() {
             <>
               <div className="json-viewer__header">
                 <h3 className="json-viewer__title">Payload</h3>
-                <button
-                  className="json-viewer__copy-btn"
-                  onClick={() => {
-                    const text = typeof currentMessage.text === 'string'
-                      ? currentMessage.text
-                      : JSON.stringify(currentMessage.text, null, 2)
-                    navigator.clipboard.writeText(text).then(() => toast.success('Copied to clipboard'))
-                  }}
-                  title="Copy payload"
-                >
-                  copy
-                </button>
+                <div className="json-viewer__actions">
+                  {typeof currentMessage.text !== 'string' && (
+                    <button
+                      className="json-viewer__expand-btn"
+                      onClick={() => setExpandedPayload(!expandedPayload)}
+                      title={expandedPayload ? 'Show interactive view' : 'Show plain JSON'}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        {expandedPayload ? (
+                          <path d="M3 6h18M3 12h18M3 18h18" />
+                        ) : (
+                          <path d="M12 5v14M5 12h14M9 8l3-3 3 3M9 16l3 3 3-3" />
+                        )}
+                      </svg>
+                    </button>
+                  )}
+                  <button
+                    className="json-viewer__copy-btn"
+                    onClick={() => {
+                      const text = typeof currentMessage.text === 'string'
+                        ? currentMessage.text
+                        : JSON.stringify(currentMessage.text, null, 2)
+                      navigator.clipboard.writeText(text).then(() => toast.success('Copied to clipboard'))
+                    }}
+                    title="Copy payload"
+                  >
+                    copy
+                  </button>
+                </div>
               </div>
               <div className="json-viewer__content">
                 {typeof currentMessage.text === 'string' ? (
                   <pre>{currentMessage.text}</pre>
+                ) : expandedPayload ? (
+                  <CodeMirror
+                    value={JSON.stringify(currentMessage.text, null, 2)}
+                    extensions={[json()]}
+                    theme={theme === 'dark' ? oneDark : undefined}
+                    readOnly
+                    className="json-viewer__codemirror"
+                  />
                 ) : (
                   <ReactJson src={currentMessage.text as object} collapsed={false} enableClipboard={true} />
                 )}

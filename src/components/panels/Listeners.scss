@@ -296,6 +296,7 @@
     flex-shrink: 0;
     display: flex;
     align-items: center;
+    gap: 0.5rem;
   }
 
   &__title {
@@ -306,6 +307,31 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     flex: 1;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  &__expand-btn {
+    padding: 0.2rem;
+    background: transparent;
+    color: var(--c-muted);
+    border: 1px solid rgba(var(--semiburnt-rgb), 0.3);
+    border-radius: 2px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      color: var(--c-text);
+      border-color: var(--c-muted);
+    }
   }
 
   &__copy-btn {
@@ -338,6 +364,8 @@
     word-break: break-word;
     background-color: transparent;
     border: none;
+    display: flex;
+    flex-direction: column;
 
     pre {
       margin: 0;
@@ -363,6 +391,25 @@
       .object-key    { color: var(--c-syntax-key) !important; }
       .name-key      { color: var(--c-syntax-key) !important; }
       .object-size   { color: var(--c-syntax-size) !important; }
+    }
+  }
+
+  &__codemirror {
+    flex: 1;
+    height: 100%;
+    background: transparent !important;
+
+    .cm-editor {
+      height: 100%;
+      background: transparent !important;
+
+      &.cm-focused {
+        outline: none !important;
+      }
+    }
+
+    .cm-scroller {
+      overflow: auto !important;
     }
   }
 
