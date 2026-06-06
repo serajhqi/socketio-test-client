@@ -78,9 +78,11 @@ interface UiSlice {
   repoStars: number
   appVersion: string
   historyCollapsed: boolean
+  theme: 'dark' | 'light'
   setRepoStars: (count: number) => void
   setAppVersion: (version: string) => void
   setHistoryCollapsed: (collapsed: boolean) => void
+  setTheme: (theme: 'dark' | 'light') => void
 }
 
 // ============================================================================
@@ -233,9 +235,11 @@ export const useStore = create<Store>()(
       repoStars: 0,
       appVersion: '0.9.0',
       historyCollapsed: false,
+      theme: 'dark',
       setRepoStars: (count) => set({ repoStars: count }),
       setAppVersion: (version) => set({ appVersion: version }),
       setHistoryCollapsed: (collapsed) => set({ historyCollapsed: collapsed }),
+      setTheme: (theme) => set({ theme }),
     }),
     {
       name: 'socketio-client',
@@ -280,6 +284,7 @@ export const useStore = create<Store>()(
         requestHistory: state.requestHistory,
         listeners: state.listeners,
         historyCollapsed: state.historyCollapsed,
+        theme: state.theme,
       }),
     },
   ),

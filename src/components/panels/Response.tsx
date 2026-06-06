@@ -15,7 +15,7 @@ function formatDuration(ms?: number): string {
 
 export function Response() {
   const [expanded, setExpanded] = useState(false)
-  const { request, connectionDetails, status } = useStore()
+  const { request, connectionDetails, status, theme } = useStore()
   const { response, duration } = request || {}
 
   const handleCopy = () => {
@@ -101,7 +101,7 @@ export function Response() {
             src={response as object}
             collapsed={false}
             enableClipboard={true}
-            theme={{
+            theme={theme === 'dark' ? {
               base00: 'transparent',
               base01: 'rgba(176,160,160,0.05)',
               base02: 'rgba(176,160,160,0.1)',
@@ -110,14 +110,31 @@ export function Response() {
               base05: 'rgba(255,255,255,0.82)',
               base06: '#ffffff',
               base07: '#ffffff',
-              base08: '#f97583',
-              base09: '#79b8ff',
+              base08: '#ff6b9d',
+              base09: '#87ceeb',
               base0A: '#fbbf24',
-              base0B: '#85e89d',
+              base0B: '#90ee90',
               base0C: '#7dd3fc',
-              base0D: '#7dd3fc',
-              base0E: '#f97583',
+              base0D: '#87ceeb',
+              base0E: '#ff6b9d',
               base0F: '#f97316',
+            } : {
+              base00: 'transparent',
+              base01: 'rgba(92,74,72,0.05)',
+              base02: 'rgba(92,74,72,0.1)',
+              base03: 'rgba(92,74,72,0.45)',
+              base04: 'rgba(92,74,72,0.6)',
+              base05: 'rgba(28,28,28,0.82)',
+              base06: '#1c1c1c',
+              base07: '#1c1c1c',
+              base08: '#b7173e',
+              base09: '#003fb5',
+              base0A: '#7c4c1f',
+              base0B: '#0d5c2a',
+              base0C: '#0969da',
+              base0D: '#003fb5',
+              base0E: '#b7173e',
+              base0F: '#b85c00',
             }}
           />
         )}

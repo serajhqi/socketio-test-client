@@ -175,6 +175,18 @@ export function Listeners() {
             <>
               <div className="json-viewer__header">
                 <h3 className="json-viewer__title">Payload</h3>
+                <button
+                  className="json-viewer__copy-btn"
+                  onClick={() => {
+                    const text = typeof currentMessage.text === 'string'
+                      ? currentMessage.text
+                      : JSON.stringify(currentMessage.text, null, 2)
+                    navigator.clipboard.writeText(text).then(() => toast.success('Copied to clipboard'))
+                  }}
+                  title="Copy payload"
+                >
+                  copy
+                </button>
               </div>
               <div className="json-viewer__content">
                 {typeof currentMessage.text === 'string' ? (

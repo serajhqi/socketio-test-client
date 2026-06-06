@@ -16,7 +16,11 @@ export default function App() {
   const [showAddressModal, setShowAddressModal] = useState(false)
   const [showHelpModal, setShowHelpModal] = useState(false)
   const [showDonateModal, setShowDonateModal] = useState(false)
-  const { historyCollapsed, setHistoryCollapsed } = useStore()
+  const { historyCollapsed, setHistoryCollapsed, theme } = useStore()
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
 
   useEffect(() => {
     fetch('https://api.github.com/repos/serajhqi/socketio-test-client')

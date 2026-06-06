@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import CodeMirror, { EditorView } from "@uiw/react-codemirror";
 import { json } from "@codemirror/lang-json";
 import { oneDark } from "@codemirror/theme-one-dark";
@@ -7,7 +7,20 @@ import { sendRequest } from "../../services/socketio";
 import { toast } from "sonner";
 import "./Request.scss";
 
-const appTheme = EditorView.theme({
+const lightTheme = EditorView.theme({
+  ".tok-keyword": { color: "#d73a49" },
+  ".tok-number": { color: "#005cc5" },
+  ".tok-bool": { color: "#d73a49" },
+  ".tok-null": { color: "#6f42c1" },
+  ".tok-string": { color: "#032f62" },
+  ".tok-propertyName": { color: "#0052cc" },
+  ".tok-punctuation": { color: "#24292e" },
+  ".tok-brace": { color: "#24292e" },
+  ".tok-bracket": { color: "#24292e" },
+});
+
+const createAppTheme = (isDarkMode: boolean, isJsonMode: boolean) =>
+  EditorView.theme({
   "&": {
     background: "transparent !important",
     height: "100%",
@@ -19,8 +32,8 @@ const appTheme = EditorView.theme({
     fontFamily: "var(--font-mono)",
   },
   ".cm-content": {
-    color: "#fbbf24",
-    caretColor: "#fbbf24",
+    color: isDarkMode ? "#fbbf24" : isJsonMode ? "#1c1c1c" : "#555555",
+    caretColor: isDarkMode ? "#fbbf24" : isJsonMode ? "#1c1c1c" : "#555555",
     padding: "1rem",
     lineHeight: "1.65",
   },
@@ -28,7 +41,7 @@ const appTheme = EditorView.theme({
     display: "none",
   },
   ".cm-activeLine": {
-    backgroundColor: "rgba(251,191,36,0.04)",
+    backgroundColor: isDarkMode ? "rgba(251,191,36,0.04)" : "rgba(124,76,31,0.04)",
   },
   ".cm-activeLineGutter": {
     display: "none",
@@ -40,31 +53,33 @@ const appTheme = EditorView.theme({
     outline: "none !important",
   },
   ".cm-cursor": {
-    borderLeftColor: "#fbbf24",
+    borderLeftColor: isDarkMode ? "#fbbf24" : isJsonMode ? "#1c1c1c" : "#555555",
   },
   ".cm-selectionBackground, ::selection": {
-    backgroundColor: "rgba(251,191,36,0.15) !important",
+    backgroundColor: isDarkMode ? "rgba(79,158,255,0.25)" : "rgba(9,105,218,0.25)",
   },
-  ".tok-keyword": { color: "#f97316" },
-  ".tok-number": { color: "#f97316" },
-  ".tok-bool": { color: "#f97316" },
-  ".tok-null": { color: "#f97316" },
-  ".tok-string": { color: "#86efac" },
-  ".tok-propertyName": { color: "#7dd3fc" },
-  ".tok-punctuation": { color: "#958686" },
-  ".tok-brace": { color: "#958686" },
-  ".tok-bracket": { color: "#958686" },
-  ".cm-placeholder": { color: "rgba(149, 134, 134, 0.4)" },
+  ".tok-keyword": { color: isDarkMode ? "#d97706" : "#555555 !important" },
+  ".tok-number": { color: isDarkMode ? "#0891b2" : "#555555 !important" },
+  ".tok-bool": { color: isDarkMode ? "#db2777" : "#555555 !important" },
+  ".tok-null": { color: isDarkMode ? "#9333ea" : "#555555 !important" },
+  ".tok-string": { color: isDarkMode ? "#16a34a" : "#555555 !important" },
+  ".tok-propertyName": { color: isDarkMode ? "#0284c7" : "#555555 !important" },
+  ".tok-punctuation": { color: isDarkMode ? "#737373" : "#555555 !important" },
+  ".tok-brace": { color: isDarkMode ? "#737373" : "#555555 !important" },
+  ".tok-bracket": { color: isDarkMode ? "#737373" : "#555555 !important" },
+  ".cm-placeholder": { color: `${isDarkMode ? "rgba(204,188,188,0.5)" : "#1c1c1c"} !important` },
 });
 
 export function Request() {
-  const { request, status } = useStore();
+  const { request, status, theme } = useStore();
   const [emitName, setEmitName] = useState("");
   const [note, setNote] = useState("");
   const [body, setBody] = useState("");
   const [jsonMode, setJsonMode] = useState(true);
   const [editorStatus, setEditorStatus] = useState("");
   const sendBtnRef = useRef<HTMLButtonElement>(null);
+  const isDarkMode = theme === 'dark';
+  const appTheme = useMemo(() => createAppTheme(isDarkMode, jsonMode), [isDarkMode, jsonMode]);
 
   useEffect(() => {
     if (request) {
@@ -142,7 +157,7 @@ export function Request() {
   const isConnected = status === "connected";
 
   const extensions = jsonMode
-    ? [json(), oneDark, appTheme, ctrlEnterExtension]
+    ? [json(), isDarkMode ? oneDark : lightTheme, appTheme, ctrlEnterExtension]
     : [appTheme, ctrlEnterExtension];
 
   return (
