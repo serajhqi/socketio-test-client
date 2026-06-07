@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Toaster } from 'sonner'
 import { useStore } from './store'
+import { APP_VERSION } from './version'
+import { getChangesSince } from './data/changelog'
 import { TopMenu } from './components/layout/TopMenu'
 import { ServerAddressModal } from './components/modals/ServerAddressModal'
 import { HelpModal } from './components/modals/HelpModal'
 import { DonateModal } from './components/modals/DonateModal'
+import { WhatsNewModal } from './components/modals/WhatsNewModal'
 import { Request } from './components/panels/Request'
 import { Response } from './components/panels/Response'
 import { Logger } from './components/panels/Logger'
@@ -16,7 +19,8 @@ export default function App() {
   const [showAddressModal, setShowAddressModal] = useState(false)
   const [showHelpModal, setShowHelpModal] = useState(false)
   const [showDonateModal, setShowDonateModal] = useState(false)
-  const { historyCollapsed, setHistoryCollapsed, theme } = useStore()
+  const [showWhatsNewModal, setShowWhatsNewModal] = useState(false)
+  const { historyCollapsed, setHistoryCollapsed, theme, lastSeenVersion, setLastSeenVersion } = useStore()
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
@@ -27,6 +31,30 @@ export default function App() {
       .then(res => res.json())
       .then(data => useStore.getState().setRepoStars(data.stargazers_count || 0))
       .catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    if (!lastSeenVersion) {
+      // Brand new user OR old user upgrading (no lastSeenVersion in old schema)
+      // Show them what's available in current version(s)
+      const changes = getChangesSince('0.0.0', APP_VERSION)
+      if (changes.length > 0) {
+        setShowWhatsNewModal(true)
+      } else {
+        setLastSeenVersion(APP_VERSION)
+      }
+      return
+    }
+    if (lastSeenVersion !== APP_VERSION) {
+      // User has existing version tracking but app was updated
+      // Show modal only if there are changes since last seen version
+      const changes = getChangesSince(lastSeenVersion, APP_VERSION)
+      if (changes.length > 0) {
+        setShowWhatsNewModal(true)
+      } else {
+        setLastSeenVersion(APP_VERSION)
+      }
+    }
   }, [])
 
   useEffect(() => {
@@ -93,6 +121,14 @@ export default function App() {
       <ServerAddressModal isOpen={showAddressModal} onClose={() => setShowAddressModal(false)} />
       <HelpModal isOpen={showHelpModal} onClose={() => setShowHelpModal(false)} onDonateClick={() => { setShowHelpModal(false); setShowDonateModal(true) }} />
       <DonateModal isOpen={showDonateModal} onClose={() => setShowDonateModal(false)} />
+      <WhatsNewModal
+        isOpen={showWhatsNewModal}
+        onClose={() => {
+          setShowWhatsNewModal(false)
+          setLastSeenVersion(APP_VERSION)
+        }}
+        entries={getChangesSince(lastSeenVersion ?? '0.0.0', APP_VERSION)}
+      />
       <Toaster position="bottom-right" />
     </div>
   )

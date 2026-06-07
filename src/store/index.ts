@@ -76,11 +76,11 @@ interface LogSlice {
 
 interface UiSlice {
   repoStars: number
-  appVersion: string
+  lastSeenVersion: string | undefined
   historyCollapsed: boolean
   theme: 'dark' | 'light'
   setRepoStars: (count: number) => void
-  setAppVersion: (version: string) => void
+  setLastSeenVersion: (version: string) => void
   setHistoryCollapsed: (collapsed: boolean) => void
   setTheme: (theme: 'dark' | 'light') => void
 }
@@ -233,11 +233,11 @@ export const useStore = create<Store>()(
 
       // UI
       repoStars: 0,
-      appVersion: '0.9.0',
+      lastSeenVersion: undefined,
       historyCollapsed: false,
       theme: 'dark',
       setRepoStars: (count) => set({ repoStars: count }),
-      setAppVersion: (version) => set({ appVersion: version }),
+      setLastSeenVersion: (version) => set({ lastSeenVersion: version }),
       setHistoryCollapsed: (collapsed) => set({ historyCollapsed: collapsed }),
       setTheme: (theme) => set({ theme }),
     }),
@@ -283,6 +283,7 @@ export const useStore = create<Store>()(
         activeProfileId: state.activeProfileId,
         requestHistory: state.requestHistory,
         listeners: state.listeners,
+        lastSeenVersion: state.lastSeenVersion,
         historyCollapsed: state.historyCollapsed,
         theme: state.theme,
       }),

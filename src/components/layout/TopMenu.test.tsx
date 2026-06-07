@@ -6,7 +6,7 @@ import { useStore } from '../../store'
 
 describe('TopMenu', () => {
   beforeEach(() => {
-    useStore.setState({ repoStars: 42, appVersion: '1.0.0' })
+    useStore.setState({ repoStars: 42 })
   })
 
   it('renders title', () => {
@@ -14,9 +14,9 @@ describe('TopMenu', () => {
     expect(screen.getByText('Socket.IO Test Client')).toBeInTheDocument()
   })
 
-  it('renders version when set', () => {
+  it('renders version from APP_VERSION constant', () => {
     render(<TopMenu />)
-    expect(screen.getByText('1.0.0')).toBeInTheDocument()
+    expect(screen.getByText(/v1\.0\.0/)).toBeInTheDocument()
   })
 
   it('renders GitHub stars badge', () => {

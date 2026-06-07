@@ -1,4 +1,5 @@
 import { useStore } from '../../store'
+import { APP_VERSION } from '../../version'
 import { ProfilePicker } from '../profiles/ProfilePicker'
 import { ConnectionController } from '../ConnectionController'
 import './TopMenu.scss'
@@ -10,7 +11,7 @@ interface TopMenuProps {
 }
 
 export function TopMenu({ onHelpClick, onDonateClick, onServerClick }: TopMenuProps) {
-  const { repoStars, appVersion, theme, setTheme } = useStore()
+  const { repoStars, theme, setTheme } = useStore()
 
   return (
     <header className="top-menu">
@@ -37,7 +38,7 @@ export function TopMenu({ onHelpClick, onDonateClick, onServerClick }: TopMenuPr
             logicamp.dev
           </a>
         </div>
-        {appVersion && <span className="top-menu__version">v{appVersion}</span>}
+        {APP_VERSION && <span className="top-menu__version">v{APP_VERSION}</span>}
       </div>
     
 
