@@ -1,189 +1,213 @@
-@use '../../index.scss' as *;
+@use "../../index.scss" as *;
 
 .logger-panel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  background: var(--c-logger-bg);
-  font-family: var(--font-mono);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background: var(--c-logger-bg);
+    font-family: var(--font-mono);
 }
 
 .logger-panel__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 0.875rem;
-  height: 34px;
-  background: var(--c-logger-surface);
-  border-bottom: 1px solid var(--c-logger-border);
-  flex-shrink: 0;
-  gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.875rem;
+    height: 34px;
+    background: var(--c-logger-surface);
+    border-bottom: 1px solid var(--c-logger-border);
+    flex-shrink: 0;
+    gap: 0.5rem;
 }
 
 .logger-panel__title {
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: var(--c-logger-muted);
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  flex: 1;
-  text-align: center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--c-logger-muted);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    flex: 1;
+    text-align: center;
 }
 
 .logger-panel__clear-btn {
-  padding: 0.2rem 0.5rem;
-  background: transparent;
-  color: var(--c-logger-muted);
-  border: 1px solid var(--c-logger-border);
-  border-radius: 3px;
-  font-size: 0.65rem;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.15s;
-  letter-spacing: 0.3px;
+    padding: 0.2rem 0.5rem;
+    background: transparent;
+    color: var(--c-logger-muted);
+    border: 1px solid var(--c-logger-border);
+    border-radius: 3px;
+    font-size: 0.65rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.3px;
 
-  &:hover:not(:disabled) {
-    color: var(--c-logger-hover-text);
-    border-color: color-mix(in srgb, var(--c-logger-border) 70%, white);
-  }
+    &:hover:not(:disabled) {
+        color: var(--c-logger-hover-text);
+        border-color: color-mix(in srgb, var(--c-logger-border) 70%, white);
+    }
 
-  &:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
+    &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
 }
 
 .logger-panel__content {
-  flex: 1;
-  overflow-y: auto;
-  background: transparent;
+    flex: 1;
+    overflow-y: auto;
+    background: transparent;
 
-  &::-webkit-scrollbar { width: 5px; }
-  &::-webkit-scrollbar-track { background: transparent; }
-  &::-webkit-scrollbar-thumb { background: var(--c-logger-border); border-radius: 2px; }
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: var(--c-logger-border);
+        border-radius: 2px;
+    }
 }
 
 .logger-panel__empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 1.5rem;
-  text-align: center;
-
-  p {
-    margin: 0;
-    font-size: 0.75rem;
-    color: var(--c-logger-border);
-    line-height: 1.6;
-
-    &::before {
-      content: '$ ';
-      color: var(--c-logger-prompt);
-    }
-  }
-}
-
-.logger-panel__logs {
-  display: flex;
-  flex-direction: column;
-  padding: 0.25rem 0;
-}
-
-.log-entry {
-  display: flex;
-  gap: 0;
-  padding: 0.15rem 0;
-  align-items: baseline;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  border-bottom: none;
-  position: relative;
-
-  &:hover {
-    background: rgba(var(--white-rgb), 0.03);
-
-    .log-entry__copy { opacity: 1; }
-  }
-
-  &__time {
-    color: var(--c-logger-time);
-    font-size: 0.65rem;
-    white-space: nowrap;
-    flex-shrink: 0;
-    padding: 0 0.5rem 0 0.75rem;
-    min-width: 68px;
-    text-align: right;
-  }
-
-  &__prompt {
-    color: var(--c-logger-prompt);
-    flex-shrink: 0;
-    padding-right: 0.4rem;
-    user-select: none;
-  }
-
-  &__copy {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    margin-right: 0.4rem;
-    margin-left: 0.25rem;
-    background: none;
-    border: none;
-    color: var(--c-logger-muted);
-    font-size: 0.7rem;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 3px;
-    opacity: 0;
-    transition: opacity 0.1s, color 0.1s, background 0.1s;
-    align-self: center;
-    padding: 0;
+    height: 100%;
+    padding: 1.5rem;
+    text-align: center;
+
+    p {
+        margin: 0;
+        font-size: 0.75rem;
+        color: var(--c-logger-prompt);
+        line-height: 1.6;
+
+        &::before {
+            content: "$ ";
+            color: var(--c-logger-prompt);
+        }
+    }
+}
+
+.logger-panel__logs {
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem 0;
+}
+
+.log-entry {
+    display: flex;
+    gap: 0;
+    padding: 0.15rem 0;
+    align-items: baseline;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    border-bottom: none;
+    position: relative;
 
     &:hover {
-      color: var(--c-logger-hover-text);
-      background: rgba(var(--white-rgb), 0.06);
+        background: rgba(var(--white-rgb), 0.03);
+
+        .log-entry__copy {
+            opacity: 1;
+        }
     }
 
-    &--done {
-      color: var(--c-logger-prompt);
-      opacity: 1 !important;
+    &__time {
+        color: var(--c-logger-time);
+        font-size: 0.65rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+        padding: 0 0.5rem 0 0.75rem;
+        min-width: 68px;
+        text-align: right;
     }
-  }
 
-  &__message {
-    color: var(--c-logger-text);
-    word-break: break-word;
-    flex: 1;
-    padding-right: 0;
+    &__prompt {
+        color: var(--c-logger-prompt);
+        flex-shrink: 0;
+        padding-right: 0.4rem;
+        user-select: none;
+    }
 
-    &--connect    { color: var(--c-green); }
-    &--disconnect { color: var(--c-red); }
-    &--error      { color: var(--c-red); }
-    &--emit       { color: var(--c-blue-light); }
-    &--receive    { color: var(--c-syntax-size); }
-    &--warn       { color: var(--c-orange); }
-  }
+    &__copy {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        margin-right: 0.4rem;
+        margin-left: 0.25rem;
+        background: none;
+        border: none;
+        color: var(--c-logger-muted);
+        font-size: 0.7rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+        opacity: 0;
+        transition:
+            opacity 0.1s,
+            color 0.1s,
+            background 0.1s;
+        align-self: center;
+        padding: 0;
+
+        &:hover {
+            color: var(--c-logger-hover-text);
+            background: rgba(var(--white-rgb), 0.06);
+        }
+
+        &--done {
+            color: var(--c-logger-prompt);
+            opacity: 1 !important;
+        }
+    }
+
+    &__message {
+        color: var(--c-logger-text);
+        word-break: break-word;
+        flex: 1;
+        padding-right: 0;
+
+        &--connect {
+            color: var(--c-green);
+        }
+        &--disconnect {
+            color: var(--c-red);
+        }
+        &--error {
+            color: var(--c-red);
+        }
+        &--emit {
+            color: var(--c-blue-light);
+        }
+        &--receive {
+            color: var(--c-syntax-size);
+        }
+        &--warn {
+            color: var(--c-orange);
+        }
+    }
 }
 
 .logger-panel__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.2rem 0.875rem;
-  border-top: 1px solid var(--c-logger-border);
-  background: var(--c-logger-surface);
-  flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.2rem 0.875rem;
+    border-top: 1px solid var(--c-logger-border);
+    background: var(--c-logger-surface);
+    flex-shrink: 0;
 }
 
 .logger-panel__count {
-  color: var(--c-logger-muted);
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+    color: var(--c-logger-muted);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
