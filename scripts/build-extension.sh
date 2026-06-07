@@ -34,9 +34,9 @@ cp -r "$SRC_DIR/images" "$DIST_DIR/"
 cp "$BG_FILE" "$DIST_DIR/background.js"
 cp "$MANIFEST_FILE" "$DIST_DIR/manifest.json"
 
-# Inject version from package.json into manifest
+# Read version from package.json and inject into manifest
 VERSION=$(jq -r .version package.json)
 jq ".version = \"$VERSION\"" "$DIST_DIR/manifest.json" > "$DIST_DIR/manifest.json.tmp"
 mv "$DIST_DIR/manifest.json.tmp" "$DIST_DIR/manifest.json"
 
-echo "✓ Built $BROWSER extension to $DIST_DIR"
+echo "✓ Built $BROWSER extension v$VERSION to $DIST_DIR"
