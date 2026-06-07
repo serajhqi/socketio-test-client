@@ -10,13 +10,6 @@ Available as a **web app** and **browser extension** (Chrome, Firefox).
 
 ## Installation
 
-### Arch Linux (AUR)
-
-```bash
-yay -S socketio-test-client
-socketio-test-client          # opens on http://localhost:8888
-```
-
 ### npm / pnpm
 
 ```bash
