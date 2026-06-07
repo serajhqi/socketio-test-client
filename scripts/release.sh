@@ -110,73 +110,55 @@ else
   exit 1
 fi
 
-# Step 6: Git commit
-log_step "Creating git commit..."
-log_info "Staging files..."
-git add package.json src/data/changelog.ts
-git status --short
-
-log_info "Committing changes..."
-if git commit -m "chore: release v${VERSION}" > /dev/null 2>&1; then
-  log_success "Committed: chore: release v${VERSION}"
-else
-  log_error "Commit failed"
-  git reset
-  exit 1
-fi
-
-# Step 7: Git tag
-log_step "Creating git tag..."
-log_info "Tagging as v${VERSION}..."
-if git tag -a "v${VERSION}" -m "Release v${VERSION}" > /dev/null 2>&1; then
-  log_success "Tagged: v${VERSION}"
-else
-  log_error "Tag failed"
-  git reset --soft HEAD~1
-  exit 1
-fi
-
-# Step 8: Push to remote
-log_step "Pushing to remote..."
-log_info "Pushing commits and tags..."
-if git push origin main --tags > /dev/null 2>&1; then
-  log_success "Pushed to origin"
-else
-  log_error "Push failed - you may need to check your network connection"
-  echo "You can retry with: git push origin main --tags"
-  exit 1
-fi
-
-# Step 9: Manual distribution steps
-log_step "Release Complete: v${VERSION}"
-log_success "Local release steps completed!"
+# Step 6: Manual git steps
+log_step "Git Operations (Manual)"
+log_info "Review changes:"
 echo ""
-echo "Next steps - these require manual actions:"
+echo "  ${BLUE}git diff package.json${NC}"
 echo ""
-echo "  ${YELLOW}1. Chrome Web Store${NC}"
+log_info "Then commit when ready:"
+echo ""
+echo "  ${BLUE}git add package.json src/data/changelog.ts${NC}"
+echo "  ${BLUE}git commit -m \"chore: release v${VERSION}\"${NC}"
+echo "  ${BLUE}git tag -a v${VERSION} -m \"Release v${VERSION}\"${NC}"
+echo "  ${BLUE}git push origin main --tags${NC}"
+echo ""
+
+# Step 7: Final instructions
+log_step "Release Prepared: v${VERSION}"
+log_success "Build completed and ready for release!"
+echo ""
+echo "Remaining steps:"
+echo ""
+echo "  ${YELLOW}1. Review and commit changes${NC}"
+echo "     git diff package.json"
+echo "     git add package.json src/data/changelog.ts"
+echo "     git commit -m \"chore: release v${VERSION}\""
+echo ""
+echo "  ${YELLOW}2. Create and push tag${NC}"
+echo "     git tag -a v${VERSION} -m \"Release v${VERSION}\""
+echo "     git push origin main --tags"
+echo ""
+echo "  ${YELLOW}3. Chrome Web Store${NC}"
 echo "     - Navigate to: https://chrome.google.com/webstore/devconsole"
 echo "     - Upload: extensions/dist/chrome/"
 echo "     - Submit for review"
 echo ""
-echo "  ${YELLOW}2. Firefox Add-ons${NC}"
+echo "  ${YELLOW}4. Firefox Add-ons${NC}"
 echo "     - Navigate to: https://addons.mozilla.org/en-US/developers/"
 echo "     - Create new version"
 echo "     - Upload: extensions/dist/firefox/"
 echo "     - Submit for review"
 echo ""
-echo "  ${YELLOW}3. NPM Package${NC}"
-echo "     - Run: ${BLUE}npm publish${NC}"
+echo "  ${YELLOW}5. NPM Package${NC}"
+echo "     - Run: npm publish"
 echo "     - Verify: https://www.npmjs.com/package/socketio-test-client"
 echo ""
-echo "  ${YELLOW}4. AUR Package${NC}"
-echo "     - Update PKGBUILD with:"
-echo "       • pkgver=$VERSION"
-echo "       • sha256sum=\$(sha256sum socketio-test-client-${VERSION}.tar.gz | cut -d' ' -f1)"
-echo "       • pkgrel=1"
+echo "  ${YELLOW}6. AUR Package${NC}"
+echo "     - Update PKGBUILD with new version & sha256sum"
 echo "     - Commit and push to AUR"
 echo ""
-echo "  ${YELLOW}5. Verify \"What's New\" Modal${NC}"
-echo "     - Open app in browser"
+echo "  ${YELLOW}7. Verify \"What's New\" Modal${NC}"
 echo "     - Set old lastSeenVersion in localStorage"
-echo "     - Reload and verify modal shows changelog for v${VERSION}"
+echo "     - Reload and verify modal shows v${VERSION} changes"
 echo ""
