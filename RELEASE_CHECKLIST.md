@@ -55,12 +55,11 @@ Follow this checklist when releasing a new version to all distribution channels.
   git commit -m "chore: release v1.0.1"
   ```
 
-- [ ] Create annotated git tag (triggers pnpm release):
+- [ ] Create annotated git tag:
   ```bash
   git tag -a v1.0.1 -m "Release v1.0.1"
   git push origin main --tags
   ```
-  OR use: `pnpm release:[patch|minor|major]`
 
 ## Distribution
 
@@ -95,18 +94,18 @@ Follow this checklist when releasing a new version to all distribution channels.
 
 ### AUR Package
 
-- [ ] Run: `pnpm aur:update`
-  - Auto-generates PKGBUILD with new version and sha256sum
-  - Commits to AUR repository
-
-- [ ] If manual update needed:
+- [ ] Manually update AUR PKGBUILD:
   ```bash
   # Get sha256sum of release tarball
   wget https://github.com/serajhqi/socketio-test-client/archive/v1.0.1.tar.gz
   sha256sum v1.0.1.tar.gz
   
-  # Update PKGBUILD with new version and checksum
-  # Push to AUR
+  # Update PKGBUILD with:
+  # - pkgver=1.0.1
+  # - sha256sum=<new-hash>
+  # - Update pkgrel to 1 (reset for new version)
+  
+  # Commit and push to AUR repository
   ```
 
 ## Post-Release
@@ -129,13 +128,11 @@ Follow this checklist when releasing a new version to all distribution channels.
 
 ## Quick Reference
 
-**Version Bumping:**
-```bash
-pnpm release            # Auto-detect from commits
-pnpm release:patch      # 1.0.0 → 1.0.1
-pnpm release:minor      # 1.0.0 → 1.1.0
-pnpm release:major      # 1.0.0 → 2.0.0
-```
+**Manual Version Bumping:**
+1. Update `package.json` version field
+2. Update `src/data/changelog.ts` with new entry
+3. Commit: `git commit -m "chore: release v1.0.1"`
+4. Tag: `git tag -a v1.0.1 -m "Release v1.0.1" && git push origin main --tags`
 
 **Local Testing:**
 ```bash
