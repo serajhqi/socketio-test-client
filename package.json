@@ -1,7 +1,7 @@
 {
   "name": "socketio-test-client",
   "private": false,
-  "version": "0.9.0",
+  "version": "1.0.0",
   "type": "module",
   "author": {
     "name": "Seraj Haqiqi",
@@ -14,10 +14,6 @@
     "build": "node scripts/generate-qr.mjs && pnpm exec vite build && pnpm firefox && pnpm chrome",
     "firefox": "bash scripts/build-extension.sh firefox",
     "chrome": "bash scripts/build-extension.sh chrome",
-    "release": "bash scripts/release.sh",
-    "release:patch": "bash scripts/release.sh patch",
-    "release:minor": "bash scripts/release.sh minor",
-    "release:major": "bash scripts/release.sh major",
     "aur:update": "bash scripts/update-aur.sh",
     "test": "vitest run",
     "test:watch": "vitest",
