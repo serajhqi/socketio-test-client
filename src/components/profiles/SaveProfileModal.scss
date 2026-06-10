@@ -88,18 +88,6 @@
     letter-spacing: 0.06em;
   }
 
-  &__address {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: rgba(var(--white-rgb), 0.7);
-    background: rgba(var(--burnt-rgb), 0.6);
-    border: 1px solid rgba(var(--semiburnt-rgb), 0.15);
-    border-radius: 5px;
-    padding: 0.55rem 0.75rem;
-    word-break: break-all;
-    line-height: 1.4;
-  }
-
   &__input {
     width: 100%;
     padding: 0.6rem 0.75rem;
@@ -110,6 +98,8 @@
     font-size: 0.9rem;
     font-family: inherit;
     transition: border-color 0.15s, box-shadow 0.15s;
+
+    &--mono { font-family: var(--font-mono); font-size: 0.85rem; }
 
     &::placeholder { color: rgba(var(--semiburnt-rgb), 0.55); }
 

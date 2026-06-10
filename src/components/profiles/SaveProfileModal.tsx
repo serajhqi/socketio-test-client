@@ -4,20 +4,22 @@ import './SaveProfileModal.scss'
 interface SaveProfileModalProps {
   isOpen: boolean
   serverAddress: string
-  onSave: (name: string) => void
+  onSave: (name: string, address: string) => void
   onClose: () => void
 }
 
 export function SaveProfileModal({ isOpen, serverAddress, onSave, onClose }: SaveProfileModalProps) {
   const [name, setName] = useState('')
+  const [address, setAddress] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (isOpen) {
       setName('')
+      setAddress(serverAddress)
       setTimeout(() => inputRef.current?.focus(), 50)
     }
-  }, [isOpen])
+  }, [isOpen, serverAddress])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -35,8 +37,9 @@ export function SaveProfileModal({ isOpen, serverAddress, onSave, onClose }: Sav
   const handleSave = () => {
     const trimmed = name.trim()
     if (!trimmed) return
-    onSave(trimmed)
+    onSave(trimmed, address.trim())
     setName('')
+    setAddress('')
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -61,11 +64,6 @@ export function SaveProfileModal({ isOpen, serverAddress, onSave, onClose }: Sav
 
         <div className="save-profile-card__body">
           <div className="save-profile-card__field">
-            <label className="save-profile-card__label">Server</label>
-            <div className="save-profile-card__address">{serverAddress || 'No address set'}</div>
-          </div>
-
-          <div className="save-profile-card__field">
             <label className="save-profile-card__label" htmlFor="save-profile-name">
               Profile Name
             </label>
@@ -79,6 +77,21 @@ export function SaveProfileModal({ isOpen, serverAddress, onSave, onClose }: Sav
               onKeyDown={handleKeyDown}
               placeholder="e.g. Local dev, Production..."
               maxLength={60}
+            />
+          </div>
+
+          <div className="save-profile-card__field">
+            <label className="save-profile-card__label" htmlFor="save-profile-address">
+              Server Address
+            </label>
+            <input
+              id="save-profile-address"
+              type="text"
+              className="save-profile-card__input save-profile-card__input--mono"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="http://localhost:3000"
             />
           </div>
         </div>
