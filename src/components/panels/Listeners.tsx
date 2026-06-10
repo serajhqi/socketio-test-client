@@ -12,7 +12,7 @@ export function Listeners() {
   const [composeValue, setComposeValue] = useState('')
   const [composeFocused, setComposeFocused] = useState(false)
   const [selectedListener, setSelectedListener] = useState<string | null>(
-    listeners.length > 0 ? listeners[0].title : null
+    listeners.length > 0 ? listeners[listeners.length - 1].title : null
   )
   const [selectedMessageId, setSelectedMessageId] = useState<string | null>(null)
   const [expandedPayload, setExpandedPayload] = useState(false)
@@ -47,7 +47,7 @@ export function Listeners() {
     useStore.getState().removeListener(title)
     if (selectedListener === title) {
       const remaining = listeners.filter((l) => l.title !== title)
-      setSelectedListener(remaining.length > 0 ? remaining[0].title : null)
+      setSelectedListener(remaining.length > 0 ? remaining[remaining.length - 1].title : null)
     }
   }
 
@@ -74,7 +74,7 @@ export function Listeners() {
             </div>
           ) : (
             <div className="listeners-list__items">
-              {listeners.map((listener) => (
+              {[...listeners].reverse().map((listener) => (
                 <div
                   key={listener.title}
                   className={`listener-item ${selectedListener === listener.title ? 'listener-item--active' : ''}`}
@@ -146,7 +146,7 @@ export function Listeners() {
               <div className="messages-list__empty"><p>Waiting…</p></div>
             ) : (
               <div className="messages-list__items">
-                {currentListener.messages.map((msg) => (
+                {[...currentListener.messages].reverse().map((msg) => (
                   <div
                     key={msg.id}
                     className={`message-item ${selectedMessageId === msg.id ? 'message-item--active' : ''}`}

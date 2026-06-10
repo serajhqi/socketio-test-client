@@ -5,7 +5,7 @@ import { SaveProfileModal } from './SaveProfileModal'
 import './ProfilePicker.scss'
 
 export function ProfilePicker() {
-  const { profiles, activeProfileId, setActiveProfile, setProfiles, address, requestHistory, listeners, status } = useStore()
+  const { profiles, activeProfileId, setActiveProfile, setProfiles, address, options, requestHistory, listeners, status } = useStore()
   const [isOpen, setIsOpen] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editName, setEditName] = useState('')
@@ -59,13 +59,13 @@ export function ProfilePicker() {
     setShowSaveModal(true)
   }
 
-  const handleConfirmSave = (name: string) => {
+  const handleConfirmSave = (name: string, newAddress: string) => {
     const newProfile = {
       id: Date.now().toString(),
       name,
       socketioVersion: '4' as const,
-      address: '',
-      options: {},
+      address: newAddress,
+      options,
       requestHistory: [],
       listeners: [],
     }
@@ -87,6 +87,10 @@ export function ProfilePicker() {
   }
 
   const handleDelete = (id: string) => {
+    if (profiles.length === 1) {
+      toast.error('Cannot delete the only profile')
+      return
+    }
     if (!confirm('Delete this profile?')) return
     const filtered = profiles.filter(p => p.id !== id)
     setProfiles(filtered)

@@ -58,6 +58,24 @@ export default function App() {
   }, [])
 
   useEffect(() => {
+    const state = useStore.getState()
+    if (state.profiles.length === 0) {
+      const defaultProfile = {
+        id: Date.now().toString(),
+        name: 'Default',
+        socketioVersion: '4' as const,
+        address: state.address ?? '',
+        options: state.options,
+        requestHistory: state.requestHistory,
+        listeners: state.listeners,
+      }
+      useStore.setState({ profiles: [defaultProfile], activeProfileId: defaultProfile.id })
+    } else if (!state.activeProfileId) {
+      useStore.setState({ activeProfileId: state.profiles[0].id })
+    }
+  }, [])
+
+  useEffect(() => {
     return useStore.subscribe((state, prev) => {
       if (!state.activeProfileId) return
       if (state.activeProfileId !== prev.activeProfileId) return

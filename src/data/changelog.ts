@@ -7,6 +7,15 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.1.0',
+    changes: [
+      { type: 'feat', text: 'Auto-create default profile and enforce minimum one profile' },
+      { type: 'fix', text: 'Make server address editable in new profile modal' },
+      { type: 'fix', text: 'Listener list order is now descending' },
+      { type: 'ui', text: 'Match listeners empty state color to response panel' },
+    ],
+  },
+  {
     version: '1.0.0',
     changes: [
       { type: 'feat', text: 'Plain JSON toggle for listener payloads' },
