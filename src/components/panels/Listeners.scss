@@ -50,7 +50,7 @@
     justify-content: center;
     padding: 1rem;
     text-align: center;
-    color: var(--c-muted);
+    color: rgba(var(--semiburnt-rgb), 0.6);
 
     p { margin: 0; font-size: 0.75rem; line-height: 1.4; }
   }
@@ -197,7 +197,7 @@
     height: 100%;
     padding: 1rem;
     text-align: center;
-    color: var(--c-muted);
+    color: rgba(var(--semiburnt-rgb), 0.6);
 
     p { margin: 0; font-size: 0.75rem; line-height: 1.4; }
   }
@@ -420,7 +420,7 @@
     height: 100%;
     padding: 1.5rem;
     text-align: center;
-    color: var(--c-muted);
+    color: rgba(var(--semiburnt-rgb), 0.6);
 
     p { margin: 0; font-size: 0.85rem; }
   }
